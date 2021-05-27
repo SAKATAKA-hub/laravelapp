@@ -1,0 +1,170 @@
+//-------------------------------------------------------------------------
+// EmployeeListApp スタイル
+//-------------------------------------------------------------------------
+
+@import"base"; //"env"->"base"->"employee_list"
+
+//***************************************
+// employee 共通スタイル
+//***************************************
+main .main_body
+{
+    table {
+        margin-bottom: 1em;
+        border-collapse: collapse;
+        border: 1px solid #bbb;
+        background: #fff;
+    
+        tr{
+            border-top: 1px solid #bbb;
+            td{
+                box-sizing: border-box;
+                text-align: center;
+                box-sizing: border-box;
+                width: 90px;
+            }
+            .long{width: 150px;}
+        }
+    
+    }
+    
+    // オペレーションボタンのカスタマイズ
+    .oparation_btn_container{
+        ul[class="op_btns"]{
+        
+            input{
+                line-height: 2em;
+                padding: .3em;
+                margin-right: 1em;
+                border: solid 1px $col_main;
+                border-radius: .3em;
+            }
+            
+            //絞り込みドロップダウン
+            @include dd-menu;
+            li:not(:first-child) .refined:after{
+                @include link-befor;
+                top: .2em;
+                content: "\e5c5";
+            }
+
+            //絞り込みボタン
+            li[class="serch_btn"]{
+                margin-right: 1em;
+                .btn-op{
+                    background: $col_main;
+                    color : #fff;
+                }
+                //アイコン
+                // .btn-op::before{
+                //     @include link-befor;
+                //     top: .2em;
+                //     content: "\e8b6";
+                // }
+            }
+
+        
+            //新規登録
+            li[class="insert"]{
+                margin-left: 1em;
+                
+                .btn-op{
+                    border: solid 1px $col_main;
+                    background: $col_main;
+                    color: #fff;
+                }
+        
+                .btn-op::before{
+                    @include link-befor;
+                    top: .2em;
+                    // margin-right: .5em;
+                    content: "\e7fe";
+                    color: #fff;
+                }
+            }
+            
+        }
+    }
+}
+
+
+//***************************************
+// employee.list スタイル
+//***************************************
+.all_list{
+    .employee_img{
+        width: 3em;
+        height: 3em;
+        border-radius: 50%;
+        border: 1px solid #bbb;
+    }
+    td{
+        min-width: 6em;
+        padding: .5em 1em;
+    }
+    tr:nth-child(even){
+        background-color: #eee;
+    }
+}
+
+
+//***************************************
+// employee.ditails スタイル
+//***************************************
+$details_table_width: 864px;
+.employee_container{
+    table{margin: 0 auto 1em auto;}
+    .job-t{
+        .employee_img{
+            width: 10em;
+            height: 10em;
+            border-radius: .5em;
+            border: 1px solid #bbb;
+        }
+        td{
+            width : $details_table_width/3;
+            padding: 1em;
+        }
+    }
+    .work-t{
+        td{
+            width : $details_table_width/8;
+            padding: 1em;
+        }
+    }
+    .individual-t{
+        .employee_img{
+            width: 10em;
+            height: 10em;
+            border-radius: .5em;
+            border: 1px solid #bbb;
+        }
+        td{
+            width : $details_table_width/3;
+            padding: 1em;
+        }
+        td:nth-child(2){
+            width : $details_table_width/3*2;
+        }
+    }
+    
+}
+
+.submit_container{
+    display: flex;
+    justify-content: center;
+    margin: 2em auto;
+    width: $details_table_width;
+    
+    button{
+      width: 16em;
+      padding: 1em;
+      margin-right: 1em;
+      border: 2px solid $col_main;
+      border-radius: .8em;
+    }
+    .color{
+      background: $col_main;
+    }
+  }
+

@@ -1,0 +1,190 @@
+//-------------------------------------------------------------------------
+// Baseテンプレート　スタイル
+//-------------------------------------------------------------------------
+
+@import"env"; //"env"->"base"
+
+//***************************************
+// header スタイル
+//***************************************
+$header_hight: 2.2rem;
+header{
+  @include min-w;
+  height: $header_hight;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  background: $col_glay;
+  color: #fff;
+  font-weight: bold;
+
+  @mixin header_ul{
+    display: flex;
+    li{ line-height: $header_hight;}
+  }
+
+  ul[class="menu"]{
+    @include header_ul;
+    li{
+      h2{
+        margin: 0 1rem;
+      }
+      a{
+        display: block;
+        padding: 0 1.5em;
+        color: #fff;
+        line-height: $header_hight;
+      }
+
+      .current{
+        box-sizing: border-box;
+        border-radius: .5em .5em 0 0;
+        margin-top: .1em;
+        background: #fff;
+        color: #eee;
+        pointer-events: none; //<a>のリンクを無効化 
+      }
+    }
+  }
+
+  ul[class="user"]{
+    @include header_ul;
+    li[class="item"]{
+      margin-right: 1em;
+      img{
+        margin-bottom: ($header_hight - 2rem)/2;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 50%;
+      }
+    }
+
+    // ドロップダウンメニュー
+    @include dd-menu;
+    .dd_menu{
+      position: relative;
+      li>a::before{
+          @include link-befor;
+          top: .2em;
+          left: 10em;
+          content: "\e5cc";
+      }
+
+      i{
+        border: 1px solid #eee;
+        border-radius: 1px;
+        line-height: $header_hight;
+        cursor: pointer;
+      }
+    }
+  }
+
+} 
+
+
+
+//***************************************
+// main スタイル
+//***************************************
+main{
+  min-height: 100vh;
+
+  // appメニュー　//
+  .main_head{
+    @include center-container;
+    display: flex;
+    border-bottom:solid 2px #eee;
+
+    h2{
+      box-sizing: border-box;
+      min-width: 8em;
+      line-height: 1.8em;
+    }
+    ul[class="app_menu"]{
+      display: flex;
+      li{
+        box-sizing: border-box;
+        margin-right: 1em;
+        font-weight: bold;
+        a{
+          display: block;
+          box-sizing: border-box;
+          padding: .5em;
+          line-height: 1.6em;
+        }
+        .current{
+          border-bottom: solid 2px $col_main;
+          pointer-events: none; //<a>のリンクを無効化 
+        }  
+      }
+  
+    }
+
+  }
+
+  // パンくずリスト　//
+  .breadcrumb{
+    @include center-container;
+    ul{
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        padding: .5em 0;
+
+        li:first-child:before{
+          @include link-befor;
+          content: "\e88a";
+        }
+
+        li:not(:first-child):before{
+          @include link-befor;
+          content: "\e5cc";
+          margin: 0 .5em;
+        }
+    }
+  }
+
+  // メインボディー　//
+  .main_body{
+    @include center-container;
+    max-width: 1000px;
+
+    //操作ボタン
+    .oparation_btn_container{
+      padding: 1em 0;
+      p[class="filtering_key"]{
+        font-weight: bold;
+        color: $col_main;
+      }
+      ul[class="op_btns"]{
+        display: flex;
+        align-items: center;
+       
+        //小さいボタン
+        .btn-op{
+          padding: .4em 1em;
+          border-radius: .3em;
+          border: 1px solid #bbb;
+          background: #fff;
+          color: $col_main;
+          font-weight: bold;
+          margin-right: 1em;
+        }
+      }
+
+    }
+  }
+
+}
+
+
+
+//***************************************
+// footer スタイル
+//***************************************
+footer p {
+  margin: 0 auto;
+  border-top: solid 1px #bbb;
+  line-height: 3rem;
+  text-align: center;
+}

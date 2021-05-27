@@ -1,0 +1,146 @@
+//-------------------------------------------------------------------------
+// 共通スタイルの設定
+//-------------------------------------------------------------------------
+
+//　配色設定
+// $col_main: darken(blue,18%);
+$col_main: darken(aqua,18%);
+$col_glay: rgb(90, 85, 85);
+@mixin color-test{
+  color: aqua
+}
+
+//最低幅の設定
+@mixin min-w { min-width: 960px;}
+
+
+// 中央寄せコンテナー
+@mixin center-container{
+  @include min-w;
+  margin: 0 auto;
+  padding-left: 1em;
+}
+
+
+// リンクアイコン
+@mixin link-befor{
+  position: relative;
+  top: .15em;
+  font-family: 'Material Icons';
+  color: $col_main;
+  // font-size: 1.2em;
+  font-size: 1.2em;
+  font-weight: bold;
+  z-index: 2;
+}
+
+
+//ドロップダウンメニュー
+@mixin dd-menu{
+  .dd_menu{
+    position: relative;
+    i{
+      border: 1px solid #eee;
+      border-radius: 1px;
+      line-height: $header_hight;
+      cursor: pointer;
+    }
+    .dd_box{        
+      position: absolute;
+      top: $header_hight;
+      right: 0;
+      font-size: 11px;
+      padding: .2em;
+      width: 16em;
+      box-sizing: border-box;
+      background: #fff;
+      border: none;
+      li{
+        height: 0;
+        overflow: hidden;
+        transition: height .3s;
+        a,button,label{
+          display: block;
+          width: 100%;
+          text-align: left;
+          padding: 0 1.5em;
+          font-size: 11px;
+          color: #000;
+          line-height: $header_hight;
+        }
+        :hover{
+          background: #bbb;
+        }
+      }
+    }
+  }
+  .dd_menu:hover ul{
+    border: solid 1px #bbb;
+    li{
+      height: $header_hight;
+    }
+  }
+}//end@mixin dd-menu
+
+
+// ボタン類
+//小さいボタン
+.btn-1{
+  padding: .5em 1em;
+  border-radius: .3em;
+  border: 1px solid #bbb;
+  background: #fff;
+}
+
+
+
+/*
+/-------------------------------------------------------------------------
+/ リセットCSS 
+/-------------------------------------------------------------------------
+*/
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+}
+
+
+body, h1, h2, h3,h4,ul, ol, li,a,p,div,nav,figure,article,section,i{
+  margin: 0 0;  padding: 0 0;
+}
+
+
+/* h1,h2,h3,h4,h5,h6{font-size: 100%;} */
+
+
+table{
+  border-collapse: collapse;/*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;/*境界線の感覚を無くす*/
+}
+
+
+img{
+  border: none;/*枠線を消す*/
+  vertical-align: bottom;/*画像下の余白を消す*/
+  }
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+ul{
+  list-style: none;
+}
+
+
+button{
+  background: none;
+  border: none;
+	outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+

@@ -1,0 +1,108 @@
+@charset "UTF-8";
+/*
+/-------------------------------------------------------------------------
+/ 共通スタイルの設定
+/-------------------------------------------------------------------------
+*/
+.center_container {
+  width: 1000px;
+  margin: 0 auto;
+  padding-left: 1em;
+}
+
+/*
+/-------------------------------------------------------------------------
+/ リセットCSS 
+/-------------------------------------------------------------------------
+*/
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+}
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+/* h1,h2,h3,h4,h5,h6{font-size: 100%;} */
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/
+}
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+body {
+  padding: 3em;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #bbb;
+  margin-bottom: 1em;
+}
+table tr {
+  border-top: 1px solid #bbb;
+}
+table tr td {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.details .employee_img {
+  width: 10em;
+  height: 10em;
+  border-radius: .5em;
+  border: 1px solid #bbb;
+}
+.details td {
+  width: 288px;
+  padding: 1em;
+}
+
+.contract_working_day td {
+  width: 108px;
+  padding: 1em;
+}
+
+.details2 .employee_img {
+  width: 10em;
+  height: 10em;
+  border-radius: .5em;
+  border: 1px solid #bbb;
+}
+.details2 td {
+  width: 288px;
+  padding: 1em;
+}
+.details2 td:nth-child(2) {
+  width: 576px;
+}
+
+/*# sourceMappingURL=employee_details.css.map */

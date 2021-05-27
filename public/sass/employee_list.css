@@ -1,0 +1,181 @@
+@charset "UTF-8";
+/*
+/-------------------------------------------------------------------------
+/ 共通スタイルの設定
+/-------------------------------------------------------------------------
+*/
+.center_container {
+  width: 1000px;
+  margin: 0 auto;
+  padding-left: 1em;
+}
+
+/*
+/-------------------------------------------------------------------------
+/ リセットCSS 
+/-------------------------------------------------------------------------
+*/
+body {
+  font-family: "游ゴシック体", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "sans-serif";
+}
+
+body, h1, h2, h3, h4, ul, ol, li, a, p, div, nav, figure, article, section {
+  margin: 0 0;
+  padding: 0 0;
+}
+
+/* h1,h2,h3,h4,h5,h6{font-size: 100%;} */
+table {
+  border-collapse: collapse;
+  /*隣り合うセルの境界線を重ねて表示*/
+  border-spacing: 0;
+  /*境界線の感覚を無くす*/
+}
+
+img {
+  border: none;
+  /*枠線を消す*/
+  vertical-align: bottom;
+  /*画像下の余白を消す*/
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+body {
+  padding: 2em;
+  font-size: 12px;
+}
+
+.main_container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.main_container .center_container {
+  width: 900px;
+}
+.main_container .side_container .sid_nav {
+  padding: 1em;
+  max-width: 250px;
+  box-sizing: border-box;
+  border-radius: .5em;
+  border: 1px solid #bbb;
+  background: #fff;
+}
+.main_container .side_container .sid_nav input[type="text"] {
+  line-height: 2.2em;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+}
+.main_container .side_container .sid_nav button {
+  background-color: aqua;
+}
+.main_container .side_container .sid_nav ul li {
+  padding-bottom: 1em;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid #bbb;
+  margin-bottom: 1em;
+  background: #fff;
+}
+table tr {
+  border-top: 1px solid #bbb;
+}
+table tr td {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.all_list .employee_img {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border: 1px solid #bbb;
+}
+.all_list td {
+  min-width: 6em;
+  padding: .5em 1em;
+}
+.all_list tr:nth-child(even) {
+  background-color: #eee;
+}
+
+.details .employee_img {
+  width: 10em;
+  height: 10em;
+  border-radius: .5em;
+  border: 1px solid #bbb;
+}
+.details td {
+  width: 288px;
+  padding: 1em;
+}
+
+.contract_working_day td {
+  width: 108px;
+  padding: 1em;
+}
+
+.details2 .employee_img {
+  width: 10em;
+  height: 10em;
+  border-radius: .5em;
+  border: 1px solid #bbb;
+}
+.details2 td {
+  width: 288px;
+  padding: 1em;
+}
+.details2 td:nth-child(2) {
+  width: 576px;
+}
+
+button {
+  padding: .5em 1em;
+  border-radius: .3em;
+  border: 1px solid #bbb;
+  background: #fff;
+}
+
+.submit_container {
+  display: flex;
+  justify-content: center;
+  margin: 2em auto;
+  width: 864px;
+}
+.submit_container button {
+  width: 16em;
+  padding: 1em;
+  margin-right: 1em;
+  border: 2px solid aqua;
+}
+.submit_container .color {
+  background: aqua;
+}
+
+input {
+  line-height: 2em;
+  margin: .5em 0;
+}
+
+/*# sourceMappingURL=employee_list.css.map */
