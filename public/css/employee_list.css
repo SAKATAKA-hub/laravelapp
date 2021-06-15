@@ -115,6 +115,7 @@ header ul[class="user"] .dd_menu .dd_box {
   position: absolute;
   top: 2.2rem;
   right: 0;
+  visibility: hidden;
   font-size: 11px;
   padding: .2em;
   width: 16em;
@@ -140,6 +141,7 @@ header ul[class="user"] .dd_menu .dd_box li :hover {
   background: #bbb;
 }
 header ul[class="user"] .dd_menu:hover ul {
+  visibility: visible;
   border: solid 1px #bbb;
 }
 header ul[class="user"] .dd_menu:hover ul li {
@@ -153,7 +155,6 @@ header ul[class="user"] .dd_menu li > a::before {
   top: .15em;
   font-family: 'Material Icons';
   color: #00a3a3;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
   top: .2em;
@@ -216,7 +217,6 @@ main .breadcrumb ul li:first-child:before {
   top: .15em;
   font-family: 'Material Icons';
   color: #00a3a3;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
   content: "\e88a";
@@ -226,7 +226,6 @@ main .breadcrumb ul li:not(:first-child):before {
   top: .15em;
   font-family: 'Material Icons';
   color: #00a3a3;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
   content: "\e5cc";
@@ -304,6 +303,7 @@ main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu .dd_box {
   position: absolute;
   top: 2.2rem;
   right: 0;
+  visibility: hidden;
   font-size: 11px;
   padding: .2em;
   width: 16em;
@@ -329,6 +329,7 @@ main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu .dd_box li
   background: #bbb;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu:hover ul {
+  visibility: visible;
   border: solid 1px #bbb;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu:hover ul li {
@@ -339,7 +340,6 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li:not(:first-child
   top: .15em;
   font-family: 'Material Icons';
   color: #00a3a3;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
   top: .2em;
@@ -349,6 +349,7 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn
   margin-right: 1em;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn"] .btn-op {
+  font-size: 1em;
   background: #00a3a3;
   color: #fff;
 }
@@ -365,7 +366,6 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] 
   top: .15em;
   font-family: 'Material Icons';
   color: #00a3a3;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
   top: .2em;

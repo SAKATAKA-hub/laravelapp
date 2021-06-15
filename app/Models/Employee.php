@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    #----------------------------------------------
     # 絞り込み検索用スコープ
+    #----------------------------------------------
     public function scopeSeach($query, $ns)
     {
         //ユーザー入力の検索キーワード処理
@@ -31,7 +33,7 @@ class Employee extends Model
         {
             if($seach_key == 'keyword'){continue;}; //スキップ
 
-        //     //一つのチェックボックスの処理
+            //一つのチェックボックスの処理
             if(!empty($seach_vals)){
             $query->where(function($query) use ($seach_key, $seach_vals){
             foreach ($seach_vals as $seach_val)
@@ -46,8 +48,9 @@ class Employee extends Model
 
     }
 
-
+    #----------------------------------------------
     # シーダー用設定
+    #----------------------------------------------
     use HasFactory;
     public $timestamps = false; //timesatampを利用しない
     protected $fillable = [

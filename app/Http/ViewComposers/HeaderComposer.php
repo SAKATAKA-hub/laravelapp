@@ -8,14 +8,12 @@ class HeaderComposer
 {
     public function compose(View $view)
     {
-        $header_menus = array(
-            'employee_list'=>['title'=>'従業員一覧','url'=>'employee_list',],
-            'attendance_manegement'=>['title'=>'勤怠管理','url'=>'attendance_manegement',],
-            'schedule'=>['title'=>'スケジュール','url'=>'schedule',],
-        );
-
         $view->with([
-            'header_menus' => $header_menus,
+            'header_menus' => [
+                'employee_list'=>['route'=>'employee_list', 'text'=>'従業員管理', 'current'=>false,],
+                'attendance_manegement'=>['route'=>'employee_list', 'text'=>'勤怠管理', 'current'=>false,],
+                'schedule'=>['route'=>'employee_list', 'text'=>'スケジュール', 'current'=>false,],
+            ],
         ]);
     }
 

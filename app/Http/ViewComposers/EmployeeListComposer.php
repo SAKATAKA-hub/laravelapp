@@ -8,14 +8,12 @@ class EmployeeListComposer
 {
     public function compose(View $view)
     {
-        $app_menus = array(
-            ['title'=>'一般画面','url'=>''],
-            ['title'=>'編集画面','url'=>''],
-        );
-
         $view->with([
             'app_name' => 'employee_list',
-            'app_menus' => $app_menus,
+            'app_menus' => [
+                'index'=>['route'=>'employee_list', 'text'=>'一覧照会画面', 'current'=>false,],
+                'admin'=>['route'=>'employee_list.admin', 'text'=>'管理者画面', 'current'=>false,],
+            ],
         ]);
     }
 

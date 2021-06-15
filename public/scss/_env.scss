@@ -29,7 +29,6 @@ $col_glay: rgb(90, 85, 85);
   font-family: 'Material Icons';
   color: $col_main;
   // font-size: 1.2em;
-  font-size: 1.2em;
   font-weight: bold;
   z-index: 2;
 }
@@ -49,6 +48,7 @@ $col_glay: rgb(90, 85, 85);
       position: absolute;
       top: $header_hight;
       right: 0;
+      visibility: hidden;
       font-size: 11px;
       padding: .2em;
       width: 16em;
@@ -74,7 +74,9 @@ $col_glay: rgb(90, 85, 85);
       }
     }
   }
+
   .dd_menu:hover ul{
+    visibility: visible;
     border: solid 1px #bbb;
     li{
       height: $header_hight;

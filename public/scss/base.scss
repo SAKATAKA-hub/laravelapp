@@ -2,7 +2,7 @@
 // Baseテンプレート　スタイル
 //-------------------------------------------------------------------------
 
-@import"env"; //"env"->"base"
+@import"env"; //"env"->"base";
 
 //***************************************
 // header スタイル
@@ -42,7 +42,7 @@ header{
         margin-top: .1em;
         background: #fff;
         color: #eee;
-        pointer-events: none; //<a>のリンクを無効化 
+        pointer-events: none; //<a>のリンクを無効化
       }
     }
   }
@@ -79,7 +79,7 @@ header{
     }
   }
 
-} 
+}
 
 
 
@@ -114,10 +114,10 @@ main{
         }
         .current{
           border-bottom: solid 2px $col_main;
-          pointer-events: none; //<a>のリンクを無効化 
-        }  
+          pointer-events: none; //<a>のリンクを無効化
+        }
       }
-  
+
     }
 
   }
@@ -159,7 +159,7 @@ main{
       ul[class="op_btns"]{
         display: flex;
         align-items: center;
-       
+
         //小さいボタン
         .btn-op{
           padding: .4em 1em;

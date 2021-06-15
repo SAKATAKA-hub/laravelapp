@@ -10,10 +10,23 @@
     <h1>テストページ</h1>
     <a href="{{route('test.list')}}">従業員一覧</a>
     <br>
-    <form action="#" method="post">
+    <form action="#" method="post" enctype="multipart/form-data">
         @csrf
-        <input type="text" name="post" value="">
-        <button type="submit">検索</button>
+        <input type="text" name="post" value=""><br>
+        <input type="file" name="image"><br>
+        <button type="submit">登録</button>
     </form>
+    <br>
+
+
+
+    <h3>従業員リストへジャンプ</h3>
+    <form action="{{route('employee_list')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <input type="input" name="keywords"><br>
+        <button type="submit">移動</button>
+    </form>
+
+
 </body>
 </html>

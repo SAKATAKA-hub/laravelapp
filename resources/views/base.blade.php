@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+<x-layout>
+    <x-slot name="text">
+
+        <h1>hello</h1>
+
+    </x-slot>
+</x-layout>
+
+
+
+
+{{-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -51,9 +62,9 @@
             </div>
         </div>
 
-        
 
-        <div class="main_body center_container">            
+
+        <div class="main_body center_container">
             <div class="operation_btn">
                 @yield('operation_btn')
             </div>
@@ -66,4 +77,4 @@
     </main>
     <footer><p>&copy2021 SAKAI TAKAHIRO</p></footer>
 </body>
-</html>
+</html> --}}

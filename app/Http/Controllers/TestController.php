@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee; //モデルの利用
+use App\Models\Checkbox; //モデルの利用
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -14,11 +15,22 @@ class TestController extends Controller
     }
 
     //ポストのうけとり
-    public function post(Request $request){
-        $true = "<div>「 $request->post 」を受け取りました。</div>";
-        $error ="<p>受取りデータはありません</p> ";
+    public function post(Request $request)
+    {
+        if($file = $request->file('image'))
+        {
+            $file_name = $file->getClientOriginalName();
+            $target_path = public_path('/image/test');
+            $file->move($target_path, $file_name);
 
-        $html = empty($request->post) ? $error : $true;
+
+            $html = "<div>".$file_name."ファイルを受け取りました。</div>";
+        }
+        else
+        {
+            $html = "<p>受取りデータはありません</p> ";
+        }
+
 
         return $html;
     }
@@ -27,9 +39,12 @@ class TestController extends Controller
     //一覧ページの表示
     public function list(){
         $items = Employee::all(); //DB情報の取得
-        $data=['items' => $items];
-        $view = view('test.list',$data);
-        return $view;
+
+        $data=[
+            'items' => $items,
+            'CheckGroups' =>  Checkbox::getCheckboxs(),
+        ];
+        return view('test.list',$data);
     }
 
     //絞り込み一覧ページの表示
@@ -58,6 +73,17 @@ class TestController extends Controller
         $view = view('test.detail',$parm);
         return $view;
     }
+
+    //テンプレートの読み込み
+    public function base(){
+        $data=[
+            'current' => '1',
+        ];
+
+        return view('employee_list.base',$data);
+    }
+
+
 
 
 }
