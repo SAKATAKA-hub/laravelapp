@@ -10,9 +10,8 @@ use Illuminate\Http\Request;
 class EmployeeListController extends Controller
 {
     #--------------------------------------------------------------------------------------------
-    #アクション内で利用する関数
+    # DBのアップロード関数
     #--------------------------------------------------------------------------------------------
-    //DBのアップロード
     public function employee_upload($employee, $request, $file_name)
     {
         $employee->id = $request->id;
@@ -31,41 +30,6 @@ class EmployeeListController extends Controller
         $employee->save();
     }
 
-    //検索条件の抽出
-    public function seachs_array($request)
-    {
-        return[
-            'keyword' => $request->keywords,
-            'department' => $request->department,
-            'position' => $request->position,
-            'gender' => $request->gender,
-        ];
-    }
-    //検索条件テキストの抽出
-    public function seach_text($request)
-    {
-        $checks =[
-            ['all'=> $request->department_all, 'vals'=> $request->department],
-            ['all'=> $request->position_all, 'vals'=> $request->position],
-            ['all'=> $request->gender_all, 'vals'=> $request->gender],
-        ];
-
-        $text = $request->keywords.' ';
-        foreach($checks as $check)
-        {
-            if(!empty($check['vals']) && !$check['all'])
-            {
-                $text .= implode(' ',$check['vals']).' ';
-            }
-        }
-
-        return trim($text) == '' ? '検索条件はありません。':$text;
-    }
-
-
-
-
-
     #--------------------------------------------------------------------------------------------
     # 一覧照会画面の表示
     #--------------------------------------------------------------------------------------------
@@ -73,20 +37,17 @@ class EmployeeListController extends Controller
     # 一覧照会画面の表示
     public function index(Request $request)
     {
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
+
         $param=[
             //表示中メニュー
             'app_menu_current' => 'index',
             //従業員情報
             'employees' => Employee::all(),
-
             //検索単語
-            'seach_text' => $this->seach_text($request),
-            'checkbox_groups' => Checkbox::getCheckboxs(),
-
-            //テスト
-            'seachs' => $this->seachs_array($request),
-            'seach_text' => $this->seach_text($request),
-
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
+            'seach_text' => $getCheckboxs['seach_text'],
+            'seach_text_all' => $getCheckboxs['seach_text_all'],
         ];
         return view('employee_list.index',$param);
     }
@@ -96,23 +57,19 @@ class EmployeeListController extends Controller
     # 一覧照会画面(検索)の表示
     public function search(Request $request)
     {
+        $getCheckboxs = Checkbox::getCheckboxs($request,'post');
+
         $param=[
             //表示中メニュー
             'app_menu_current' => 'index',
             //従業員情報
-            'employees' => Employee::seach($this->seachs_array($request))->get(),
-            //検索単語
-            'seach_text' => $this->seach_text($request),
+            'employees' => Employee::seach($request)->get(),
             //チェックボックスの表示内容
-            'checkbox_groups' => Checkbox::getCheckboxs(),
-
-            //テスト
-            'seachs' => $this->seachs_array($request),
-            'seach_text' => $this->seach_text($request),
-
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
+            'seach_text' => $getCheckboxs['seach_text'],
+            'seach_text_all' => $getCheckboxs['seach_text_all'],
         ];
         return view('employee_list.index',$param);
-
     }
 
 
@@ -134,19 +91,21 @@ class EmployeeListController extends Controller
     # 管理者画面
     #--------------------------------------------------------------------------------------------
     # 管理者画面TOPの表示
-    public function admin()
+    public function admin(Request $request)
     {
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
+
         $param=[
             //表示中メニュー
             'app_menu_current' => 'admin',
             //従業員情報
             'employees' => Employee::all(),
             //モード処理
-            'mode_text' => '',
+            'mode' => '',
             //検索単語
-            'seach_text' => '検索条件はありません。',
-            'checkbox_groups' => Checkbox::getCheckboxs(),
-
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
+            'seach_text' => $getCheckboxs['seach_text'],
+            'seach_text_all' => $getCheckboxs['seach_text_all'],
         ];
 
         return view('employee_list.admin',$param);
@@ -156,14 +115,14 @@ class EmployeeListController extends Controller
     # 管理者画面TOP(POST)の表示
     public function admin_post(Request $request) //リクエストの利用
     {
-        # モード処理 ---------  --------- ---------
-        $mode_text = '';
 
+
+        # モード処理 ---------  --------- ---------
         //画像の保存先
         $comfirm_path = '/image/comfirm';
         $upload_path = '/image/employees';
         $no_image = 'e8888.png';
-
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
 
         // 1.従業員情報の新規登録・2.従業員情報の更新
         if( ($request->mode == 'insert')||($request->mode == 'update') )
@@ -180,7 +139,7 @@ class EmployeeListController extends Controller
                     unlink($comfirm_path_name); //一時保存画像の削除
                 }
             }
-            if($request->old_image)
+            elseif($request->old_image)
             {
                 $file_name = $request->old_image;
             }
@@ -205,7 +164,7 @@ class EmployeeListController extends Controller
         }
 
         // 3.従業員情報の削除
-        elseif($request->mode == 'delite')
+        elseif($request->mode == 'delete')
         {
             //従業員画像の削除
             $delete_rec = Employee::where('id',$request->id)->first();
@@ -219,10 +178,12 @@ class EmployeeListController extends Controller
             $mode_text = '情報を一件削除しました。';
 
         }
+        else
+        {
+            $getCheckboxs = Checkbox::getCheckboxs($request,'post');
+        }
         //--------- end mode処理 --------- ---------
-
-        $employees = isset($request->mode) ? Employee::all() : Employee::seach($this->seachs_array($request))->get();
-        $seach_text = isset($request->mode) ? '' : $this->seach_text($request);
+        $employees = isset($request->mode) ? Employee::all() : Employee::seach($request)->get();
 
         $param=[
             //表示中メニュー
@@ -230,13 +191,11 @@ class EmployeeListController extends Controller
             //従業員情報
             'employees' => $employees,
             //モード処理
-            'mode_text' => $mode_text,
-            // 'delete_rec' => $delete_rec['image'],
-
-            //検索単語
-            'seach_text' => $seach_text,
+            'mode' => $request->mode ?? 'noMode',
             //チェックボックスの表示内容
-            'checkbox_groups' => Checkbox::getCheckboxs(),
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
+            'seach_text' => $getCheckboxs['seach_text'],
+            'seach_text_all' => $getCheckboxs['seach_text_all'],
         ];
         return view('employee_list.admin',$param);
 
@@ -246,13 +205,16 @@ class EmployeeListController extends Controller
     # 新規登録ページ
     public function insert(Request $request)
     {
+        $employee = ['id' => Employee::where('id','>=',0)->orderBy('id','desc')->first()->id +1,];
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
+
         $param=[
             //表示中メニュー
             'app_menu_current' => 'admin',
             //最後に登録した'ID'番号の取得
-            'employee' => Employee::where('id','>=',0)->orderBy('id','desc')->first(),
+            'employee' => ['id' => Employee::where('id','>=',0)->orderBy('id','desc')->first()->id +1,],
             //チェックボックスの表示内容
-            'checkbox_groups' => Checkbox::getCheckboxs(),
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
         ];
         return view('employee_list.insert',$param);
     }
@@ -260,14 +222,15 @@ class EmployeeListController extends Controller
     # 編集ページ
     public function update(Request $request)
     {
-        $employee = Employee::find($request->id); //DB情報の取得
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
+
         $param=[
             //表示中メニュー
             'app_menu_current' => 'admin',
-
-            'employee' => $employee,
+            //従業員情報
+            'employee' => Employee::find($request->id),
             //チェックボックスの表示内容
-            'checkbox_groups' => Checkbox::getCheckboxs(),
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
         ];
         return view('employee_list.update',$param);
     }
@@ -275,6 +238,7 @@ class EmployeeListController extends Controller
     # 登録確認ページ
     public function confirm(EmployeeRequest $request) //フォームリクエストの利用
     {
+        $getCheckboxs = Checkbox::getCheckboxs($request,'get');
 
         //画像の保存
         $comfirm_path = '/image/comfirm';
@@ -298,14 +262,12 @@ class EmployeeListController extends Controller
             //入力内容
             'input' => $request->all(),
             //チェックボックスの表示内容
-            'checkbox_groups' => Checkbox::getCheckboxs(),
+            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
             //アップロードファイル関係
             'file_name' => $file_name,
             'file_path' => $comfirm_path,
         ];
         return view('employee_list.confirm',$param);
     }
-
-
 
 }

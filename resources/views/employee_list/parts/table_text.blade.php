@@ -1,8 +1,7 @@
 <tr>
     <td>
         @if($line['require'])
-        <P>{{$line['text']}}</P>
-        <p style="color:red"> 必須</p>
+        <P class="req">{{$line['text']}}</P>
         @else
         <P>{{$line['text']}}</P>
         @endif

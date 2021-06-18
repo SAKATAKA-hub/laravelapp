@@ -58,7 +58,12 @@ Route::get('employee_list/admin/update',[EmployeeListController::class,'update']
 Route::post('employee_list/admin/confirm',[EmployeeListController::class,'confirm'])
 ->name('employee_list.admin.confirm');
 
-
+/*
+|--------------------------------------------------------------------------
+| Attendance Manegement Routes (勤怠管理)
+|--------------------------------------------------------------------------
+*/
+Route::get('attendance_manegement',[AttendanceManegementController::class,'index']);
 /*
 |--------------------------------------------------------------------------
 | テスト用ルーティング作成

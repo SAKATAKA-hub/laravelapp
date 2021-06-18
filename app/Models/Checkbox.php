@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Checkbox extends Model
 {
-
-    public function scopeGetCheckboxs($query)
+    public function scopeGetCheckboxs($query,$request,$route) //---------------------
     {
+        # チェックボックス配列の作成
         //チェックボックスの情報
-        $CheckGroups = [];
+        $checkbox_groups = [];
 
         //取得する項目
         $groups = [
@@ -31,29 +31,61 @@ class Checkbox extends Model
         // データの加工
         foreach ($groups as $key => $group_text)
         {
-            $CheckGroups[$key]['key'] = $key;
-            $CheckGroups[$key]['title'] = $group_text;
-            $CheckGroups[$key]['all'] = [
+            $checkbox_groups[$key]['key'] = $key;
+            $checkbox_groups[$key]['title'] = $group_text;
+            $checkbox_groups[$key]['all'] = [
                 'name' => $key.'_all',
                 'item' => '全て選択',
-                'checked' => true,
+                'checked' =>
+                ($route == "get")
+                || ($route == "post")&&($request[$key.'_all'])
+                || ($route == "post")&&($request[$key] == NULL)
+                ? true : false,
+
             ];
 
             foreach ($data as $line){
                 if($line->group == $group_text)
                 {
-                    $CheckGroups[$key]['checks'][] = [
+                    $checkbox_groups[$key]['checks'][] = [
                         'name' => $key.'[]',
                         'item' => $line['item'],
                         'checked' => true,
+                        'checked' => ($route == "post")&&($request[$key] != NULL)&&(!in_array($line['item'],$request[$key]))? false :true,
                     ];
                 }
             }
         }
 
-        return $CheckGroups;
 
-        // $CheckGroups = [
+        # 検索条件テキストの抽出
+        $checks =[
+            ['all'=> $request->department_all, 'vals'=> $request->department],
+            ['all'=> $request->position_all, 'vals'=> $request->position],
+            ['all'=> $request->gender_all, 'vals'=> $request->gender],
+        ];
+
+        $seach_text = $request->keywords;
+        $text = $request->keywords.' ';
+        foreach($checks as $check)
+        {
+            if(($route == "post")&& !empty($check['vals']) && !$check['all'])
+            {
+                $text .= implode(' ',$check['vals']).' ';
+            }
+        }
+
+        $seach_text_all = trim($text) == '' ? '検索条件はありません。':$text;
+
+
+
+        return [
+            "checkbox_groups" => $checkbox_groups,
+            "seach_text" => $seach_text,
+            "seach_text_all" => $seach_text_all,
+        ];
+
+        // $checkbox_groups = [
         //     'department' => [
         //         'key' => 'department',
         //         'title' => '所属部署',
@@ -84,6 +116,7 @@ class Checkbox extends Model
         // ];
 
     }
+
 
     # シーダー用設定
     use HasFactory;

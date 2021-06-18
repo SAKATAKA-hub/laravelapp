@@ -13,13 +13,12 @@
 
 
 @section('main_contents')
-<h3>従業員情報を編集してください。</h3>
 <form action="{{route('employee_list.admin.confirm')}}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="mode" value="update">
 
     <div class="employee_container">
-
+        <h3>従業員情報を編集してください。</h3>
         <table class="individual-t">
             <!-- 名前入力 -->
             <tr>
@@ -153,12 +152,9 @@
             @endforeach
         </table>
 
-        </div>
-
-    <div class="submit_container">
-        <button class="color" type="submit">確認画面</button>
-        <div onclick="history.back()">戻る</div>
     </div>
+
+    @include('employee_list.parts.submit_container',['btn_text'=>'確認画面'])
 
 </form>
 @endsection

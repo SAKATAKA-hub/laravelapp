@@ -7,30 +7,11 @@
 
 
 @section('oparation_btn')
-    @include('employee_list.parts.oparation_btn',['insert_btn'=>'display:none'])
+    @include('employee_list.parts.oparation_btn')
 @endsection
 
 
 @section('main_contents')
-
-<!-- --------------------------------------------
-<div>
-@php
-var_dump($seachs);
-@endphp
-</div>
-
-@if(
-    !isset($seachs["keyword"]) &&
-    !isset($seachs["department"]) &&
-    !isset($seachs["position"]) &&
-    !isset($seachs["gender"])
-)
-<h3>検索条件はありません</h3>
-@else
-<h3>検索条件があります</h3>
-@endif
--------------------------------------------- -->
 <table class="all_list">
     <thead>
         <tr>

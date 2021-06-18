@@ -14,16 +14,16 @@
 
 
 @section('main_contents')
-@if ($input['mode']=='update')
-<h3>下記の内容で編集登録します。よろしいですか？</h3>
-@else
-<h3>下記の内容で新規登録します。よろしいですか？</h3>
-@endif
-
 <form action="{{route('employee_list.admin')}}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="mode" value="{{$input['mode']}}">
     <div class="employee_container">
+        @if ($input['mode']=='update')
+        <h3>下記の内容で編集登録します。よろしいですか？</h3>
+        @else
+        <h3>下記の内容で新規登録します。よろしいですか？</h3>
+        @endif
+
         <table class="individual-t">
             <tr>
                 <td>
@@ -59,13 +59,11 @@
                 <td>
                     @if($file_name) <!--新しい登録画像があるとき-->
                     <img id="preview" class="employee_img" src="{{url($file_path.'/'.$file_name)}}" alt="登録画像">
-                    <p>{{$file_path.'/'.$file_name}}</p>
                     <input type="hidden" name="file_name" value="{{$file_name}}">
 
                     @elseif($input['old_image'])<!--元々の登録画像があるとき-->
                     <img id="preview" class="employee_img" src="{!!url('image/employees/'.$input['old_image'])!!}" alt="登録画像">
-                    <p>{{$file_path.'/'.$input['old_image']}}</p>
-                    <input type="hidden" name="file_name" value="">
+                    <input type="hidden" name="old_image" value="{{$input['old_image']}}">
 
                     @else<!--画像がないとき-->
                     <img id="preview" class="employee_img" src="{{url('image/employees/no_image.png')}}" alt="登録画像">
@@ -114,10 +112,10 @@
             @endforeach
         </table>
 
-    <div class="submit_container">
-        <button class="color" type="submit">登録</button>
-        <div onclick="history.back()">戻る</div>
+        @include('employee_list.parts.submit_container',['btn_text'=>'登録'])
+
     </div>
+
 
 </form>
 

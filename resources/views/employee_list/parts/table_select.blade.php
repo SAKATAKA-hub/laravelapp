@@ -1,6 +1,6 @@
 <tr>
 <td>
-    <P>{{$checkbox_group['title']}}</P>
+    <p class="req">{{$checkbox_group['title']}}</P>
     <p style="color:red"> 必須</p>
 </td>
 <td>
@@ -17,7 +17,7 @@
 
 </tr>
 
-<!-- 
+<!--
 $lines = [
     ['text'=>'', 'type'=> 'text', 'name'=> 'text', 'value'=> 'text', ],
 ];

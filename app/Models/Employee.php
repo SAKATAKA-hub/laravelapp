@@ -10,8 +10,17 @@ class Employee extends Model
     #----------------------------------------------
     # 絞り込み検索用スコープ
     #----------------------------------------------
-    public function scopeSeach($query, $ns)
+    // public function scopeSeach($query, $ns)
+    public function scopeSeach($query, $request)
     {
+        //検索条件の抽出
+        $ns = [
+            'keyword' => $request->keywords,
+            'department' => $request->department,
+            'position' => $request->position,
+            'gender' => $request->gender,
+        ];
+
         //ユーザー入力の検索キーワード処理
         if(!empty($ns['keyword']))
         {

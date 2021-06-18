@@ -1,9 +1,9 @@
 //-------------------------------------------------------------------------
 // EmployeeListApp スタイル
 //-------------------------------------------------------------------------
-
+@import"env";
+$col_main: darken(aqua,18%);
 @import"base"; //"env"->"base"->"employee_list"
-
 //***************************************
 // employee 共通スタイル
 //***************************************
@@ -14,7 +14,7 @@ main .main_body
         border-collapse: collapse;
         border: 1px solid #bbb;
         background: #fff;
-    
+
         tr{
             border-top: 1px solid #bbb;
             td{
@@ -25,21 +25,23 @@ main .main_body
             }
             .long{width: 150px;}
         }
-    
+
     }
-    
+
     // オペレーションボタンのカスタマイズ
     .oparation_btn_container{
         ul[class="op_btns"]{
-        
-            input{
+
+            // input{
+            input[type="text"]{
+                width: 16rem;
                 line-height: 2em;
                 padding: .3em;
                 margin-right: 1em;
                 border: solid 1px $col_main;
                 border-radius: .3em;
             }
-            
+
             //絞り込みドロップダウン
             @include dd-menu;
             li:not(:first-child) .refined:after{
@@ -56,25 +58,19 @@ main .main_body
                     background: $col_main;
                     color : #fff;
                 }
-                //アイコン
-                // .btn-op::before{
-                //     @include link-befor;
-                //     top: .2em;
-                //     content: "\e8b6";
-                // }
             }
 
-        
+
             //新規登録
             li[class="insert"]{
                 margin-left: 1em;
-                
+
                 .btn-op{
                     border: solid 1px $col_main;
                     background: $col_main;
                     color: #fff;
                 }
-        
+
                 .btn-op::before{
                     @include link-befor;
                     top: .2em;
@@ -83,7 +79,18 @@ main .main_body
                     color: #fff;
                 }
             }
-            
+
+            //その他のボタン
+            li[class="other_btn"]{
+                .btn-op{
+                    width: 4em;
+                    text-align: center;
+                    background: $col_main;
+                    color: #fff;
+                    a{ color:#fff;}
+                }
+            }
+
         }
     }
 }
@@ -112,9 +119,13 @@ main .main_body
 //***************************************
 // employee.ditails スタイル
 //***************************************
-$details_table_width: 864px;
+$details_table_width: 1000px;
 .employee_container{
-    table{margin: 0 auto 1em auto;}
+    h3{margin-bottom: 1em;}
+    table{
+        margin: 0 auto 1em auto;
+    }
+
     .job-t{
         .employee_img{
             width: 10em;
@@ -127,12 +138,14 @@ $details_table_width: 864px;
             padding: 1em;
         }
     }
+
     .work-t{
         td{
             width : $details_table_width/8;
             padding: 1em;
         }
     }
+
     .individual-t{
         .employee_img{
             width: 10em;
@@ -140,15 +153,46 @@ $details_table_width: 864px;
             border-radius: .5em;
             border: 1px solid #bbb;
         }
+
         td{
-            width : $details_table_width/3;
+            width : $details_table_width/4;
             padding: 1em;
+
+            position: relative;
+            // 必須
+            .req::after{
+                position: absolute;
+                top: 1em;
+                right: .5em;
+                content:'必須';
+                text-align: center;
+                padding: .2em .5em;
+                color: #fff;
+                background: red;
+            }
+
         }
         td:nth-child(2){
-            width : $details_table_width/3*2;
+            display: flex;
+            width : $details_table_width/4*3;
+            text-align: left;
+
+            input{
+                width: 18em;
+                line-height: 2em;
+            }
+
+            //エラー文
+            .error{
+                padding: .2em 0;
+                margin-left: 2em;
+                color: red;
+            }
+
+
         }
     }
-    
+
 }
 
 .submit_container{
@@ -156,16 +200,23 @@ $details_table_width: 864px;
     justify-content: center;
     margin: 2em auto;
     width: $details_table_width;
-    
-    button{
-      width: 16em;
-      padding: 1em;
-      margin-right: 1em;
-      border: 2px solid $col_main;
-      border-radius: .8em;
+
+    .btn{
+        width: 16rem;
+        padding: 1rem 0;
+
+        text-align: center;
+        // font-weight: bold;
+        font-size: 16px;
+        margin-right: 1rem;
+        border: 2px solid $col_main;
+        border-radius: .8rem;
+        cursor: pointer;
     }
-    .color{
-      background: $col_main;
+    .col_btn{
+        @extend.btn;
+        // color : #fff;
+        background: $col_main;
     }
-  }
+}
 

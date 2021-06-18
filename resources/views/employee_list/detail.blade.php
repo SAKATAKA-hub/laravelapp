@@ -16,7 +16,9 @@
 <div class="employee_container">
     <table class="job-t">
         <tr>
-            <td><img class="employee_img" src="../image/employees/{{$employee->image}}" alt="{{$employee->name}}さんの画像"></td>
+            <td>
+                <img class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像">
+            </td>
             <td colspan="2">
                 <p>{{sprintf("%04d",$employee->id)}}</p>
                 <p>{{$employee->kana_name}}</p>
@@ -46,8 +48,6 @@
 
 </div>
 
-<div class="submit_container">
-    <div onclick="history.back()">戻る</div>
-</div>
+@include('employee_list.parts.submit_container',['btn_text'=>''])
 
 @endsection

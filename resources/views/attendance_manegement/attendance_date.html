@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../../public/css/attendance_manegement.css">
+    <title>勤怠管理</title>
+</head>
+
+
+<body>
+    <header>
+        <ul class="menu">
+            <li><h2>業務アプリ</h2></li>
+            <li><a href="">従業員管理</a></li>
+            <li><a href="" class="current">勤怠管理</a></li>
+            <li><a href="">スケジュール</a></li>
+        </ul>
+        <ul class="user">
+            <li class="item"><img src="../../../public/image/employees/e0001.png" alt="user image"></li>
+            <li class="item">name nameさん </li>
+            <li class="item dd_menu">
+                <i class="material-icons">arrow_drop_down</i>
+                <ul class="dd_box">
+                    <li><a href="">ログアウト</a></li>
+                    <li><a href="">パスワード変更</a></li>
+                    <li><a href="">その他設定変更</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+
+    <main>
+        <div class="main_head">
+            <h2>勤怠管理</h2>
+            <ul class="app_menu">
+                <li><a href="" class="current">日別勤怠一覧</a></li>
+                <li><a href="">月別勤怠一覧</a></li>
+                <li><a href="">個人別勤怠一覧</a></li>
+            </ul>
+        </div>
+
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="">従業員一覧（アプリ名）</a></li>
+                <li><a href="">○○さんの詳細ページ</a></li>
+                <li><a href="">編集画面</a></li>
+                <li><a href="">○○さんの編集ページ</a></li>
+            </ul>
+        </div>
+
+        <div class="main_body">
+            <h3>日別勤怠一覧</h3>
+
+            <div class="oparation_btn_container">
+                <form name="seach" action="#" method="POST">
+                    <ul class="op_btns">
+
+                        <li class="dd_menu">
+                            <div class="btn-op refined">年月</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="department_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="department" value="東京支店" onclick="DisCheck(this)">東京支店</label></li>
+                                <li><label><input type="checkbox" name="department" value="神奈川支店" onclick="DisCheck(this)">神奈川支店</label></li>
+                                <li><label><input type="checkbox" name="department" value="千葉支店" onclick="DisCheck(this)">千葉支店</label></li>
+                            </ul>
+                        </li>
+
+                        <li class="dd_menu">
+                            <div  class="btn-op refined">日付</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
+                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
+                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
+                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
+                            </ul>
+                        </li>
+                        <li class="dd_menu">
+                            <div  class="btn-op refined">名前</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
+                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
+                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
+                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
+
+                    </ul>
+                </form>
+
+                <ul class="op_btns">
+                    <li class="other_btn"><div class="btn-op">
+                        <a href="">印刷</a>
+                    </div></li>
+                </ul>
+
+            </div>
+
+            <!-- メインコンテンツ -->
+            <div class="contents">
+                <div class="date_table_box">
+                    <h4>検索日付 : 2021年 4月 4日(日)</h4>
+                    <h4>出勤現場 : 全て</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="td_image"></th> <!-- image -->
+                                <th class="td_name">ID・従業員名</th>
+                                <th class="">出勤現場</th>
+                                <th class="point_td">出勤時間</th>
+                                <th class="point_td">退勤時間</th>
+                                <th class="point_td">休憩開始</th>
+                                <th class="point_td">休憩終了</th>
+                                <th>勤務時間</th>
+                                <th>休憩時間</th>
+                                <th>労働時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+
+                            </tr>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+
+                            </tr>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">合計時間</td>
+                                <td colspan="5"></td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="contents">
+                <div class="month_table_box">
+                    <h4>検索年月 : 2021年 4月</h4>
+                    <h4>出勤現場 : 全て</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="td_image"></th> <!-- image -->
+                                <th class="td_name">ID・従業員名</th>
+                                <th class="td_item"></th> <!-- button -->
+                                <th class="td_item">出勤現場</th>
+                                <th class="td_item">勤務時間</th>
+                                <th class="td_item">休憩時間</th>
+                                <th class="td_item">労働時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>
+                                    <form action="">
+                                        <input type="hidden" name="" value="0001">
+                                        <button class="btn-1" type="submit">詳細</button>
+                                    </form>
+                                </td>
+                                <td>東京支店</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>
+                                    <form action="">
+                                        <input type="hidden" name="" value="0001">
+                                        <button class="btn-1" type="submit">詳細</button>
+                                    </form>
+                                </td>
+                                <td>東京支店</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                            <tr>
+                                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                <td class="td_name">
+                                    <p class="id">1111</p>
+                                    <p>山田　宗一郎</p>
+                                </td>
+                                <td>
+                                    <form action="">
+                                        <input type="hidden" name="" value="0001">
+                                        <button class="btn-1" type="submit">詳細</button>
+                                    </form>
+                                </td>
+                                <td>東京支店</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">合計時間</td>
+                                <td colspan="2"></td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="contents">
+                <div class="person_table_box">
+                    <h4>検索従業員名 :</h4>
+                    <div class="pason_item">
+                        <img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image">
+                        <p class="id">0000</p>
+                        <p class="name">山田　宗一郎</p>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="">出勤現場</th>
+                                <th class="point_td">出勤時間</th>
+                                <th class="point_td">退勤時間</th>
+                                <th class="point_td">休憩開始</th>
+                                <th class="point_td">休憩終了</th>
+                                <th>勤務時間</th>
+                                <th>休憩時間</th>
+                                <th>労働時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+
+                            </tr>
+                            <tr>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+
+                            </tr>
+                            <tr>
+                                <td>東京支店</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td class="point_td">00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">合計時間</td>
+                                <td colspan="3"></td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                                <td>00:00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <footer><p>&copy2021 SAKAI TAKAHIRO</p></footer>
+</body>
+</html>

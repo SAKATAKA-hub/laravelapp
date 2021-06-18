@@ -154,7 +154,7 @@ header ul[class="user"] .dd_menu li > a::before {
   position: relative;
   top: .15em;
   font-family: 'Material Icons';
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   z-index: 2;
   top: .2em;
@@ -198,7 +198,7 @@ main .main_head ul[class="app_menu"] li a {
   line-height: 1.6em;
 }
 main .main_head ul[class="app_menu"] li .current {
-  border-bottom: solid 2px #00a3a3;
+  border-bottom: solid 2px #00c700;
   pointer-events: none;
 }
 main .breadcrumb {
@@ -216,7 +216,7 @@ main .breadcrumb ul li:first-child:before {
   position: relative;
   top: .15em;
   font-family: 'Material Icons';
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   z-index: 2;
   content: "\e88a";
@@ -225,7 +225,7 @@ main .breadcrumb ul li:not(:first-child):before {
   position: relative;
   top: .15em;
   font-family: 'Material Icons';
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   z-index: 2;
   content: "\e5cc";
@@ -239,14 +239,14 @@ main .main_body {
 }
 main .main_body h3 {
   font-size: 1.6em;
-  border-left: solid 0.8rem #00a3a3;
+  border-left: solid 0.8rem #00c700;
 }
 main .main_body .oparation_btn_container {
   margin: 1em 0;
 }
 main .main_body .oparation_btn_container p[class="filtering_key"] {
   font-weight: bold;
-  color: #00a3a3;
+  color: #00c700;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] {
   display: flex;
@@ -258,7 +258,7 @@ main .main_body .oparation_btn_container ul[class="op_btns"] .btn-op {
   border-radius: .3em;
   border: 1px solid #bbb;
   background: #fff;
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   margin-right: 1em;
 }
@@ -288,12 +288,16 @@ main .main_body table tr td {
 main .main_body table tr .long {
   width: 150px;
 }
+main .main_body .oparation_btn_container {
+  display: flex;
+  justify-content: space-between;
+}
 main .main_body .oparation_btn_container ul[class="op_btns"] input[type="text"] {
   width: 16rem;
   line-height: 2em;
   padding: .3em;
   margin-right: 1em;
-  border: solid 1px #00a3a3;
+  border: solid 1px #00c700;
   border-radius: .3em;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu {
@@ -341,11 +345,11 @@ main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu:hover ul {
 main .main_body .oparation_btn_container ul[class="op_btns"] .dd_menu:hover ul li {
   height: 2.2rem;
 }
-main .main_body .oparation_btn_container ul[class="op_btns"] li:not(:first-child) .refined:after {
+main .main_body .oparation_btn_container ul[class="op_btns"] li .refined:after {
   position: relative;
   top: .15em;
   font-family: 'Material Icons';
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   z-index: 2;
   top: .2em;
@@ -356,22 +360,22 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn"] .btn-op {
   font-size: 1em;
-  background: #00a3a3;
+  background: #00c700;
   color: #fff;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] {
   margin-left: 1em;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] .btn-op {
-  border: solid 1px #00a3a3;
-  background: #00a3a3;
+  border: solid 1px #00c700;
+  background: #00c700;
   color: #fff;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] .btn-op::before {
   position: relative;
   top: .15em;
   font-family: 'Material Icons';
-  color: #00a3a3;
+  color: #00c700;
   font-weight: bold;
   z-index: 2;
   top: .2em;
@@ -381,101 +385,69 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] 
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn"] .btn-op {
   width: 4em;
   text-align: center;
-  background: #00a3a3;
+  background: #00c700;
   color: #fff;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn"] .btn-op a {
   color: #fff;
 }
 
-.all_list .employee_img {
+.contents h4 {
+  font-size: 1.4rem;
+}
+.contents .date_table_box table th, .contents .date_table_box td {
+  width: 100px;
+}
+.contents .month_table_box table .td_item {
+  width: 160px;
+}
+.contents .person_table_box .pason_item {
+  display: flex;
+  align-items: center;
+  padding: .5em 1em;
+}
+.contents .person_table_box .pason_item .employee_img {
   width: 3em;
   height: 3em;
   border-radius: 50%;
   border: 1px solid #bbb;
 }
-.all_list td {
-  min-width: 6em;
-  padding: .5em 1em;
+.contents .person_table_box .pason_item .id, .contents .person_table_box .pason_item .name {
+  margin-left: 1em;
+  font-weight: bold;
+  font-size: 24px;
 }
-.all_list tr:nth-child(even) {
+.contents .person_table_box table th, .contents .person_table_box td {
+  width: 125px;
+}
+.contents table th, .contents table td {
+  font-size: 14px;
+  padding: .5em;
+  height: 3em;
+}
+.contents table tbody tr:nth-child(odd) {
   background-color: #eee;
 }
-
-.employee_container h3 {
-  margin-bottom: 1em;
+.contents table tbody .td_image {
+  width: 40px;
 }
-.employee_container table {
-  margin: 0 auto 1em auto;
+.contents table tbody .td_name {
+  width: 160px;
 }
-.employee_container .job-t .employee_img {
-  width: 10em;
-  height: 10em;
-  border-radius: .5em;
+.contents table tbody .td_name .id {
+  font-size: .8em;
+}
+.contents table tfoot tr {
+  border-top: 2px solid #bbb;
+}
+.contents table .point_td {
+  color: #aaa;
+}
+.contents table .employee_img {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
   border: 1px solid #bbb;
 }
-.employee_container .job-t td {
-  width: 333.3333333333px;
-  padding: 1em;
-}
-.employee_container .work-t td {
-  width: 125px;
-  padding: 1em;
-}
-.employee_container .individual-t .employee_img {
-  width: 10em;
-  height: 10em;
-  border-radius: .5em;
-  border: 1px solid #bbb;
-}
-.employee_container .individual-t td {
-  width: 250px;
-  padding: 1em;
-  position: relative;
-}
-.employee_container .individual-t td .req::after {
-  position: absolute;
-  top: 1em;
-  right: .5em;
-  content: '必須';
-  text-align: center;
-  padding: .2em .5em;
-  color: #fff;
-  background: red;
-}
-.employee_container .individual-t td:nth-child(2) {
-  display: flex;
-  width: 750px;
-  text-align: left;
-}
-.employee_container .individual-t td:nth-child(2) input {
-  width: 18em;
-  line-height: 2em;
-}
-.employee_container .individual-t td:nth-child(2) .error {
-  padding: .2em 0;
-  margin-left: 2em;
-  color: red;
-}
 
-.submit_container {
-  display: flex;
-  justify-content: center;
-  margin: 2em auto;
-  width: 1000px;
-}
-.submit_container .btn, .submit_container .col_btn {
-  width: 16rem;
-  padding: 1rem 0;
-  text-align: center;
-  font-size: 16px;
-  margin-right: 1rem;
-  border: 2px solid #00a3a3;
-  border-radius: .8rem;
-  cursor: pointer;
-}
-.submit_container .col_btn {
-  background: #00a3a3;
-}
-
-/*# sourceMappingURL=employee_list.css.map */
+/*# sourceMappingURL=attendance_manegement.css.map */

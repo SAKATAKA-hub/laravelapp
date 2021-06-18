@@ -9,8 +9,7 @@
 
 
 @section('oparation_btn')
-    <h3 style="background:greenyellow">{{$mode_text}}</h3>
-    @include('employee_list.parts.oparation_btn',['insert_btn'=>''])
+    @include('employee_list.parts.oparation_btn')
 @endsection
 
 
@@ -50,9 +49,9 @@
                 </form>
             </td>
             <td>
-                <form action="{{route('employee_list.admin')}}" method="post">
+                <form action="{{route('employee_list.admin')}}" method="post" onSubmit="return deleteConfirm()">
                     @csrf
-                    <input type="hidden" name="mode" value="delite">
+                    <input type="hidden" name="mode" value="delete">
                     <input type="hidden" value="{{$employee->id}}" name="id">
                     <button type="submit" class="btn-1">削除</button>
                 </form>
@@ -64,6 +63,29 @@
         @endforelse
 
     </tbody>
+
 </table>
+{{-- アラート表示 --}}
+@switch($mode)
+    @case('insert')
+        <script type="text/javascript">
+            window.onload = function(){alert('従業員情報を追加しました。');}
+        </script>
+        @break
+
+    @case('update')
+        <script type="text/javascript">
+            window.onload = function(){alert('従業員情報を修正しました。');}
+        </script>
+        @break
+
+    @case('delete')
+        <script type="text/javascript">
+            window.onload = function(){alert('従業員情報を一件削除しました。');}
+        </script>
+        @break
+@endswitch
+
+
 @endsection
 

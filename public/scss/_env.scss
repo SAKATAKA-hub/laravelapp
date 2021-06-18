@@ -6,9 +6,6 @@
 // $col_main: darken(blue,18%);
 $col_main: darken(aqua,18%);
 $col_glay: rgb(90, 85, 85);
-@mixin color-test{
-  color: aqua
-}
 
 //最低幅の設定
 @mixin min-w { min-width: 960px;}
@@ -44,7 +41,7 @@ $col_glay: rgb(90, 85, 85);
       line-height: $header_hight;
       cursor: pointer;
     }
-    .dd_box{        
+    .dd_box{
       position: absolute;
       top: $header_hight;
       right: 0;
@@ -98,7 +95,7 @@ $col_glay: rgb(90, 85, 85);
 
 /*
 /-------------------------------------------------------------------------
-/ リセットCSS 
+/ リセットCSS
 /-------------------------------------------------------------------------
 */
 body {

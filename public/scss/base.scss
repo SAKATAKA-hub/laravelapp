@@ -2,7 +2,7 @@
 // Baseテンプレート　スタイル
 //-------------------------------------------------------------------------
 
-@import"env"; //"env"->"base";
+// @import"env"; //"env"->"base";
 
 //***************************************
 // header スタイル
@@ -148,10 +148,15 @@ main{
   .main_body{
     @include center-container;
     max-width: 1000px;
+    //小見出し
+    h3{
+        font-size: 1.6em;
+        border-left: solid .8rem $col_main;
+    }
 
     //操作ボタン
     .oparation_btn_container{
-      padding: 1em 0;
+      margin: 1em 0;
       p[class="filtering_key"]{
         font-weight: bold;
         color: $col_main;
@@ -159,6 +164,7 @@ main{
       ul[class="op_btns"]{
         display: flex;
         align-items: center;
+        margin-bottom: 1.6em;
 
         //小さいボタン
         .btn-op{

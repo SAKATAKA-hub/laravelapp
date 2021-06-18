@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../../public/css/employee_list.css">
+    <title>従業員一覧</title>
+</head>
+
+
+<body>
+    <header>
+        <ul class="menu">
+            <li><h2>業務アプリ</h2></li>
+            <li><a class="current" href="">タイムカード</a></li>
+            <li><a href="">従業員一覧</a></li>
+            <li><a href="">勤怠一覧</a></li>
+            <li><a href="">スケジュール</a></li>
+        </ul>
+        <ul class="user">
+            <li class="item"><img src="common/image/e0001.png" alt="user image"></li>
+            <li class="item">name nameさん </li>
+            <li class="item dd_menu">
+                <i class="material-icons">arrow_drop_down</i>
+                <ul class="dd_box">
+                    <li><a href="">ログアウト</a></li>
+                    <li><a href="">パスワード変更</a></li>
+                    <li><a href="">その他設定変更</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+
+    <main>
+        <div class="main_head">
+            <h2>従業員一覧</h2>
+            <ul class="app_menu">
+                <li><a href="employee_list.html" class="current">閲覧画面</a></li>
+                <li><a href="employee_list_editor.html">編集画面</a></li>
+            </ul>
+        </div>
+
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="">従業員一覧（アプリ名）</a></li>
+                <li><a href="">○○さんの詳細ページ</a></li>
+                <li><a href="">編集画面</a></li>
+                <li><a href="">○○さんの編集ページ</a></li>
+            </ul>
+        </div>
+
+        <div class="main_body">
+            <div class="oparation_btn_container">
+                <p class="filtering_key">絞り込み条件：なし</p>
+
+                <form name="seach" action="#" method="POST">
+                    <ul class="op_btns">
+                        <li><input type="text" name="mode" placeholder="例）名前 ふりがな　ID"></li>
+
+                        <li class="dd_menu">
+                            <div class="btn-op refined">部署絞り込み</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="department_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="department" value="東京支店" onclick="DisCheck(this)">東京支店</label></li>
+                                <li><label><input type="checkbox" name="department" value="神奈川支店" onclick="DisCheck(this)">神奈川支店</label></li>
+                                <li><label><input type="checkbox" name="department" value="千葉支店" onclick="DisCheck(this)">千葉支店</label></li>
+                            </ul>
+                        </li>
+                        <li class="dd_menu">
+                            <div  class="btn-op refined">役職絞り込み</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
+                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
+                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
+                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
+                            </ul>
+                        </li>
+                        <li class="dd_menu">
+                            <div  class="btn-op refined">性別絞り込み</div>
+                            <ul class="dd_box">
+                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
+                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
+                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
+                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
+                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
+
+                    </ul>
+                </form>
+
+                <ul class="op_btns">
+                    <li class="other_btn">
+                        <div class="btn-op"><ahref="">新規作成</a></div>
+                    </li>
+                    <li class="other_btn"><div class="btn-op">一括削除</div></li>
+                    <li class="other_btn"><div class="btn-op">印刷</div></li>
+                </ul>
+
+            </div>
+
+
+            <div class="contents">
+                <table class="all_list">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td></td> <!-- image -->
+                            <td class="long">氏名</td>
+                            <td class="long">ふりがな</td>
+                            <td class="long">役職</td>
+                            <td class="long">所属部署</td>
+                            <td class="long"></td> <!-- button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0001</td>
+                            <td><img class="employee_img" src="common/image/e0001.png" alt="鈴木　一郎さんの画像"></td>
+                            <td>鈴木　一郎</td>
+                            <td>スズキ　イチロー</td>
+                            <td>係長</td>
+                            <td>営業一課 世田谷支店</td>
+                            <td>
+                                <form action="employee_details.html">
+                                    <input type="hidden" value="0001">
+                                    <button class="btn-1" type="submit">詳細</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0001</td>
+                            <td><img class="employee_img" src="common/image/e0002.png" alt="鈴木　一郎さんの画像"></td>
+                            <td>鈴木　二郎</td>
+                            <td>スズキ　ジロー</td>
+                            <td>主任</td>
+                            <td>営業一課</td>
+                            <td>
+                                <form action="employee_details.html">
+                                    <input type="hidden" value="0001">
+                                    <button class="btn-1" type="submit">詳細</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0001</td>
+                            <td><img class="employee_img" src="common/image/e0003.png" alt="鈴木　一郎さんの画像"></td>
+                            <td>鈴木　三郎</td>
+                            <td>スズキ　サブロー</td>
+                            <td></td>
+                            <td>営業一課</td>
+                            <td>
+                                <form action="employee_details.html">
+                                    <input type="hidden" value="0001">
+                                    <button class="btn-1" type="submit">詳細</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0001</td>
+                            <td><img class="employee_img" src="common/image/e0004.png" alt="鈴木　一郎さんの画像"></td>
+                            <td>鈴木　四郎</td>
+                            <td>スズキ　シロー</td>
+                            <td></td>
+                            <td>営業一課</td>
+                            <td>
+                                <form action="employee_details.html">
+                                    <input type="hidden" value="0001">
+                                    <button class="btn-1" type="submit">詳細</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+    <footer><p>&copy2021 SAKAI TAKAHIRO</p></footer>
+
+    <script>
+        //-----------------------------------------------------------
+        //  チェックボックスに関する関数
+        //-----------------------------------------------------------
+
+        // #「すべて選択」で全てのチェックボックスにチェックが付く
+        function ALLChecked(all){
+            const checksName = all.name.replace('_all','');
+            const checks = document.forms['seach'].elements[checksName];
+            for (let i = 0; i < checks.length; i++)
+            {
+                checks[i].checked = all.checked;
+            }
+        }
+
+        // #「すべて選択」で全てのチェックボックスにチェックが付く
+        function DisCheck(check)
+        {
+            const allName = check.name + '_all';
+            const all = document.forms['seach'].elements[allName];
+            const checks = document.forms['seach'].elements[check.name];
+
+            var checkCount = 0;
+            for (let i = 0; i < checks.length; i++) {
+                if(checks[i].checked)
+                {
+                    checkCount ++;
+                    if(checkCount===checks.length){all.checked = true;}
+                }
+                else
+                {
+                    all.checked = false;
+                }
+            }
+        }
+
+     </script>
+
+</body>
+</html>

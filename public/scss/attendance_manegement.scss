@@ -1,0 +1,165 @@
+//-------------------------------------------------------------------------
+// AttendanceManegementtApp スタイル
+//-------------------------------------------------------------------------
+@import"env";
+$col_main: lighten(green,14%);
+@import"base"; //"env"->"base"->"employee_list"
+
+//***************************************
+// app内共通スタイル
+//***************************************
+main .main_body
+{
+    table {
+        margin-bottom: 1em;
+        border-collapse: collapse;
+        border: 1px solid #bbb;
+        background: #fff;
+
+        tr{
+            border-top: 1px solid #bbb;
+            td{
+                box-sizing: border-box;
+                text-align: center;
+                box-sizing: border-box;
+                width: 90px;
+            }
+            .long{width: 150px;}
+        }
+
+    }
+
+    // オペレーションボタンのカスタマイズ
+    .oparation_btn_container{
+        display: flex;
+        justify-content: space-between;
+
+        ul[class="op_btns"]{
+            input[type="text"]{
+                width: 16rem;
+                line-height: 2em;
+                padding: .3em;
+                margin-right: 1em;
+                border: solid 1px $col_main;
+                border-radius: .3em;
+            }
+
+            //絞り込みドロップダウン
+            @include dd-menu;
+            li .refined:after{
+                @include link-befor;
+                top: .2em;
+                content: "\e5c5";
+            }
+
+            //絞り込みボタン
+            li[class="serch_btn"]{
+                margin-right: 1em;
+                .btn-op{
+                    font-size: 1em;
+                    background: $col_main;
+                    color : #fff;
+                }
+            }
+
+
+            //新規登録
+            li[class="insert"]{
+                margin-left: 1em;
+
+                .btn-op{
+                    border: solid 1px $col_main;
+                    background: $col_main;
+                    color: #fff;
+                }
+
+                .btn-op::before{
+                    @include link-befor;
+                    top: .2em;
+                    // margin-right: .5em;
+                    content: "\e7fe";
+                    color: #fff;
+                }
+            }
+
+            //その他のボタン
+            li[class="other_btn"]{
+                .btn-op{
+                    width: 4em;
+                    text-align: center;
+                    background: $col_main;
+                    color: #fff;
+                    a{ color:#fff;}
+                }
+            }
+
+        }
+    }
+
+}
+
+.contents{
+    h4{
+        font-size: 1.4rem;
+    }
+    $table_width: 1000px;
+    // *** 日別勤怠一覧テーブル ***
+    .date_table_box{
+        table th,td{ width: $table_width/10;}
+    }
+
+    // *** 月別勤怠一覧テーブル ***
+    .month_table_box{
+        table .td_item{ width: ($table_width - 200px)/5;}
+    }
+
+    // *** 個人別勤怠一覧テーブル ***
+    .person_table_box{
+        .pason_item{
+            display: flex;
+            align-items: center;
+            padding: .5em 1em;
+            .employee_img{
+                width: 3em;
+                height: 3em;
+                border-radius: 50%;
+                border: 1px solid #bbb;
+            }
+            .id, .name{
+                margin-left: 1em;
+                font-weight: bold;
+                font-size: 24px;
+            }
+        }
+        table th,td{ width: $table_width/8;}
+    }
+    // *** 各テーブル共通 ***
+    table{
+        th,td{
+            font-size: 14px;
+            padding: .5em;
+            height: 3em;
+        }
+        tbody{
+            tr:nth-child(odd){ background-color: #eee;}
+            .td_image{ width: 40px;}
+            .td_name{
+                width: 160px;
+                .id{
+                    font-size: .8em;
+                }
+            }
+        }
+        tfoot tr{border-top: 2px solid #bbb;}
+
+        .point_td{ color: #aaa;}
+        .employee_img{
+            width: 3em;
+            height: 3em;
+            border-radius: 50%;
+            border: 1px solid #bbb;
+        }
+    }
+
+}
+
