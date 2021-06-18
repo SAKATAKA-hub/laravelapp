@@ -6,6 +6,7 @@ use App\Http\Controllers\HelloController;//練習用
 use App\Http\Controllers\TestController;//テスト用
 
 use App\Http\Controllers\EmployeeListController;
+use App\Http\Controllers\AttendanceManegementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +64,25 @@ Route::post('employee_list/admin/confirm',[EmployeeListController::class,'confir
 | Attendance Manegement Routes (勤怠管理)
 |--------------------------------------------------------------------------
 */
-Route::get('attendance_manegement',[AttendanceManegementController::class,'index']);
+ # 勤怠管理一覧TOPの表示
+Route::get('attendance_manegement',[AttendanceManegementController::class,'index'])
+->name('employee_list.admin');
+
+# 日別勤怠管理一覧の表示 date_list
+Route::get('attendance_manegement/date_list',[AttendanceManegementController::class,'date_list'])
+->name('attendance_manegement.date_list');
+
+
+# 月別勤怠管理一覧の表示 month_list
+Route::get('attendance_manegement/month_list',[AttendanceManegementController::class,'month_list'])
+->name('employee_list.admin.month_list');
+
+
+# 個人別勤怠管理一覧の表示 person_list
+Route::get('attendance_manegement/person_list',[AttendanceManegementController::class,'person_list'])
+->name('employee_list.admin.person_list');
+
+
 /*
 |--------------------------------------------------------------------------
 | テスト用ルーティング作成

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{url('css/employee_list.css')}}">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> --}}
 
-    <title>{{$header_menus[$app_name]['text'].' / '.$app_menus[$app_menu_current]['current']}}@yield('titles')</title>
+    <title>{{$header_menus[$app_name]['text'].' / '.$app_menus[$app_menu_current]['text']}}@yield('titles')</title>
     {{--アプリ名--}}{{--アプリメニュー名--}}
 
 </head>
