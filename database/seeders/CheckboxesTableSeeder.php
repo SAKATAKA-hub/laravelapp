@@ -18,9 +18,9 @@ class CheckboxesTableSeeder extends Seeder
             ['group' => '性別','item' => '男性',],
             ['group' => '性別','item' => 'その他',],
 
-            ['group' => '役職','item' => '部長',],
-            ['group' => '役職','item' => '主任',],
+            ['group' => '役職','item' => '課長',],
             ['group' => '役職','item' => '係長',],
+            ['group' => '役職','item' => '主任',],
             ['group' => '役職','item' => '一般社員',],
 
             ['group' => '所属部署','item' => '東京支店',],
@@ -34,11 +34,6 @@ class CheckboxesTableSeeder extends Seeder
             $data = new \App\Models\Checkbox($item); //モデル名
             $data->save();
         }
-
-        // $data = new \App\Models\Checkbox(
-        //     ['group' => '性別','item' => '女性',]
-        // );
-        // $data->save();
 
     }
 }

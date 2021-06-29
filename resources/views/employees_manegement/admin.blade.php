@@ -1,18 +1,21 @@
-@extends('employee_list.parts._base')
+@extends('_common.layout')
 
-
+{{-- ページタイトル --}}
 @section('title','')
 
-
+{{-- パンクズリスト --}}
 @section('breadcrumb_li')
 @endsection
 
+{{-- 小見出し --}}
+@section('subheading',$app_menus[$app_menu_current]['text'])
 
+{{-- 操作ボタン --}}
 @section('oparation_btn')
-    @include('employee_list.parts.oparation_btn')
+    @include('employees_manegement.parts.oparation_btn')
 @endsection
 
-
+{{-- メインコンテンツ --}}
 @section('main_contents')
 <table class="all_list">
     <thead>
@@ -23,8 +26,8 @@
             <td class="long">ふりがな</td>
             <td class="long">役職</td>
             <td class="long">所属部署</td>
-            <td></td> <!-- button -->
-            <td></td> <!-- button -->
+            <td class=""></td> <!-- button -->
+            <td class=""></td> <!-- button -->
 
         </tr>
     </thead>
@@ -32,38 +35,35 @@
         @forelse($employees as $employee)
         <tr>
             <td>{{sprintf("%04d",$employee->id)}}</td>
-            @isset($employee->image)
-            <td><img class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像"></td>
+            @if( empty($employee->image) )
+            <td><img class="employee_img" src="{{url('image/employees/e8888.png')}}" alt=""></td>
             @else
-            <td><img class="employee_img" src="{!!url('image/employees/e8888.png')!!}" alt="{{$employee->name}}さんの画像"></td>
-            @endisset
+            <td><img class="employee_img" src="{{url('image/employees/'.$employee->image)}}" alt=""></td>
+            @endif
             <td>{{$employee->name}}</td>
             <td>{{$employee->kana_name}}</td>
             <td>{{$employee->position}}</td>
             <td>{{$employee->department}}</td>
             <td>
-                <form action="{{route('employee_list.admin.update')}}" method="get">
-                    @csrf
-                    <input type="hidden" name="id" value="{{$employee->id}}">
-                    <button type="submit" class="btn-1">編集</button>
-                </form>
+                {{-- 編集ボタン --}}
+                <a href="{{route('employees_manegement.edit',$employee)}}">
+                    <button class="btn-1">編集</button>
+                </a>
+                {{-- 削除ボタン --}}
             </td>
             <td>
-                <form action="{{route('employee_list.admin')}}" method="post" onSubmit="return deleteConfirm()">
+                <form action="{{route('employees_manegement.destroy',$employee)}}" method="post" onSubmit="return deleteConfirm()">
+                    @method('DELETE')
                     @csrf
-                    <input type="hidden" name="mode" value="delete">
-                    <input type="hidden" value="{{$employee->id}}" name="id">
                     <button type="submit" class="btn-1">削除</button>
                 </form>
             </td>
-
         </tr>
         @empty
         <tr><td colspan="7">検索内容に一致する情報がありません</td></tr>
         @endforelse
 
     </tbody>
-
 </table>
 {{-- アラート表示 --}}
 @switch($mode)
@@ -88,4 +88,3 @@
 
 
 @endsection
-

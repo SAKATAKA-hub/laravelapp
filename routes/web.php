@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;//練習用
 use App\Http\Controllers\TestController;//テスト用
 
+use App\Http\Controllers\EmployeesManegementController;
+
 use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\AttendanceManegementController;
 
@@ -21,43 +23,93 @@ use App\Http\Controllers\AttendanceManegementController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 /*
 |--------------------------------------------------------------------------
-| Employee List Routes (従業員管理)
+| Employees Manegement Routes (従業員管理)
+|--------------------------------------------------------------------------
+*/
+ # 従業員管理一覧
+ Route::get('/employees_manegement',[EmployeesManegementController::class,'index'])
+ ->name('employees_manegement.index');
+ Route::post('/employees_manegement',[EmployeesManegementController::class,'index'])
+ ->name('employees_manegement.index');
+
+// 従業員詳細
+Route::get('/employees_manegement/{employee}/show',[EmployeesManegementController::class,'show'])
+->name('employees_manegement.show');
+
+# 管理者画面
+Route::get('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
+->name('employees_manegement.admin');
+Route::post('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
+->name('employees_manegement.admin');
+
+// 新規登録
+Route::get('/employees_manegement/create',[EmployeesManegementController::class,'create'])
+->name('employees_manegement.create');
+Route::post('/employees_manegement/insert',[EmployeesManegementController::class,'insert'])
+->name('employees_manegement.insert');
+Route::get('/employees_manegement/done_insert',[EmployeesManegementController::class,'done_insert'])
+->name('employees_manegement.done_insert');
+
+
+// 登録情報編集
+Route::get('/employees_manegement/{employee}/edit',[EmployeesManegementController::class,'edit'])
+->name('employees_manegement.edit');
+Route::patch('/employees_manegement/update',[EmployeesManegementController::class,'update'])
+->name('employees_manegement.update');
+Route::get('/employees_manegement/done_update',[EmployeesManegementController::class,'done_update'])
+->name('employees_manegement.done_update');
+
+
+// 登録情報削除
+Route::delete('/employees_manegement/{employee}/destroy',[EmployeesManegementController::class,'destroy'])
+->name('employees_manegement.destroy');
+Route::get('/employees_manegement/done_destroy',[EmployeesManegementController::class,'done_destroy'])
+->name('employees_manegement.done_destroy');
+
+// 登録確認画面
+Route::post('/employees_manegement/confirm',[EmployeesManegementController::class,'confirm'])
+->name('employees_manegement.confirm');
+
+
+/*
+|--------------------------------------------------------------------------
+| Employees List Routes (従業員管理)
 |--------------------------------------------------------------------------
 */
 
-# 一覧照会画面
-Route::get('employee_list',[EmployeeListController::class,'index'])
-->name('employee_list');
-Route::post('employee_list',[EmployeeListController::class,'search']);
+// # 一覧照会画面
+// Route::get('employee_list',[EmployeeListController::class,'index'])
+// ->name('employee_list');
+// Route::post('employee_list',[EmployeeListController::class,'search']);
 
-// 従業員詳細
-Route::post('employee_list/detail',[EmployeeListController::class,'detail'])
-->name('employee_list.detail');
-
-
-
-# 管理者画面
-Route::get('employee_list/admin',[EmployeeListController::class,'admin'])
-->name('employee_list.admin');
-
-Route::post('employee_list/admin',[EmployeeListController::class,'admin_post']);
+// // 従業員詳細
+// Route::post('employee_list/detail',[EmployeeListController::class,'detail'])
+// ->name('employee_list.detail');
 
 
-// 新規登録画面
-Route::get('employee_list/admin/insert',[EmployeeListController::class,'insert'])
-->name('employee_list.admin.insert');
 
-// 編集画面
-Route::get('employee_list/admin/update',[EmployeeListController::class,'update'])
-->name('employee_list.admin.update');
+// # 管理者画面
+// Route::get('employee_list/admin',[EmployeeListController::class,'admin'])
+// ->name('employee_list.admin');
 
-// 登録確認画面
-Route::post('employee_list/admin/confirm',[EmployeeListController::class,'confirm'])
-->name('employee_list.admin.confirm');
+// Route::post('employee_list/admin',[EmployeeListController::class,'admin_post']);
+
+
+// // 新規登録画面
+// Route::get('employee_list/admin/insert',[EmployeeListController::class,'insert'])
+// ->name('employee_list.admin.insert');
+
+// // 編集画面
+// Route::get('employee_list/admin/update',[EmployeeListController::class,'update'])
+// ->name('employee_list.admin.update');
+
+// // 登録確認画面
+// Route::post('employee_list/admin/confirm',[EmployeeListController::class,'confirm'])
+// ->name('employee_list.admin.confirm');
 
 /*
 |--------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 //-------------------------------------------------------------------------
 
 // @import"env"; //"env"->"base";
-
+$col_app: lighten($col_main,64%);
 //***************************************
 // header スタイル
 //***************************************
@@ -26,24 +26,27 @@ header{
   ul[class="menu"]{
     @include header_ul;
     li{
-      h2{
-        margin: 0 1rem;
-      }
-      a{
-        display: block;
-        padding: 0 1.5em;
-        color: #fff;
-        line-height: $header_hight;
-      }
-
-      .current{
+        h2{
+            margin: 0 1rem;
+        }
+        a{
+            display: block;
+            padding: 0 1.5em;
+            color: #fff;
+            line-height: $header_hight;
+        }
+        .current{
         box-sizing: border-box;
         border-radius: .5em .5em 0 0;
         margin-top: .1em;
         background: #fff;
-        color: #eee;
+        color: $col_main;
         pointer-events: none; //<a>のリンクを無効化
-      }
+        }
+        :hover{
+        color:  lighten($col_main,8%);
+        }
+
     }
   }
 
@@ -87,45 +90,50 @@ header{
 // main スタイル
 //***************************************
 main{
-  min-height: 100vh;
-
+    min-height: 100vh;
   // appメニュー　//
-  .main_head{
-    @include center-container;
-    display: flex;
-    border-bottom:solid 2px #eee;
+    .main_head{
+        @include center-container;
+        display: flex;
+        border-bottom:solid 2px #eee;
+        background: #fff;
 
-    h2{
-      box-sizing: border-box;
-      min-width: 8em;
-      line-height: 1.8em;
-    }
-    ul[class="app_menu"]{
-      display: flex;
-      li{
-        box-sizing: border-box;
-        margin-right: 1em;
-        font-weight: bold;
-        a{
-          display: block;
-          box-sizing: border-box;
-          padding: .5em;
-          line-height: 1.6em;
+        h2{
+            box-sizing: border-box;
+            min-width: 8em;
+            line-height: 1.8em;
         }
-        .current{
-          border-bottom: solid 2px $col_main;
-          pointer-events: none; //<a>のリンクを無効化
+        ul[class="app_menu"]{
+            display: flex;
+            li{
+                box-sizing: border-box;
+                // margin-right: 1em;
+                font-weight: bold;
+                a{
+                    display: block;
+                    box-sizing: border-box;
+                    margin: .2em 0;
+                    padding: .3em 1em;
+                    line-height: 1.6em;
+                    // border-radius: 12px;
+                }
+                .current{
+                    // background: $col_main;
+                    // border-bottom: solid 2px $col_main;
+                    color: $col_main;
+                    pointer-events: none; //<a>のリンクを無効化
+                }
+                hover{
+                    color:  lighten($col_main,8%);
+                }
+            }
         }
-      }
 
     }
 
-  }
-
-  // パンくずリスト　//
-  .breadcrumb{
-    @include center-container;
-    ul{
+    // パンくずリスト　//
+    ul[class="breadcrumb"]{
+        @include center-container;
         font-size: 11px;
         display: flex;
         align-items: center;
@@ -142,7 +150,6 @@ main{
           margin: 0 .5em;
         }
     }
-  }
 
   // メインボディー　//
   .main_body{

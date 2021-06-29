@@ -1,5 +1,8 @@
-
-<form name="seach" action="#" method="POST">
+@if($app_menu_current == 'index')
+<form name="seach" action="{{route('employees_manegement.index')}}" method="POST">
+@else
+<form name="seach" action="{{route('employees_manegement.admin')}}" method="POST">
+@endif
     @csrf
     <p class="filtering_key">絞り込み条件：{{$seach_text_all}}</p>
     <ul class="op_btns">
@@ -44,14 +47,12 @@
     </ul>
 </form>
 
-{{-- 新規作成ボタン --}}
+{{-- ボタン --}}
 @if($app_menu_current == 'admin')
 <ul class="op_btns">
     <li class="other_btn"><div class="btn-op">
-        <a href="{{route('employee_list.admin.insert')}}">新規作成</a>
+        <a href="{{route('employees_manegement.create')}}">新規作成</a>
     </div></li>
-    <li class="other_btn"><div class="btn-op">一括削除</div></li>
-    <li class="other_btn"><div class="btn-op">印刷</div></li>
 </ul>
 
 @endif

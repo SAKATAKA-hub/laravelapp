@@ -3,6 +3,8 @@
 //-------------------------------------------------------------------------
 @import"env";
 $col_main: darken(aqua,18%);
+// $col_main: purple;
+
 @import"base"; //"env"->"base"->"employee_list"
 //***************************************
 // employee 共通スタイル
@@ -44,15 +46,23 @@ main .main_body
 
             //絞り込みドロップダウン
             @include dd-menu;
-            li:not(:first-child) .refined:after{
-                @include link-befor;
-                top: .2em;
-                content: "\e5c5";
+            li:not(:first-child) {
+                cursor: pointer;
+                .refined:after{
+                    @include link-befor;
+                    top: .2em;
+                    content: "\e5c5";
+                    cursor: pointer;
+                }
+                label{
+                    cursor: pointer;
+                }
             }
 
             //絞り込みボタン
             li[class="serch_btn"]{
                 margin-right: 1em;
+                cursor: pointer;
                 .btn-op{
                     font-size: 1em;
                     background: $col_main;
@@ -87,7 +97,9 @@ main .main_body
                     text-align: center;
                     background: $col_main;
                     color: #fff;
+                    cursor: pointer;
                     a{ color:#fff;}
+
                 }
             }
 
@@ -181,6 +193,11 @@ $details_table_width: 1000px;
                 width: 18em;
                 line-height: 2em;
             }
+            select{
+                width: 10em;
+                line-height: 2em;
+            }
+
 
             //エラー文
             .error{

@@ -1,16 +1,21 @@
-@extends('employee_list.parts._base')
+@extends('_common.layout')
 
+{{-- ページタイトル --}}
 @section('title','')
 
+{{-- パンクズリスト --}}
 @section('breadcrumb_li')
 @endsection
 
+{{-- 小見出し --}}
+@section('subheading',$app_menus[$app_menu_current]['text'])
 
+{{-- 操作ボタン --}}
 @section('oparation_btn')
-    @include('employee_list.parts.oparation_btn')
+    @include('employees_manegement.parts.oparation_btn')
 @endsection
 
-
+{{-- メインコンテンツ --}}
 @section('main_contents')
 <table class="all_list">
     <thead>
@@ -28,22 +33,19 @@
         @forelse($employees as $employee)
         <tr>
             <td>{{sprintf("%04d",$employee->id)}}</td>
-            {{-- <td><img class="employee_img" src="image/employees/{{$employee->image}}" alt="{{$employee->name}}さんの画像"></td> --}}
             @isset($employee->image)
-            <td><img class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像"></td>
+            <td><img class="employee_img" src="{{url('image/employees/'.$employee->image)}}" alt=""></td>
             @else
-            <td><img class="employee_img" src="{!!url('image/employees/e8888.png')!!}" alt="{{$employee->name}}さんの画像"></td>
+            <td><img class="employee_img" src="{{url('image/employees/e8888.png')}}" alt=""></td>
             @endisset
             <td>{{$employee->name}}</td>
             <td>{{$employee->kana_name}}</td>
             <td>{{$employee->position}}</td>
             <td>{{$employee->department}}</td>
             <td>
-                <form action="{{route('employee_list.detail')}}" method="post">
-                    @csrf
-                    <input type="hidden" value="{{$employee->id}}" name="id">
-                    <button type="submit" class="btn-1">詳細</button>
-                </form>
+                <a href="{{route('employees_manegement.show',$employee)}}">
+                    <button class="btn-1">詳細</button>
+                </a>
             </td>
         </tr>
         @empty
@@ -52,6 +54,4 @@
 
     </tbody>
 </table>
-
-
 @endsection

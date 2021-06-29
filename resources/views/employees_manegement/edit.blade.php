@@ -1,24 +1,35 @@
-@extends('employee_list.parts._base')
+@extends('_common.layout')
 
-@section('title','/編集画面')
+{{-- ページタイトル --}}
+@section('title','/登録情報編集')
 
-
+{{-- パンクズリスト --}}
 @section('breadcrumb_li')
-<li>編集画面</li>
+<li>{{$employee->name}}さんの登録情報編集</li>
 @endsection
 
+{{-- 小見出し --}}
+@section('subheading',$employee->name.'さんの登録情報編集')
+
+
+{{-- 操作ボタン --}}
 @section('oparation_btn')
-<h2>編集画面</h2>
+<ul class="op_btns">
+    <li class="serch_btn">
+        <a href="{{route('employees_manegement.admin')}}">
+            <button class="btn-op">戻る</button>
+        </a>
+    </li>
+</ul>
 @endsection
 
-
+{{-- メインコンテンツ --}}
 @section('main_contents')
-<form action="{{route('employee_list.admin.confirm')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('employees_manegement.confirm')}}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="mode" value="update">
-
     <div class="employee_container">
-        <h3>従業員情報を編集してください。</h3>
+        <h4>従業員情報を編集してください。</h4>
         <table class="individual-t">
             <!-- 名前入力 -->
             <tr>
@@ -39,15 +50,16 @@
             <tr>
                 <td>
                     @if($line['require'])
-                    <P>{{$line['text']}}</P>
-                    <p style="color:red"> 必須</p>
+                    <P  class="req">{{$line['text']}}</P>
                     @else
                     <P>{{$line['text']}}</P>
                     @endif
                 </td>
                 <td>
-                    <input type="{{$line['type']}}" name="{{$line['name']}}" value="{{old($line['name']) ?? $employee[$line['name']]}}">
-                    <p class="ellor" style="color:red">{{implode(' ',$errors->get($line['name']))}}</p>
+                    <input type="{{$line['type']}}" name="{{$line['name']}}" value="{{ old($line['name'], $employee[$line['name']]) }}">
+                    @error($line['name'])
+                    <p class="error">{{$message}}</p>
+                    @enderror
                 </td>
             </tr>
             @endforeach
@@ -56,7 +68,6 @@
             <tr>
                 <td>従業員画像</td>
                 <td>
-                    <input type="file" name="image" id="myImage" accept="image/*" onchange="setImage(this);" onclick="this.value = '';">
                     @isset($employee->image)
                     <img id="preview" class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像">
                     <input type="hidden" name="old_image" value = {{$employee->image}}">
@@ -64,19 +75,21 @@
                     <img id="preview" class="employee_img" src="{{url('image/employees/no_image.png')}}" alt="未登録の画像">
                     @endisset
 
-                    <p class="ellor" style="color:red">{{implode(' ',$errors->get('image'))}}</p>
+                    <input type="file" name="image" id="myImage" accept="image/*" onchange="setImage(this);" onclick="this.value = '';">
+
+                    <p class="errlor">{{implode(' ',$errors->get('image'))}}</p>
                     @if ($errors->all())
-                    <p class="ellor" style="color:red">画像ファイルを入れ直してください。</p>
+                    <p class="error">画像ファイルを入れ直してください。</p>
                     @endif
 
                 </td>
             </tr>
+
             <!-- セレクトボックス -->
             @foreach ($checkbox_groups as $checkbox_group)
             <tr>
                 <td>
-                    <P>{{$checkbox_group['title']}}</P>
-                    <p style="color:red"> 必須</p>
+                    <P  class="req">{{$checkbox_group['title']}}</P>
                 </td>
 
                 @if(old($checkbox_group['key'])!=null)
@@ -138,25 +151,26 @@
             <tr>
                 <td>
                     @if($line['require'])
-                    <P>{{$line['text']}}</P>
-                    <p style="color:red"> 必須</p>
+                    <P  class="req">{{$line['text']}}</P>
                     @else
                     <P>{{$line['text']}}</P>
                     @endif
                 </td>
                 <td>
-                    <input type="{{$line['type']}}" name="{{$line['name']}}" value="{{old($line['name']) ?? $employee[$line['name']]}}">
-                    <p class="ellor" style="color:red">{{implode(' ',$errors->get($line['name']))}}</p>
+                    <input type="{{$line['type']}}" name="{{$line['name']}}" value="{{ old($line['name'], $employee[$line['name']]) }}">
+                    @error($line['name'])
+                    <p class="error">{{$message}}</p>
+                    @enderror
                 </td>
             </tr>
             @endforeach
         </table>
-
     </div>
 
-    @include('employee_list.parts.submit_container',['btn_text'=>'確認画面'])
+    <div class="submit_container">
+        <button class="col_btn" type="submit">確認画面</button>
+    </div>
 
 </form>
 @endsection
-
 

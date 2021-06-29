@@ -1,27 +1,47 @@
-@extends('employee_list.parts._base')
+@extends('_common.layout')
 
+{{-- ページタイトル --}}
 @section('title','/確認画面')
 
-
+{{-- パンクズリスト --}}
 @section('breadcrumb_li')
 <li>確認画面</li>
 @endsection
 
+{{-- 小見出し --}}
+@section('subheading','確認画面')
 
+
+{{-- 操作ボタン --}}
 @section('oparation_btn')
-<h2>確認画面</h2>
+<ul class="op_btns">
+    <li class="serch_btn">
+        <button onclick="history.back()" class="btn-op">
+            戻る
+        </button>
+    </li>
+</ul>
 @endsection
 
 
+
+
+{{-- メインコンテンツ --}}
 @section('main_contents')
-<form action="{{route('employee_list.admin')}}" method="post" enctype="multipart/form-data">
+@if ($input['mode']=='update')
+<form action="{{route('employees_manegement.update')}}" method="post" enctype="multipart/form-data">
+    @method('PATCH')
     @csrf
-    <input type="hidden" name="mode" value="{{$input['mode']}}">
+@elseif ($input['mode']=='insert')
+<form action="{{route('employees_manegement.insert')}}" method="post" enctype="multipart/form-data">
+    @csrf
+@endif
+
     <div class="employee_container">
         @if ($input['mode']=='update')
-        <h3>下記の内容で編集登録します。よろしいですか？</h3>
+        <h4>下記の内容で編集登録します。よろしいですか？</h4>
         @else
-        <h3>下記の内容で新規登録します。よろしいですか？</h3>
+        <h4>下記の内容で新規登録します。よろしいですか？</h4>
         @endif
 
         <table class="individual-t">
@@ -61,7 +81,7 @@
                     <img id="preview" class="employee_img" src="{{url($file_path.'/'.$file_name)}}" alt="登録画像">
                     <input type="hidden" name="file_name" value="{{$file_name}}">
 
-                    @elseif($input['old_image'])<!--元々の登録画像があるとき-->
+                    @elseif( ($input['mode']=='update')&&($input['old_image']) )<!--元々の登録画像があるとき-->
                     <img id="preview" class="employee_img" src="{!!url('image/employees/'.$input['old_image'])!!}" alt="登録画像">
                     <input type="hidden" name="old_image" value="{{$input['old_image']}}">
 
@@ -112,13 +132,14 @@
             @endforeach
         </table>
 
-        @include('employee_list.parts.submit_container',['btn_text'=>'登録'])
+        <div class="submit_container">
+            <button class="col_btn" type="submit">登録</button>
+        </div>
 
     </div>
 
 
 </form>
 
+
 @endsection
-
-

@@ -1,23 +1,34 @@
-@extends('employee_list.parts._base')
+@extends('_common.layout')
 
-@section('title','/従業員詳細画面')
+{{-- ページタイトル --}}
+@section('title','/従業員詳細情報')
 
+{{-- パンクズリスト --}}
 @section('breadcrumb_li')
-<li>従業員詳細画面</li>
+<li>{{$employee->name}}さんの詳細情報</li>
 @endsection
 
+{{-- 小見出し --}}
+@section('subheading',$employee->name.'さんの詳細情報')
 
+{{-- 操作ボタン --}}
 @section('oparation_btn')
-<h2>従業員詳細画面</h2>
+<ul class="op_btns">
+    <li class="serch_btn">
+        <button onclick="history.back()" class="btn-op">
+            戻る
+        </button>
+    </li>
+</ul>
 @endsection
 
-
+{{-- メインコンテンツ --}}
 @section('main_contents')
 <div class="employee_container">
     <table class="job-t">
         <tr>
             <td>
-                <img class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像">
+                <img class="employee_img" src="{{url('image/employees/'.$employee->image)}}" alt="{{$employee->name}}さんの画像">
             </td>
             <td colspan="2">
                 <p>{{sprintf("%04d",$employee->id)}}</p>
@@ -48,6 +59,5 @@
 
 </div>
 
-@include('employee_list.parts.submit_container',['btn_text'=>''])
-
 @endsection
+

@@ -63,7 +63,19 @@ class Employee extends Model
     use HasFactory;
     public $timestamps = false; //timesatampを利用しない
     protected $fillable = [
-        'id','name','kana_name','department','position','gender','birthday','tell','email','image','hire_date','leave_date','pass_id',
+        'id',
+        'name',
+        'kana_name',
+        'department',
+        'position',
+        'gender',
+        'birthday',
+        'tell',
+        'email',
+        'image',
+        'hire_date',
+        'leave_date',
+        'pass_id',
     ];
 
 }
