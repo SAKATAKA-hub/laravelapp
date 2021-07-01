@@ -71,37 +71,29 @@ main .main_body
             }
 
 
-            //新規登録
-            li[class="insert"]{
-                margin-left: 1em;
-
-                .btn-op{
-                    border: solid 1px $col_main;
-                    background: $col_main;
-                    color: #fff;
-                }
-
-                .btn-op::before{
-                    @include link-befor;
-                    top: .2em;
-                    // margin-right: .5em;
-                    content: "\e7fe";
-                    color: #fff;
-                }
-            }
-
             //その他のボタン
             li[class="other_btn"]{
                 .btn-op{
-                    width: 4em;
+                    width: 6em;
                     text-align: center;
-                    background: $col_main;
-                    color: #fff;
-                    cursor: pointer;
-                    a{ color:#fff;}
-
+                    background: #fff;
+                    border: solid 2px #aaa;
+                    color:#000;
                 }
             }
+
+
+            // li[class="other_btn"]{
+            //     .btn-op{
+            //         width: 4em;
+            //         text-align: center;
+            //         background: $col_main;
+            //         color: #fff;
+            //         cursor: pointer;
+            //         a{ color:#fff;}
+
+            //     }
+            // }
 
         }
     }

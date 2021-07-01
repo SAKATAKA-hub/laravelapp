@@ -49,7 +49,7 @@
             </td>
         </tr>
         @empty
-        <tr><td colspan="7">検索内容に一致する情報がありません</td></tr>
+        <tr><td colspan="7">検索内容に一致する情報がありません。</td></tr>
         @endforelse
 
     </tbody>

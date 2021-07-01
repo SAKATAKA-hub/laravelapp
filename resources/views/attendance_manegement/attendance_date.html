@@ -40,6 +40,7 @@
                 <li><a href="" class="current">日別勤怠一覧</a></li>
                 <li><a href="">月別勤怠一覧</a></li>
                 <li><a href="">個人別勤怠一覧</a></li>
+                <li><a href="">勤怠修正</a></li>
             </ul>
         </div>
 
@@ -54,38 +55,49 @@
             <h3>日別勤怠一覧</h3>
 
             <div class="oparation_btn_container">
+
+                <p>出力条件を選択してください。</p>
+
                 <form name="seach" action="#" method="POST">
                     <ul class="op_btns">
-
-                        <li class="dd_menu">
-                            <div class="btn-op refined">年月</div>
-                            <ul class="dd_box">
-                                <li><label><input type="checkbox" name="department_all" onclick="ALLChecked(this)">全て選択</label></li>
-                                <li><label><input type="checkbox" name="department" value="東京支店" onclick="DisCheck(this)">東京支店</label></li>
-                                <li><label><input type="checkbox" name="department" value="神奈川支店" onclick="DisCheck(this)">神奈川支店</label></li>
-                                <li><label><input type="checkbox" name="department" value="千葉支店" onclick="DisCheck(this)">千葉支店</label></li>
-                            </ul>
+                        <li>年月：
+                            <select name="y_month" id="y_month" onchange="">
+                                <option value=""></option>
+                                <option value="2021-07">2021年7月</option>
+                                <option value="2021-08">2021年8月</option>
+                                <option value="2021-09">2021年9月</option>
+                                <option value="2021-10">2021年10月</option>
+                            </select>
                         </li>
 
-                        <li class="dd_menu">
-                            <div  class="btn-op refined">日付</div>
-                            <ul class="dd_box">
-                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
-                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
-                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
-                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
-                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
-                            </ul>
+                        <li>日付：
+                            <select name="date" id="date">
+                                <option value=""></option>
+                                <option value="1">1日</option>
+                                <option value="2">2日</option>
+                                <option value="3">3日</option>
+                                <option value="4">4日</option>
+                            </select>
                         </li>
-                        <li class="dd_menu">
-                            <div  class="btn-op refined">名前</div>
-                            <ul class="dd_box">
-                                <li><label><input type="checkbox" name="position_all" onclick="ALLChecked(this)">全て選択</label></li>
-                                <li><label><input type="checkbox" name="position" value="部長" onclick="DisCheck(this)">部長</label></li>
-                                <li><label><input type="checkbox" name="position" value="係長" onclick="DisCheck(this)">係長</label></li>
-                                <li><label><input type="checkbox" name="position" value="主任" onclick="DisCheck(this)">主任</label></li>
-                                <li><label><input type="checkbox" name="position" value="一般社員"onclick="DisCheck(this)">一般社員</label></li>
-                            </ul>
+
+                        <li>勤務現場：
+                            <select name="place" id="place">
+                                <option value=""></option>
+                                <option value="東京支店">東京支店</option>
+                                <option value="神奈川支店">神奈川支店</option>
+                                <option value="千葉支店">千葉支店</option>
+                                <option value="埼玉支店">埼玉支店</option>
+                            </select>
+                        </li>
+
+                        <li>従業員：
+                            <select name="employee" id="employee">
+                                <option value=""></option>
+                                <option value="1">山田　太郎</option>
+                                <option value="2">山田　次郎</option>
+                                <option value="3">山田　三郎</option>
+                                <option value="4">山田　四郎</option>
+                            </select>
                         </li>
 
 
@@ -95,9 +107,9 @@
                 </form>
 
                 <ul class="op_btns">
-                    <li class="other_btn"><div class="btn-op">
-                        <a href="">印刷</a>
-                    </div></li>
+                    <li class="other_btn"><a href="">
+                        <div class="btn-op">印刷</div>
+                    </a></li>
                 </ul>
 
             </div>
@@ -105,8 +117,10 @@
             <!-- メインコンテンツ -->
             <div class="contents">
                 <div class="date_table_box">
-                    <h4>検索日付 : 2021年 4月 4日(日)</h4>
-                    <h4>出勤現場 : 全て</h4>
+                    <h4>
+                        <p>検索日付 : 2021年 4月 4日(日)</p>
+                        <p>勤務現場 : 東京支店</p>　
+                    </h4>
                     <table>
                         <thead>
                             <tr>
@@ -184,10 +198,13 @@
                 </div>
             </div>
 
+            <!-- メインコンテンツ -->
             <div class="contents">
                 <div class="month_table_box">
-                    <h4>検索年月 : 2021年 4月</h4>
-                    <h4>出勤現場 : 全て</h4>
+                    <h4>
+                        <p>検索日付 : 2021年 4月</p>
+                        <p>勤務現場 : 東京支店</p>　
+                    </h4>
                     <table>
                         <thead>
                             <tr>
@@ -266,14 +283,18 @@
                 </div>
             </div>
 
+            <!-- メインコンテンツ -->
             <div class="contents">
                 <div class="person_table_box">
-                    <h4>検索従業員名 :</h4>
-                    <div class="pason_item">
-                        <img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image">
-                        <p class="id">0000</p>
-                        <p class="name">山田　宗一郎</p>
-                    </div>
+                    <h4>
+                        <div class="pason_item">
+                            <img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image">
+                            <p class="id">0000</p>
+                            <p class="name">山田　宗一郎さん</p>
+                        </div>
+                        <p>2021年4月</p>
+                        <p>勤務現場 : 東京支店</p>　
+                    </h4>
 
                     <table>
                         <thead>

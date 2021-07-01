@@ -13,19 +13,10 @@ class EmployeesManegementController extends Controller
     #1-1 従業員管理一覧
     public function index(Request $request)
     {
-        $getCheckboxs = empty($request)?
-        Checkbox::getCheckboxs($request,'get'):
-        Checkbox::getCheckboxs($request,'post');
-
-        $param=[
-            //表示中メニュー
-            'app_menu_current' => 'index',
-            //従業員情報
-            'employees' => empty($request)? Employee::all(): Employee::seach($request)->get(),
-            //検索単語
-            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
-            'seach_text' => $getCheckboxs['seach_text'],
-            'seach_text_all' => $getCheckboxs['seach_text_all'],
+        // パラメーター取得
+        $param = $this->get_admin_param($request);
+        $param += [
+            'app_menu_current' => 'index', //表示中メニュー
         ];
         return view('employees_manegement.index',$param);
     }
@@ -49,25 +40,29 @@ class EmployeesManegementController extends Controller
     #2-1 管理者画面
     public function admin(Request $request)
     {
-        $getCheckboxs = empty($request)?
-        Checkbox::getCheckboxs($request,'get'):
-        Checkbox::getCheckboxs($request,'post');
-
-        $param=[
-            //表示中メニュー
-            'app_menu_current' => 'admin',
-            //従業員情報
-            'employees' => empty($request)? Employee::all(): Employee::seach($request)->get(),
-            // CRUD処理完了アラート用変数
-            'mode' => empty($mode)? 'モード無し': $mode,
-
-            //検索単語
-            'checkbox_groups' => $getCheckboxs['checkbox_groups'],
-            'seach_text' => $getCheckboxs['seach_text'],
-            'seach_text_all' => $getCheckboxs['seach_text_all'],
+        // パラメーター取得
+        $param = $this->get_admin_param($request);
+        $param += [
+            'app_menu_current' => 'admin', //表示中メニュー
+            'mode' => '', //アラートの表示
         ];
+
         return view('employees_manegement.admin',$param);
     }
+
+    //管理者画面(処理完了アラートの表示)
+    public function admin_alert(Request $request,$mode)
+    {
+        // パラメーター取得
+        $param = $this->get_admin_param($request);
+        $param += [
+            'app_menu_current' => 'admin', //表示中メニュー
+            'mode' => $mode, //アラートの表示
+        ];
+
+        return view('employees_manegement.admin',$param);
+    }
+
 
 
 
@@ -97,16 +92,8 @@ class EmployeesManegementController extends Controller
         $employee = new Employee; //新規挿入
         $this->employee_upload($employee, $request, $file_name);
 
-        return redirect()->route('employees_manegement.done_insert');
-    }
-
-    public function done_insert(Request $request)
-    {
-        // パラメーター取得
-        $param = $this->get_done_param($request);
-        $param += ['mode' => 'insert'];
-
-        return view('employees_manegement.admin',$param);
+        $mode = 'insert';
+        return redirect()->route('employees_manegement.admin_alert',$mode);
     }
 
 
@@ -136,21 +123,13 @@ class EmployeesManegementController extends Controller
         $employee = Employee::find($request->id); //上書き
         $this->employee_upload($employee, $request, $file_name);
 
-        return redirect()->route('employees_manegement.done_update');
-    }
-
-    public function done_update(Request $request)
-    {
-        // パラメーター取得
-        $param = $this->get_done_param($request);
-        $param += ['mode' => 'update'];
-
-        return view('employees_manegement.admin',$param);
+        $mode = 'update';
+        return redirect()->route('employees_manegement.admin_alert',$mode);
     }
 
 
     #2-4 登録情報削除
-    public function destroy(Employee $employee,Request $request)
+    public function destroy(Employee $employee)
     {
         //画像の保存先取得
         $puth = $this->get_path();
@@ -166,18 +145,9 @@ class EmployeesManegementController extends Controller
         //DBレコードの削除
         $employee->delete();
 
-        return redirect()->route('employees_manegement.done_destroy');
+        $mode = 'delete';
+        return redirect()->route('employees_manegement.admin_alert',$mode);
     }
-
-    public function done_destroy(Request $request)
-    {
-        // パラメーター取得
-        $param = $this->get_done_param($request);
-        $param += ['mode' => 'delete'];
-
-        return view('employees_manegement.admin',$param);
-    }
-
 
 
     #2-5 登録確認
@@ -279,17 +249,15 @@ class EmployeesManegementController extends Controller
 
 
     #管理者画面へ戻るためのパラメーター取得
-    public function get_done_param($request)
+    public function get_admin_param($request)
     {
-        $getCheckboxs =  Checkbox::getCheckboxs($request,'get');
+        $getCheckboxs = empty($request)?
+        Checkbox::getCheckboxs($request,'get'):
+        Checkbox::getCheckboxs($request,'post');
 
         return [
-            //表示中メニュー
-            'app_menu_current' => 'admin',
             //従業員情報
-            'employees' => Employee::all(),
-            // CRUD処理完了アラート用変数
-            // 'mode' => $request->mode,
+            'employees' => empty($request)? Employee::all(): Employee::seach($request)->get(),
 
             //検索単語
             'checkbox_groups' => $getCheckboxs['checkbox_groups'],

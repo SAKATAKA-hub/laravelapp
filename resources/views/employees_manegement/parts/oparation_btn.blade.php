@@ -47,12 +47,12 @@
     </ul>
 </form>
 
+
 {{-- ボタン --}}
 @if($app_menu_current == 'admin')
 <ul class="op_btns">
-    <li class="other_btn"><div class="btn-op">
-        <a href="{{route('employees_manegement.create')}}">新規作成</a>
-    </div></li>
+    <li class="other_btn"><a href="{{route('employees_manegement.create')}}">
+        <div class="btn-op">新規作成</div>
+    </a></li>
 </ul>
-
 @endif

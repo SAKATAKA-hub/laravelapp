@@ -372,34 +372,12 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn
   background: #00a3a3;
   color: #fff;
 }
-main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] {
-  margin-left: 1em;
-}
-main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] .btn-op {
-  border: solid 1px #00a3a3;
-  background: #00a3a3;
-  color: #fff;
-}
-main .main_body .oparation_btn_container ul[class="op_btns"] li[class="insert"] .btn-op::before {
-  position: relative;
-  top: .15em;
-  font-family: 'Material Icons';
-  color: #00a3a3;
-  font-weight: bold;
-  z-index: 2;
-  top: .2em;
-  content: "\e7fe";
-  color: #fff;
-}
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn"] .btn-op {
-  width: 4em;
+  width: 6em;
   text-align: center;
-  background: #00a3a3;
-  color: #fff;
-  cursor: pointer;
-}
-main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn"] .btn-op a {
-  color: #fff;
+  background: #fff;
+  border: solid 2px #aaa;
+  color: #000;
 }
 
 .all_list .employee_img {

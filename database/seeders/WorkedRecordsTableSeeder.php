@@ -119,7 +119,7 @@ class WorkedRecordsTableSeeder extends Seeder
                             'BreakTime' => NULL,
                             'WorkingTime' => NULL,
                             ]);
-
+                            $worked_record->save();
                         }
                     }
                 }

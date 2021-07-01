@@ -45,14 +45,17 @@ Route::get('/employees_manegement/admin',[EmployeesManegementController::class,'
 ->name('employees_manegement.admin');
 Route::post('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
 ->name('employees_manegement.admin');
+Route::get('/employees_manegement/{mode}/admin_alert',[EmployeesManegementController::class,'admin_alert'])
+->name('employees_manegement.admin_alert');
+
 
 // 新規登録
 Route::get('/employees_manegement/create',[EmployeesManegementController::class,'create'])
 ->name('employees_manegement.create');
 Route::post('/employees_manegement/insert',[EmployeesManegementController::class,'insert'])
 ->name('employees_manegement.insert');
-Route::get('/employees_manegement/done_insert',[EmployeesManegementController::class,'done_insert'])
-->name('employees_manegement.done_insert');
+// Route::get('/employees_manegement/{mode}/done_insert',[EmployeesManegementController::class,'done_insert'])
+// ->name('employees_manegement.done_insert');
 
 
 // 登録情報編集
@@ -60,15 +63,15 @@ Route::get('/employees_manegement/{employee}/edit',[EmployeesManegementControlle
 ->name('employees_manegement.edit');
 Route::patch('/employees_manegement/update',[EmployeesManegementController::class,'update'])
 ->name('employees_manegement.update');
-Route::get('/employees_manegement/done_update',[EmployeesManegementController::class,'done_update'])
-->name('employees_manegement.done_update');
+// Route::get('/employees_manegement/done_update',[EmployeesManegementController::class,'done_update'])
+// ->name('employees_manegement.done_update');
 
 
 // 登録情報削除
 Route::delete('/employees_manegement/{employee}/destroy',[EmployeesManegementController::class,'destroy'])
 ->name('employees_manegement.destroy');
-Route::get('/employees_manegement/done_destroy',[EmployeesManegementController::class,'done_destroy'])
-->name('employees_manegement.done_destroy');
+// Route::get('/employees_manegement/done_destroy',[EmployeesManegementController::class,'done_destroy'])
+// ->name('employees_manegement.done_destroy');
 
 // 登録確認画面
 Route::post('/employees_manegement/confirm',[EmployeesManegementController::class,'confirm'])
@@ -77,62 +80,24 @@ Route::post('/employees_manegement/confirm',[EmployeesManegementController::clas
 
 /*
 |--------------------------------------------------------------------------
-| Employees List Routes (従業員管理)
-|--------------------------------------------------------------------------
-*/
-
-// # 一覧照会画面
-// Route::get('employee_list',[EmployeeListController::class,'index'])
-// ->name('employee_list');
-// Route::post('employee_list',[EmployeeListController::class,'search']);
-
-// // 従業員詳細
-// Route::post('employee_list/detail',[EmployeeListController::class,'detail'])
-// ->name('employee_list.detail');
-
-
-
-// # 管理者画面
-// Route::get('employee_list/admin',[EmployeeListController::class,'admin'])
-// ->name('employee_list.admin');
-
-// Route::post('employee_list/admin',[EmployeeListController::class,'admin_post']);
-
-
-// // 新規登録画面
-// Route::get('employee_list/admin/insert',[EmployeeListController::class,'insert'])
-// ->name('employee_list.admin.insert');
-
-// // 編集画面
-// Route::get('employee_list/admin/update',[EmployeeListController::class,'update'])
-// ->name('employee_list.admin.update');
-
-// // 登録確認画面
-// Route::post('employee_list/admin/confirm',[EmployeeListController::class,'confirm'])
-// ->name('employee_list.admin.confirm');
-
-/*
-|--------------------------------------------------------------------------
 | Attendance Manegement Routes (勤怠管理)
 |--------------------------------------------------------------------------
 */
- # 勤怠管理一覧TOPの表示
-Route::get('attendance_manegement',[AttendanceManegementController::class,'index'])
-->name('employee_list.admin');
-
 # 日別勤怠管理一覧の表示 date_list
 Route::get('attendance_manegement/date_list',[AttendanceManegementController::class,'date_list'])
 ->name('attendance_manegement.date_list');
+Route::post('attendance_manegement/date_list_search',[AttendanceManegementController::class,'date_list_search'])
+->name('attendance_manegement.date_list_search');
 
 
 # 月別勤怠管理一覧の表示 month_list
 Route::get('attendance_manegement/month_list',[AttendanceManegementController::class,'month_list'])
-->name('employee_list.admin.month_list');
+->name('attendance_manegement.month_list');
 
 
 # 個人別勤怠管理一覧の表示 person_list
 Route::get('attendance_manegement/person_list',[AttendanceManegementController::class,'person_list'])
-->name('employee_list.admin.person_list');
+->name('attendance_manegement.person_list');
 
 
 /*

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(EmployeesTableSeeder::class);
         // $this->call(CheckboxesTableSeeder::class);
-        $this->call(WorkedRecordsTableSeeder::class);
+        $this->call(WorksTableSeeder::class);
+        $this->call(WorkBreaksTableSeeder::class);
     }
 }

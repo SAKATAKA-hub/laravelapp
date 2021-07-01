@@ -70,7 +70,7 @@
                 <td>
                     @isset($employee->image)
                     <img id="preview" class="employee_img" src="{!!url('image/employees/'.$employee->image)!!}" alt="{{$employee->name}}さんの画像">
-                    <input type="hidden" name="old_image" value = {{$employee->image}}">
+                    <input type="hidden" name="old_image" value = "{{$employee->image}}">
                     @else
                     <img id="preview" class="employee_img" src="{{url('image/employees/no_image.png')}}" alt="未登録の画像">
                     @endisset

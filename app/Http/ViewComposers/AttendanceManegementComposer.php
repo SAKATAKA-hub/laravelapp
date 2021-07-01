@@ -10,10 +10,25 @@ class AttendanceManegementComposer
     {
         $view->with([
             'app_name' => 'attendance_manegement',
+
+            'app_style' => 'css/attendance_manegement.css',
+
             'app_menus' => [
-                'date_list'=>['route'=>'attendance_manegement.date_list', 'text'=>'日別勤怠一覧', 'current'=>false,],
-                'month_list'=>['route'=>'attendance_manegement.month_list', 'text'=>'月別勤怠一覧', 'current'=>false,],
-                'person_list'=>['route'=>'attendance_manegement.person_list', 'text'=>'個人別勤怠一覧', 'current'=>false,],
+                'date_list'=>[
+                    'route'=>'attendance_manegement.date_list',
+                    'text'=>'日別勤怠一覧',
+                    'current'=>false,
+                ],
+                'month_list'=>[
+                    'route'=>'attendance_manegement.month_list',
+                    'text'=>'月別勤怠一覧',
+                    'current'=>false,
+                ],
+                'person_list'=>[
+                    'route'=>'attendance_manegement.person_list',
+                    'text'=>'個人別勤怠一覧',
+                    'current'=>false,
+                ],
             ],
         ]);
     }

@@ -31,65 +31,43 @@ main .main_body
 
     // オペレーションボタンのカスタマイズ
     .oparation_btn_container{
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
 
         ul[class="op_btns"]{
-            input[type="text"]{
-                width: 16rem;
-                line-height: 2em;
-                padding: .3em;
-                margin-right: 1em;
-                border: solid 1px $col_main;
-                border-radius: .3em;
-            }
+            font-weight: bold;
+            li{
+                // display: flex;
+                select{
+                    width: 8rem;
+                    height: 2em;
+                    margin-right: 1em;
+                    border: solid 1px $col_main;
+                    border-radius: .3em;
 
-            //絞り込みドロップダウン
-            @include dd-menu;
-            li .refined:after{
-                @include link-befor;
-                top: .2em;
-                content: "\e5c5";
+                    font-size: 16px;
+                }
             }
 
             //絞り込みボタン
             li[class="serch_btn"]{
-                margin-right: 1em;
+                margin-left: 1em;
                 .btn-op{
+                    width: 8em;
                     font-size: 1em;
                     background: $col_main;
                     color : #fff;
                 }
             }
 
-
-            //新規登録
-            li[class="insert"]{
-                margin-left: 1em;
-
-                .btn-op{
-                    border: solid 1px $col_main;
-                    background: $col_main;
-                    color: #fff;
-                }
-
-                .btn-op::before{
-                    @include link-befor;
-                    top: .2em;
-                    // margin-right: .5em;
-                    content: "\e7fe";
-                    color: #fff;
-                }
-            }
-
             //その他のボタン
             li[class="other_btn"]{
                 .btn-op{
-                    width: 4em;
+                    width: 6em;
                     text-align: center;
-                    background: $col_main;
-                    color: #fff;
-                    a{ color:#fff;}
+                    background: #fff;
+                    border: solid 2px #aaa;
+                    color:#000;
                 }
             }
 
@@ -100,8 +78,33 @@ main .main_body
 
 .contents{
     h4{
+        display: flex;
+        align-items: center;
+        height: 3em;
         font-size: 1.4rem;
+        p{ margin-right: 2em;}
+
+        .pason_item{
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            margin-right: 2em;
+            .employee_img{
+                width: 2em;
+                height: 2em;
+                border-radius: 50%;
+                border: 1px solid #bbb;
+                margin: .5em 1em;
+            }
+            .id, .name{
+                font-weight: bold;
+                margin-right: .5em;
+            }
+        }
+
     }
+
+
     $table_width: 1000px;
     // *** 日別勤怠一覧テーブル ***
     .date_table_box{
@@ -115,22 +118,6 @@ main .main_body
 
     // *** 個人別勤怠一覧テーブル ***
     .person_table_box{
-        .pason_item{
-            display: flex;
-            align-items: center;
-            padding: .5em 1em;
-            .employee_img{
-                width: 3em;
-                height: 3em;
-                border-radius: 50%;
-                border: 1px solid #bbb;
-            }
-            .id, .name{
-                margin-left: 1em;
-                font-weight: bold;
-                font-size: 24px;
-            }
-        }
         table th,td{ width: $table_width/8;}
     }
     // *** 各テーブル共通 ***
@@ -138,7 +125,7 @@ main .main_body
         th,td{
             font-size: 14px;
             padding: .5em;
-            height: 3em;
+            height: 3.6rem;
         }
         tbody{
             tr:nth-child(odd){ background-color: #eee;}
@@ -152,7 +139,7 @@ main .main_body
         }
         tfoot tr{border-top: 2px solid #bbb;}
 
-        .point_td{ color: #aaa;}
+        // .point_td{ color: #aaa;}
         .employee_img{
             width: 3em;
             height: 3em;
