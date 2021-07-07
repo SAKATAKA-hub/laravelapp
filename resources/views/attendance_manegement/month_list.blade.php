@@ -12,86 +12,64 @@
 
 {{-- 操作ボタン --}}
 @section('oparation_btn')
-    {{-- @include('employees_manegement.parts.oparation_btn') --}}
+    @include('attendance_manegement.parts.oparation_btn')
 @endsection
 
 {{-- メインコンテンツ --}}
 @section('main_contents')
-<div class="month_table_box">
-    <h4>検索年月 : 2021年 4月</h4>
-    <h4>出勤現場 : 全て</h4>
+<div class="date_table_box">
+    <h4>
+        <p>検索日付 : {{$display_text['date']}}</p>
+        <p>勤務現場 : {{$display_text['place']}}</p>　
+    </h4>
     <table>
         <thead>
             <tr>
                 <th class="td_image"></th> <!-- image -->
-                <th class="td_name">ID・従業員名</th>
-                <th class="td_item"></th> <!-- button -->
-                <th class="td_item">出勤現場</th>
-                <th class="td_item">勤務時間</th>
-                <th class="td_item">休憩時間</th>
-                <th class="td_item">労働時間</th>
+                <th class="td_long td_name">ID・従業員名</th>
+                <th class="td_long">出勤現場</th>
+                <th class="td_long">出勤時間</th>
+                <th class="td_long">休憩開始</th>
+                <th >勤務時間</th>
+                <th >休憩時間</th>
+                <th >労働時間</th>
             </tr>
         </thead>
         <tbody>
+            @forelse ($worked_records as $record)
             <tr>
-                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                <td><img class="employee_img" src="{{url('image/employees/'.$record->employee->image)}}" alt="user image"></td>
                 <td class="td_name">
-                    <p class="id">1111</p>
-                    <p>山田　宗一郎</p>
+                    <p class="id">{{sprintf('%04d',$record->employee_id)}}</p>
+                    <p>{{$record->employee->name}}</p>
                 </td>
+                <td>{{$record->place}}</td>
+                <td>{{gmdate('H:i',$record->in)}}-{{gmdate('H:i',$record->out)}}</td>
                 <td>
-                    <form action="">
-                        <input type="hidden" name="" value="0001">
-                        <button class="btn-1" type="submit">詳細</button>
-                    </form>
+                    @foreach ($record->work_breaks as $break)
+                    <p>{{gmdate('H:i',$break->in)}} - {{$break->out == NULL? '--:--': gmdate('H:i',$break->out)}}</p>
+                    @endforeach
                 </td>
-                <td>東京支店</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
+                <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
+                <td>{{gmdate('H:i',$record->BreakTime)}}</td>
+                <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
+
             </tr>
-            <tr>
-                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
-                <td class="td_name">
-                    <p class="id">1111</p>
-                    <p>山田　宗一郎</p>
-                </td>
-                <td>
-                    <form action="">
-                        <input type="hidden" name="" value="0001">
-                        <button class="btn-1" type="submit">詳細</button>
-                    </form>
-                </td>
-                <td>東京支店</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-            </tr>
-            <tr>
-                <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
-                <td class="td_name">
-                    <p class="id">1111</p>
-                    <p>山田　宗一郎</p>
-                </td>
-                <td>
-                    <form action="">
-                        <input type="hidden" name="" value="0001">
-                        <button class="btn-1" type="submit">詳細</button>
-                    </form>
-                </td>
-                <td>東京支店</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-            </tr>
+
+
+            @empty
+            <tr><td colspan="10">勤務情報がありません。</td></tr>
+            @endforelse
+
+
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="2">合計時間</td>
-                <td colspan="2"></td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
+                <td colspan="3"></td>
+                <td>{{$TotalRestrainTime}}</td>
+                <td>{{$TotalBreakTime}}</td>
+                <td>{{$TotalWorkingTime}}</td>
             </tr>
         </tfoot>
     </table>

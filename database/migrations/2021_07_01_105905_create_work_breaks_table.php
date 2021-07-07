@@ -16,8 +16,8 @@ class CreateWorkBreaksTable extends Migration
         Schema::create('work_breaks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('work_id')->comment('勤務番号');
-            $table->time('in')->comment('休憩開始');
-            $table->time('out')->comment('休憩終了')->default(NULL);
+            $table->integer('in')->comment('休憩開始');
+            $table->integer('out')->comment('休憩終了')->default(NULL);
             $table->timestamps();
 
             $table->foreign('work_id')

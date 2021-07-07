@@ -10,7 +10,7 @@
 </head>
 
 
-<body>
+<body class='admin'>
     <header>
         <ul class="menu">
             <li><h2>業務アプリ</h2></li>
@@ -52,13 +52,11 @@
                 <li><a href="">○○さんの編集ページ</a></li>
             </ul>
 
-            <h3>日別勤怠一覧</h3>
-
+            <h3>勤怠修正</h3>
             <div class="oparation_btn_container">
 
-                <p>出力条件を選択してください。</p>
-
                 <form name="seach" action="#" method="POST">
+                    <p>出力条件を選択してください。</p>
                     <ul class="op_btns">
                         <li>年月：
                             <select name="y_month" id="y_month" onchange="">
@@ -90,16 +88,154 @@
                             </select>
                         </li>
 
-                        <li>従業員：
-                            <select name="employee" id="employee">
+                        <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
+
+                    </ul>
+                </form>
+
+                <ul class="op_btns">
+                    <li class="other_btn"><a href="">
+                        <div class="btn-op">印刷</div>
+                    </a></li>
+                </ul>
+
+            </div>
+
+            <!-- メインコンテンツ -->
+            <div class="contents">
+                <div class="contents">
+                    <div class="date_table_box">
+                        <h4>
+                            <p>検索日付 : 2021年 4月 4日(日)</p>
+                            <p>勤務現場 : 東京支店</p>　
+                        </h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="td_image"></th> <!-- image -->
+                                    <th class="td_long td_name">ID・従業員名</th>
+                                    <th class="td_long">出勤現場</th>
+                                    <th class="td_long">出勤時間</th>
+                                    <th class="td_long">休憩開始</th>
+                                    <th >勤務時間</th>
+                                    <th >休憩時間</th>
+                                    <th >労働時間</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                    <td class="td_name">
+                                        <p class="id">1111</p>
+                                        <p>山田　宗一郎</p>
+                                    </td>
+                                    <td>東京支店</td>
+                                    <td>00:00 - 00:00</td>
+                                    <td>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                    </td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td><a href=""><div class="btn-1">修正</div></a></td>
+
+                                </tr>
+                                <tr>
+                                    <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                    <td class="td_name">
+                                        <p class="id">1111</p>
+                                        <p>山田　宗一郎</p>
+                                    </td>
+                                    <td>東京支店</td>
+                                    <td>00:00 - 00:00</td>
+                                    <td>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                    </td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td><a href=""><div class="btn-1">修正</div></a></td>
+
+                                </tr>
+                                <tr>
+                                    <td><img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image"></td>
+                                    <td class="td_name">
+                                        <p class="id">1111</p>
+                                        <p>山田　宗一郎</p>
+                                    </td>
+                                    <td>東京支店</td>
+                                    <td>00:00 - 00:00</td>
+                                    <td>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                        <p>00:00 - 00:00</p>
+                                    </td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td><a href=""><div class="btn-1">修正</div></a></td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2">合計時間</td>
+                                    <td colspan="3"></td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td>00:00</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <h3>日別勤怠一覧</h3>
+            <div class="oparation_btn_container">
+
+                <form name="seach" action="#" method="POST">
+                    <p>出力条件を選択してください。</p>
+                    <ul class="op_btns">
+                        <li>年月：
+                            <select name="y_month" id="y_month" onchange="">
                                 <option value=""></option>
-                                <option value="1">山田　太郎</option>
-                                <option value="2">山田　次郎</option>
-                                <option value="3">山田　三郎</option>
-                                <option value="4">山田　四郎</option>
+                                <option value="2021-07">2021年7月</option>
+                                <option value="2021-08">2021年8月</option>
+                                <option value="2021-09">2021年9月</option>
+                                <option value="2021-10">2021年10月</option>
                             </select>
                         </li>
 
+                        <li>日付：
+                            <select name="date" id="date">
+                                <option value=""></option>
+                                <option value="1">1日</option>
+                                <option value="2">2日</option>
+                                <option value="3">3日</option>
+                                <option value="4">4日</option>
+                            </select>
+                        </li>
+
+                        <li>勤務現場：
+                            <select name="place" id="place">
+                                <option value=""></option>
+                                <option value="東京支店">東京支店</option>
+                                <option value="神奈川支店">神奈川支店</option>
+                                <option value="千葉支店">千葉支店</option>
+                                <option value="埼玉支店">埼玉支店</option>
+                            </select>
+                        </li>
 
                         <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
 
@@ -125,15 +261,13 @@
                         <thead>
                             <tr>
                                 <th class="td_image"></th> <!-- image -->
-                                <th class="td_name">ID・従業員名</th>
-                                <th class="">出勤現場</th>
-                                <th class="point_td">出勤時間</th>
-                                <th class="point_td">退勤時間</th>
-                                <th class="point_td">休憩開始</th>
-                                <th class="point_td">休憩終了</th>
-                                <th>勤務時間</th>
-                                <th>休憩時間</th>
-                                <th>労働時間</th>
+                                <th class="td_long td_name">ID・従業員名</th>
+                                <th class="td_long">出勤現場</th>
+                                <th class="td_long">出勤時間</th>
+                                <th class="td_long">休憩開始</th>
+                                <th >勤務時間</th>
+                                <th >休憩時間</th>
+                                <th >労働時間</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,10 +278,12 @@
                                     <p>山田　宗一郎</p>
                                 </td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00 - 00:00</td>
+                                <td>
+                                    <p>00:00 - 00:00</p>
+                                    <p>00:00 - 00:00</p>
+                                    <p>00:00 - 00:00</p>
+                                </td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
@@ -160,10 +296,8 @@
                                     <p>山田　宗一郎</p>
                                 </td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00 - 00:00</td>
+                                <td>00:00 - 00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
@@ -176,10 +310,8 @@
                                     <p>山田　宗一郎</p>
                                 </td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00 - 00:00</td>
+                                <td>00:00 - 00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
@@ -188,7 +320,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">合計時間</td>
-                                <td colspan="5"></td>
+                                <td colspan="3"></td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
@@ -196,6 +328,45 @@
                         </tfoot>
                     </table>
                 </div>
+            </div>
+
+
+            <h3>月別勤怠一覧</h3>
+            <div class="oparation_btn_container">
+                <form name="seach" action="#" method="POST">
+                    <p>出力条件を選択してください。</p>
+                    <ul class="op_btns">
+                        <li>年月：
+                            <select name="y_month" id="y_month" onchange="">
+                                <option value=""></option>
+                                <option value="2021-07">2021年7月</option>
+                                <option value="2021-08">2021年8月</option>
+                                <option value="2021-09">2021年9月</option>
+                                <option value="2021-10">2021年10月</option>
+                            </select>
+                        </li>
+
+                        <li>勤務現場：
+                            <select name="place" id="place">
+                                <option value=""></option>
+                                <option value="東京支店">東京支店</option>
+                                <option value="神奈川支店">神奈川支店</option>
+                                <option value="千葉支店">千葉支店</option>
+                                <option value="埼玉支店">埼玉支店</option>
+                            </select>
+                        </li>
+
+                        <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
+
+                    </ul>
+                </form>
+
+                <ul class="op_btns">
+                    <li class="other_btn"><a href="">
+                        <div class="btn-op">印刷</div>
+                    </a></li>
+                </ul>
+
             </div>
 
             <!-- メインコンテンツ -->
@@ -283,6 +454,47 @@
                 </div>
             </div>
 
+
+
+
+
+            <h3>個人別勤怠一覧</h3>
+            <div class="oparation_btn_container">
+                <form name="seach" action="#" method="POST">
+                    <p>出力条件を選択してください。</p>
+                    <ul class="op_btns">
+                        <li>年月：
+                            <select name="y_month" id="y_month" onchange="">
+                                <option value=""></option>
+                                <option value="2021-07">2021年7月</option>
+                                <option value="2021-08">2021年8月</option>
+                                <option value="2021-09">2021年9月</option>
+                                <option value="2021-10">2021年10月</option>
+                            </select>
+                        </li>
+                        <li>従業員：
+                            <select name="employee" id="employee">
+                                <option value=""></option>
+                                <option value="1">山田　太郎</option>
+                                <option value="2">山田　次郎</option>
+                                <option value="3">山田　三郎</option>
+                                <option value="4">山田　四郎</option>
+                            </select>
+                        </li>
+
+
+                        <li class="serch_btn"><button class="btn-op">絞り込み</button></li>
+
+                    </ul>
+                </form>
+
+                <ul class="op_btns">
+                    <li class="other_btn"><a href="">
+                        <div class="btn-op">印刷</div>
+                    </a></li>
+                </ul>
+
+            </div>
             <!-- メインコンテンツ -->
             <div class="contents">
                 <div class="person_table_box">
@@ -293,51 +505,46 @@
                             <p class="name">山田　宗一郎さん</p>
                         </div>
                         <p>2021年4月</p>
-                        <p>勤務現場 : 東京支店</p>　
                     </h4>
 
                     <table>
                         <thead>
                             <tr>
-                                <th class="">出勤現場</th>
-                                <th class="point_td">出勤時間</th>
-                                <th class="point_td">退勤時間</th>
-                                <th class="point_td">休憩開始</th>
-                                <th class="point_td">休憩終了</th>
-                                <th>勤務時間</th>
-                                <th>休憩時間</th>
-                                <th>労働時間</th>
+                                <th class="td_item">出勤日</th>
+                                <th class="td_item">出勤現場</th>
+                                <th class="td_long">出勤時間</th>
+                                <th class="td_long">休憩時間</th>
+                                <th class="td_item">勤務時間</th>
+                                <th class="td_item">休憩時間</th>
+                                <th class="td_item">労働時間</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>01日(日)</td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00-00:00</td>
+                                <td>00:00-00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
 
                             </tr>
                             <tr>
+                                <td>01日(日)</td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00-00:00</td>
+                                <td>00:00-00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
 
                             </tr>
                             <tr>
+                                <td>01日(日)</td>
                                 <td>東京支店</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
-                                <td class="point_td">00:00</td>
+                                <td>00:00-00:00</td>
+                                <td>00:00-00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>
@@ -347,7 +554,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">合計時間</td>
-                                <td colspan="3"></td>
+                                <td colspan="2"></td>
                                 <td>00:00</td>
                                 <td>00:00</td>
                                 <td>00:00</td>

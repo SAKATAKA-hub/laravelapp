@@ -12,77 +12,73 @@
 
 {{-- 操作ボタン --}}
 @section('oparation_btn')
-    {{-- @include('employees_manegement.parts.oparation_btn') --}}
+    @include('attendance_manegement.parts.oparation_btn')
 @endsection
 
 {{-- メインコンテンツ --}}
 @section('main_contents')
 <div class="person_table_box">
-    <h4>検索従業員名 :</h4>
-    <div class="pason_item">
-        <img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image">
-        <p class="id">0000</p>
-        <p class="name">山田　宗一郎</p>
-    </div>
+    <h4>
+        @isset($display_text['employee'])
+        <div class="pason_item">
+            <img class="employee_img" src="{{url('image/employees/'.$display_text['employee']->image)}}" alt="user image">
+            <p class="id">{{sprintf('%04d',$display_text['employee']->id)}}</p>
+            <p class="name">{{$display_text['employee']->name}}</p>
+        </div>
+        @endisset
 
+        <p>{{$display_text['date']}}</p>
+    </h4>
+
+    @isset ($worked_records)
     <table>
         <thead>
             <tr>
-                <th class="">出勤現場</th>
-                <th class="point_td">出勤時間</th>
-                <th class="point_td">退勤時間</th>
-                <th class="point_td">休憩開始</th>
-                <th class="point_td">休憩終了</th>
-                <th>勤務時間</th>
-                <th>休憩時間</th>
-                <th>労働時間</th>
+                <th class="td_item">出勤日</th>
+                <th class="td_item">出勤現場</th>
+                <th class="td_long">出勤時間</th>
+                <th class="td_long">休憩時間</th>
+                <th class="td_item">勤務時間</th>
+                <th class="td_item">休憩時間</th>
+                <th class="td_item">労働時間</th>
             </tr>
         </thead>
         <tbody>
+
+            @forelse ($worked_records as $record)
             <tr>
-                <td>東京支店</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
+                <td>{{$record->getDateText()}}</td>
+                <td>{{$record->place}}</td>
+                <td>{{gmdate('H:i',$record->in)}}-{{gmdate('H:i',$record->out)}}</td>
+                <td>
+                    @foreach ($record->work_breaks as $break)
+                    <p>{{gmdate('H:i',$break->in)}} - {{$break->out == NULL? '--:--': gmdate('H:i',$break->out)}}</p>
+                    @endforeach
+                </td>
+                <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
+                <td>{{gmdate('H:i',$record->BreakTime)}}</td>
+                <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
 
             </tr>
-            <tr>
-                <td>東京支店</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
+            @empty
+            <tr><td colspan="11">勤務情報がありません。</td></tr>
+            @endforelse
 
-            </tr>
-            <tr>
-                <td>東京支店</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td class="point_td">00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
-
-            </tr>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="2">合計時間</td>
-                <td colspan="3"></td>
-                <td>00:00</td>
-                <td>00:00</td>
-                <td>00:00</td>
+                <td colspan="2"></td>
+                <td>{{$TotalRestrainTime}}</td>
+                <td>{{$TotalBreakTime}}</td>
+                <td>{{$TotalWorkingTime}}</td>
             </tr>
         </tfoot>
     </table>
+    @else
+    <h4>従業員名を選択してください。</h4>
+    @endisset
+
 </div>
 @endsection
 

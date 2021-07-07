@@ -16,13 +16,13 @@ class CreateWorksTable extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id')->comment('従業員ID');
-
             $table->date('date')->comment('出勤日');
-            $table->time('in')->comment('出勤入力');
-            $table->time('out')->comment('退勤入力')->default(NULL);
-            $table->time('RestrainTime')->comment('勤務時間')->default(NULL);
-            $table->time('BreakTime')->comment('休憩時間')->default(NULL);
-            $table->time('WorkingTime')->comment('労働時間')->default(NULL);
+            $table->string('place')->comment('勤務地');
+            $table->integer('in')->comment('出勤入力');
+            $table->integer('out')->comment('退勤入力')->default(NULL);
+            $table->integer('RestrainTime')->comment('勤務時間')->default(NULL);
+            $table->integer('BreakTime')->comment('休憩時間')->default(NULL);
+            $table->integer('WorkingTime')->comment('労働時間')->default(NULL);
             $table->timestamps();
 
             $table->foreign('employee_id')

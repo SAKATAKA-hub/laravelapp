@@ -17,79 +17,82 @@ class WorkBreaksTableSeeder extends Seeder
         # 勤務時間パターン
         $pattern = [
             'a'=>[
-                'in'=>'8:00',
-                'out'=>'17:00',
+                'in'=>8*60*60,
+                'out'=>17*60*60
+                ,
                 'breaks'=>[
-                    ['in'=>'11:00','out'=>'11:30',],
-                    ['in'=>'13:00','out'=>'13:30',],
+                    ['in'=>11*60*60, 'out'=>11*60*60 + 30*60,],
+                    ['in'=>13*60*60, 'out'=>13*60*60 + 30*60,],
                 ],
-                'RestrainTime' => '9:00',
-                'BreakTime' => '1:00',
-                'WorkingTime' => '8:00',
+                'RestrainTime' => 9*60*60,
+                'BreakTime' => 1*60*60,
+                'WorkingTime' => 8*60*60,
             ],
             'b'=>[
-                'in'=>'10:00',
-                'out'=>'17:00',
+                'in'=>10*60*60,
+                'out'=>17*60*60
+                ,
                 'breaks'=>[
-                    ['in'=>'11:30','out'=>'12:00',],
-                    ['in'=>'13:30','out'=>'14:00',],
+                    ['in'=>11*60*60 + 30*60, 'out'=>12*60*60,],
+                    ['in'=>13*60*60 + 30*60,'out'=>14*60*60,],
                 ],
-                'RestrainTime' => '7:00',
-                'BreakTime' => '1:00',
-                'WorkingTime' => '6:00',
+                'RestrainTime' => 7*60*60,
+                'BreakTime' => 1*60*60,
+                'WorkingTime' => 6*60*60,
 
             ],
             'c'=>[
-                'in'=>'17:00',
-                'out'=>'22:00',
+                'in'=>17*60*60
+                ,
+                'out'=>22*60*60,
                 'breaks'=>[
-                    ['in'=>'20:00','out'=>'20:30',],
+                    ['in'=>20*60*60,'out'=>20*60*60 + 30*60,],
                 ],
-                'RestrainTime' => '5:00',
-                'BreakTime' => '0:30',
-                'WorkingTime' => '4:30',
+                'RestrainTime' => 5*60*60,
+                'BreakTime' => 30*60,
+                'WorkingTime' => 4*60*60 + 30*60,
 
             ],
             'd'=>[
-                'in'=>'18:00',
-                'out'=>'24:00',
+                'in'=>18*60*60,
+                'out'=>24*60*60,
                 'breaks'=>[
-                    ['in'=>'20:30','out'=>'21:00',],
+                    ['in'=>20*60*60 + 30*60,'out'=>21*60*60,],
                 ],
-                'RestrainTime' => '6:00',
-                'BreakTime' => '0:30',
-                'WorkingTime' => '5:30',
+                'RestrainTime' => 6*60*60,
+                'BreakTime' => 30*60,
+                'WorkingTime' => 5*60*60 + 30*60,
 
             ],
             'e'=>[
-                'in'=>'22:00',
-                'out'=>'0:00',
+                'in'=>22*60*60,
+                'out'=>24*60*60,
                 'breaks'=>[
-                    ['in'=>'23:30','out'=>'24:00',],
+                    ['in'=>23*60*60 + 30*60,'out'=>24*60*60,],
                 ],
-                'RestrainTime' => '2:00',
-                'BreakTime' => '0:30',
-                'WorkingTime' => '1:30',
+                'RestrainTime' => 2*60*60,
+                'BreakTime' => 30*60,
+                'WorkingTime' => 1*60*60 + 30*60,
 
             ],
             'f'=>[
-                'in'=>'0:00',
-                'out'=>'8:00',
+                'in'=>0*60*60,
+                'out'=>8*60*60,
                 'breaks'=>[
-                    ['in'=>'4:00','out'=>'5:00',],
+                    ['in'=>4*60*60,'out'=>5*60*60,],
                 ],
-                'RestrainTime' => '8:00',
-                'BreakTime' => '1:00',
-                'WorkingTime' => '7:00',
+                'RestrainTime' => 8*60*60,
+                'BreakTime' => 1*60*60,
+                'WorkingTime' => 7*60*60,
 
             ],
             'g'=>[
-                'in'=>'18:00',
-                'out'=>'22:00',
-                'breaks'=> null,
-                'RestrainTime' => '9:00',
-                'BreakTime' => '1:00',
-                'WorkingTime' => '8:00',
+                'in'=>18*60*60,
+                'out'=>22*60*60,
+                'breaks'=>[],
+                'RestrainTime' => 9*60*60,
+                'BreakTime' => 1*60*60,
+                'WorkingTime' => 8*60*60,
 
             ],
         ];
@@ -153,7 +156,7 @@ class WorkBreaksTableSeeder extends Seeder
         $work_id = 1;
 
         // $nヶ月間の出勤記録
-        for ($n=3; $n > 0; $n--)
+        for ($n=3; $n >= 0; $n--)
         {
             $dateOb = new DateItems;
             $item = $dateOb->getBeforMonth(1,$n); //nヶ月後の情報を取得(d,n)
@@ -171,7 +174,6 @@ class WorkBreaksTableSeeder extends Seeder
                     if(!empty( $works )){
                         foreach ($works as $work)
                         {
-                            $work_id ++;
 
                             if(!empty( $work['breaks'] )){
                                 foreach ($work['breaks'] as $break)
@@ -184,6 +186,8 @@ class WorkBreaksTableSeeder extends Seeder
                                     $work_break->save();
                                 }
                             }
+
+                            $work_id ++;
                         }
                     }
                 }

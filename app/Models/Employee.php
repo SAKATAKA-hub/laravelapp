@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    #----------------------------------------------
-    # 絞り込み検索用スコープ
-    #----------------------------------------------
-    // public function scopeSeach($query, $ns)
+    // # worksテーブルとのリレーション
+    // public function works()
+    // {
+    //     return $this->hasMany(Work::class);
+    // }
+
+
+
+    # 従業員リスト絞り込み検索用スコープ
     public function scopeSeach($query, $request)
     {
         //検索条件の抽出
@@ -57,9 +62,10 @@ class Employee extends Model
 
     }
 
-    #----------------------------------------------
+
+
+
     # シーダー用設定
-    #----------------------------------------------
     use HasFactory;
     public $timestamps = false; //timesatampを利用しない
     protected $fillable = [

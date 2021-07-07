@@ -7,8 +7,9 @@ use App\Http\Controllers\TestController;//テスト用
 
 use App\Http\Controllers\EmployeesManegementController;
 
-use App\Http\Controllers\EmployeeListController;
 use App\Http\Controllers\AttendanceManegementController;
+use App\Http\Controllers\AttendanceManegementPrintController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,22 +84,39 @@ Route::post('/employees_manegement/confirm',[EmployeesManegementController::clas
 | Attendance Manegement Routes (勤怠管理)
 |--------------------------------------------------------------------------
 */
-# 日別勤怠管理一覧の表示 date_list
+# 日別勤怠管理一覧 date_list
 Route::get('attendance_manegement/date_list',[AttendanceManegementController::class,'date_list'])
 ->name('attendance_manegement.date_list');
 Route::post('attendance_manegement/date_list_search',[AttendanceManegementController::class,'date_list_search'])
 ->name('attendance_manegement.date_list_search');
 
-
-# 月別勤怠管理一覧の表示 month_list
+# 月別勤怠管理一覧 month_list
 Route::get('attendance_manegement/month_list',[AttendanceManegementController::class,'month_list'])
 ->name('attendance_manegement.month_list');
+Route::post('attendance_manegement/month_list_search',[AttendanceManegementController::class,'month_list_search'])
+->name('attendance_manegement.month_list_search');
 
-
-# 個人別勤怠管理一覧の表示 person_list
+# 個人別勤怠管理一覧 person_list
 Route::get('attendance_manegement/person_list',[AttendanceManegementController::class,'person_list'])
 ->name('attendance_manegement.person_list');
+Route::post('attendance_manegement/person_list_search',[AttendanceManegementController::class,'person_list_search'])
+->name('attendance_manegement.person_list_search');
 
+
+# 勤怠修正一覧 admin
+Route::get('attendance_manegement/admin',[AttendanceManegementController::class,'admin'])
+->name('attendance_manegement.admin');
+Route::post('attendance_manegement/admin_search',[AttendanceManegementController::class,'admin_search'])
+->name('attendance_manegement.admin_search');
+
+
+# 印刷 print
+Route::get('attendance_manegement//print/',[AttendanceManegementController::class,'print'])
+->name('attendance_manegement.print');
+
+# 日別勤怠管理印刷 print_date_list
+Route::post('attendance_manegement/print_date_list/',[AttendanceManegementPrintController::class,'print_date_list'])
+->name('attendance_manegement.print_date_list');
 
 /*
 |--------------------------------------------------------------------------

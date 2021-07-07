@@ -29,6 +29,12 @@ class AttendanceManegementComposer
                     'text'=>'個人別勤怠一覧',
                     'current'=>false,
                 ],
+                'admin'=>[
+                    'route'=>'attendance_manegement.admin',
+                    'text'=>'勤怠修正',
+                    'current'=>false,
+                ],
+
             ],
         ]);
     }

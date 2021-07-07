@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../../../public/css/attendance_manegement.css">
+    <title>勤怠管理</title>
+</head>
+
+
+<body class='admin'>
+    <header>
+        <ul class="menu">
+            <li><h2>業務アプリ</h2></li>
+            <li><a href="">従業員管理</a></li>
+            <li><a href="" class="current">勤怠管理</a></li>
+            <li><a href="">スケジュール</a></li>
+        </ul>
+        <ul class="user">
+            <li class="item"><img src="../../../public/image/employees/e0001.png" alt="user image"></li>
+            <li class="item">name nameさん </li>
+            <li class="item dd_menu">
+                <i class="material-icons">arrow_drop_down</i>
+                <ul class="dd_box">
+                    <li><a href="">ログアウト</a></li>
+                    <li><a href="">パスワード変更</a></li>
+                    <li><a href="">その他設定変更</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+
+    <main>
+        <div class="main_head">
+            <h2>勤怠管理</h2>
+            <ul class="app_menu">
+                <li><a href="" class="current">日別勤怠一覧</a></li>
+                <li><a href="">月別勤怠一覧</a></li>
+                <li><a href="">個人別勤怠一覧</a></li>
+                <li><a href="">勤怠修正</a></li>
+            </ul>
+        </div>
+
+        <div class="main_body">
+            <ul class="breadcrumb">
+                <li><a href="">従業員一覧（アプリ名）</a></li>
+                <li><a href="">○○さんの詳細ページ</a></li>
+                <li><a href="">編集画面</a></li>
+                <li><a href="">○○さんの編集ページ</a></li>
+            </ul>
+
+            <h3>勤怠修正</h3>
+            <div class="oparation_btn_container">
+
+            <!-- メインコンテンツ -->
+            <div class="contents">
+                <div class="edit">
+
+                    <table>
+                        <tr>
+                            <td colspan="5">
+                                <h4>
+                                    <div class="pason_item">
+                                        <img class="employee_img" src="../../../public/image/employees/e0001.png" alt="user image">
+                                        <p class="id">0000</p>
+                                        <p class="name">山田　宗一郎さん</p>
+                                    </div>
+                                    <p>2021年 4月 4日(日)</p>
+                                </h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_size1 title">出勤時間</td>
+                            <td class="td_size1">IN <input type="text" size="3"> </td>
+                            <td class="td_size1">OUT<input type="text" size="3"> </td>
+                            <td class="td_size1"></td>
+                            <td class="td_size1"></td>
+                        </tr>
+                        <tr>
+                            <td class="td_size1 title" rowspan="3">休憩時間</td>
+                            <td class="td_size1">IN <input type="text" size="3"> </td>
+                            <td class="td_size1">OUT<input type="text" size="3"> </td>
+                            <td class="td_size1">時間</td>
+                            <td class="td_size1"><button class="btn-1">休憩削除</button></td>
+                        </tr>
+                        <tr>
+                            <!-- <td class="td_size1">休憩時間</td> -->
+                            <td class="td_size1">IN <input type="text" size="3"> </td>
+                            <td class="td_size1">OUT<input type="text" size="3"> </td>
+                            <td class="td_size1">時間</td>
+                            <td class="td_size1"><button class="btn-1">休憩削除</button></td>
+                        </tr>
+                        <tr>
+                            <!-- <td class="td_size1">休憩時間</td> -->
+                            <td class="td_size1">IN <input type="text" size="3"> </td>
+                            <td class="td_size1">OUT<input type="text" size="3"> </td>
+                            <td class="td_size1">時間</td>
+                            <td class="td_size1"><button class="btn-1">休憩削除</button></td>
+                        </tr>
+                    </table>
+                    <div class="submit_container">
+                        <div class="col_btn" type="submit">確定</div>
+                        <a class="col_btn" type="submit">一件削除</a>
+                        <!-- <a class="btn" type="submit">戻る</a> -->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+    </main>
+    <footer><p>&copy2021 SAKAI TAKAHIRO</p></footer>
+</body>
+</html>

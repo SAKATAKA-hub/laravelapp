@@ -10,6 +10,7 @@ class DateItems
     public function getThisMonth($Ymd) //$Ymd = 'Y/m/d'
     {
         list($Y, $m, $d) = explode('/',$Ymd);
+        $d = sprintf('%02d',$d);
         $next_Y = $m +1 > 12? $Y +1: $Y;
         $next_m = $m +1 > 12? $m +1 -12: $m +1;
 
@@ -29,6 +30,8 @@ class DateItems
             'd' => date('d',$stamp), // 日
             'w' => date('w',$stamp), // 曜日番号
             'jpw' => $jp_weeks[$w], // 日本語曜日
+            'xd' => $d, // 入力されたままの日付
+
 
             'Ymd' => date('Y/m/d',$stamp),
             'Ymd_text' => date('Y年m月d日',$stamp).$jp_weeks[$w],
@@ -38,8 +41,12 @@ class DateItems
 
             'first_d' => date('d',$first_stamp), // 月始日
             'first_w' => date('w',$first_stamp), // 月始曜日
+            'first_Ymd' => date('Y/m/d',$first_stamp),
+
             'last_d' => date('d',$last_stamp), // 月末日
             'last_w' => date('w',$last_stamp), // 月末曜日
+            'last_Ymd' => date('Y/m/d',$last_stamp),
+
         ];
     }
 

@@ -8,6 +8,9 @@ $col_main: lighten(green,14%);
 //***************************************
 // app内共通スタイル
 //***************************************
+.admin{background-color: #eee;}
+
+
 main .main_body
 {
     table {
@@ -31,7 +34,9 @@ main .main_body
 
     // オペレーションボタンのカスタマイズ
     .oparation_btn_container{
-        // display: flex;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
         // justify-content: space-between;
 
         ul[class="op_btns"]{
@@ -56,6 +61,8 @@ main .main_body
                     width: 8em;
                     font-size: 1em;
                     background: $col_main;
+                    border: solid 2px $col_main;
+
                     color : #fff;
                 }
             }
@@ -80,8 +87,9 @@ main .main_body
     h4{
         display: flex;
         align-items: center;
-        height: 3em;
+        // height: 3em;
         font-size: 1.4rem;
+        padding: 0;
         p{ margin-right: 2em;}
 
         .pason_item{
@@ -107,8 +115,17 @@ main .main_body
 
     $table_width: 1000px;
     // *** 日別勤怠一覧テーブル ***
+    .edit table{
+        .td_size1{ width: $table_width/5;}
+        .title{ border-right: solid 1px #bbb;}
+
+    }
+
+
+    // *** 日別勤怠一覧テーブル ***
     .date_table_box{
-        table th,td{ width: $table_width/10;}
+        table .td_item{ width: $table_width/10;}
+        table .td_long{ width: $table_width/10*1.5;}
     }
 
     // *** 月別勤怠一覧テーブル ***
@@ -118,18 +135,22 @@ main .main_body
 
     // *** 個人別勤怠一覧テーブル ***
     .person_table_box{
-        table th,td{ width: $table_width/8;}
+        table .td_item{ width: $table_width/8;}
+        table .td_long{ width: $table_width/8*1.5;}
     }
     // *** 各テーブル共通 ***
+    .date_table_box, .month_table_box, .person_table_box{
+        tbody{
+            tr:nth-child(odd){ background-color: #eee;}
+        }
+    }
+
     table{
-        th,td{
+        th ,td{
             font-size: 14px;
             padding: .5em;
             height: 3.6rem;
-        }
-        tbody{
-            tr:nth-child(odd){ background-color: #eee;}
-            .td_image{ width: 40px;}
+            .td_image{ width: 3em;}
             .td_name{
                 width: 160px;
                 .id{
@@ -139,7 +160,6 @@ main .main_body
         }
         tfoot tr{border-top: 2px solid #bbb;}
 
-        // .point_td{ color: #aaa;}
         .employee_img{
             width: 3em;
             height: 3em;
@@ -147,6 +167,41 @@ main .main_body
             border: 1px solid #bbb;
         }
     }
+
+
+    .submit_container{
+        display: flex;
+        justify-content: center;
+        margin: 2em auto;
+        width: $table_width;
+
+        .btn{
+            width: 16rem;
+            padding: 1rem 0;
+
+            text-align: center;
+            // font-weight: bold;
+            font-size: 16px;
+            margin-right: 1rem;
+            border: 2px solid $col_main;
+            border-radius: .8rem;
+            cursor: pointer;
+        }
+        .col_btn{
+            @extend.btn;
+            // width: $table_width*0.8;
+            color: #fff;
+            background: $col_main;
+            :hover{background: pink;}
+        }
+        .col_btn:hover{
+            background: darken($col_main,10%);
+            border: solid 2px darken($col_main,10%);
+            color: darken(#fff,10%);
+        }
+
+    }
+
 
 }
 

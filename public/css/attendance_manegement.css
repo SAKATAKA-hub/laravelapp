@@ -4,6 +4,7 @@
   border-radius: .3em;
   border: 1px solid #bbb;
   background: #fff;
+  font-weight: bold;
 }
 
 /*
@@ -273,6 +274,11 @@ footer p {
   border-top: solid 1px #bbb;
   line-height: 3rem;
   text-align: center;
+  background-color: #fff;
+}
+
+.admin {
+  background-color: #eee;
 }
 
 main .main_body table {
@@ -293,6 +299,11 @@ main .main_body table tr td {
 main .main_body table tr .long {
   width: 150px;
 }
+main .main_body .oparation_btn_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 main .main_body .oparation_btn_container ul[class="op_btns"] {
   font-weight: bold;
 }
@@ -311,6 +322,7 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="serch_btn
   width: 8em;
   font-size: 1em;
   background: #00c700;
+  border: solid 2px #00c700;
   color: #fff;
 }
 main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn"] .btn-op {
@@ -324,8 +336,8 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
 .contents h4 {
   display: flex;
   align-items: center;
-  height: 3em;
   font-size: 1.4rem;
+  padding: 0;
 }
 .contents h4 p {
   margin-right: 2em;
@@ -347,30 +359,42 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
   font-weight: bold;
   margin-right: .5em;
 }
-.contents .date_table_box table th, .contents .date_table_box td {
+.contents .edit table .td_size1 {
+  width: 200px;
+}
+.contents .edit table .title {
+  border-right: solid 1px #bbb;
+}
+.contents .date_table_box table .td_item {
   width: 100px;
+}
+.contents .date_table_box table .td_long {
+  width: 150px;
 }
 .contents .month_table_box table .td_item {
   width: 160px;
 }
-.contents .person_table_box table th, .contents .person_table_box td {
+.contents .person_table_box table .td_item {
   width: 125px;
+}
+.contents .person_table_box table .td_long {
+  width: 187.5px;
+}
+.contents .date_table_box tbody tr:nth-child(odd), .contents .month_table_box tbody tr:nth-child(odd), .contents .person_table_box tbody tr:nth-child(odd) {
+  background-color: #eee;
 }
 .contents table th, .contents table td {
   font-size: 14px;
   padding: .5em;
   height: 3.6rem;
 }
-.contents table tbody tr:nth-child(odd) {
-  background-color: #eee;
+.contents table th .td_image, .contents table td .td_image {
+  width: 3em;
 }
-.contents table tbody .td_image {
-  width: 40px;
-}
-.contents table tbody .td_name {
+.contents table th .td_name, .contents table td .td_name {
   width: 160px;
 }
-.contents table tbody .td_name .id {
+.contents table th .td_name .id, .contents table td .td_name .id {
   font-size: .8em;
 }
 .contents table tfoot tr {
@@ -381,6 +405,34 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
   height: 3em;
   border-radius: 50%;
   border: 1px solid #bbb;
+}
+.contents .submit_container {
+  display: flex;
+  justify-content: center;
+  margin: 2em auto;
+  width: 1000px;
+}
+.contents .submit_container .btn, .contents .submit_container .col_btn {
+  width: 16rem;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 16px;
+  margin-right: 1rem;
+  border: 2px solid #00c700;
+  border-radius: .8rem;
+  cursor: pointer;
+}
+.contents .submit_container .col_btn {
+  color: #fff;
+  background: #00c700;
+}
+.contents .submit_container .col_btn :hover {
+  background: pink;
+}
+.contents .submit_container .col_btn:hover {
+  background: #009400;
+  border: solid 2px #009400;
+  color: #e6e6e6;
 }
 
 /*# sourceMappingURL=attendance_manegement.css.map */
