@@ -19,7 +19,7 @@
 @section('main_contents')
 <div class="date_table_box">
     <h4>
-        <p>検索日付 : {{$display_text['date']}}</p>
+        <p>勤務日 : {{$display_text['date']}}</p>
         <p>勤務現場 : {{$display_text['place']}}</p>　
     </h4>
     <table>

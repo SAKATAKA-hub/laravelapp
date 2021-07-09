@@ -1,4 +1,4 @@
-@extends('_common.layout')
+@extends('_common.layout_admin')
 
 {{-- ページタイトル --}}
 @section('title','')
@@ -19,8 +19,8 @@
 @section('main_contents')
 <div class="date_table_box">
     <h4>
-        <p>勤務月 : {{$display_text['date']}}</p>
-        <p>勤務現場 : {{$display_text['place']}}</p>　
+        <p>勤務日 : {{$display_text['date']}}</p>
+        <p>勤務現場 : {{$display_text['place']}}</p>
     </h4>
     <table>
         <thead>
@@ -33,6 +33,7 @@
                 <th >勤務時間</th>
                 <th >休憩時間</th>
                 <th >労働時間</th>
+                <th ></th>
             </tr>
         </thead>
         <tbody>
@@ -53,6 +54,7 @@
                 <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
                 <td>{{gmdate('H:i',$record->BreakTime)}}</td>
                 <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
+                <td><a href="{{route('attendance_manegement.edit',$record)}}"><div class="btn-1">修正</div></a></td>
 
             </tr>
 
@@ -70,10 +72,38 @@
                 <td>{{$TotalRestrainTime}}</td>
                 <td>{{$TotalBreakTime}}</td>
                 <td>{{$TotalWorkingTime}}</td>
+                <td></td>
             </tr>
         </tfoot>
     </table>
 </div>
+<script>
+    function changeSelectDate(){
+        const selectYmElement = document.querySelector('#select_Y_m');
+        const selectDElement = document.querySelector('#select_d');
+
+        const val = selectYmElement.value;//選択された年月の"値"
+        var selectDate = new Date(val+"-01");
+
+        selectDate.setMonth(selectDate.getMonth() + 1 );
+        selectDate.setDate(selectDate.getDate()-1);
+        const lastDate = selectDate.getDate(); //月末日
+
+        //日付選択'option'要素の削除
+        for (let i = 0; i < selectDElement.length; i+1) {
+            selectDElement.children[i].remove();
+        }
+
+        for (let i = 1; i <= lastDate; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i+"日";
+            selectDElement.appendChild(option);
+        }
+    }
+    </script>
+
+
 @endsection
 
 

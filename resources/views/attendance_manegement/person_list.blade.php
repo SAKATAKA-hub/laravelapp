@@ -21,16 +21,21 @@
     <h4>
         @isset($display_text['employee'])
         <div class="pason_item">
+            従業員：
             <img class="employee_img" src="{{url('image/employees/'.$display_text['employee']->image)}}" alt="user image">
             <p class="id">{{sprintf('%04d',$display_text['employee']->id)}}</p>
             <p class="name">{{$display_text['employee']->name}}</p>
         </div>
         @endisset
 
-        <p>{{$display_text['date']}}</p>
+        <p>勤務月：{{$display_text['date']}}</p>
     </h4>
 
-    @isset ($worked_records)
+
+
+    @if( ($worked_records==NULL) || ($employee_id=='' ) )
+    <h4>従業員名を選択してください。</h4>
+    @else
     <table>
         <thead>
             <tr>
@@ -75,9 +80,7 @@
             </tr>
         </tfoot>
     </table>
-    @else
-    <h4>従業員名を選択してください。</h4>
-    @endisset
+    @endif
 
 </div>
 @endsection

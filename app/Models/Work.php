@@ -8,17 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Work extends Model
 {
     # '日付'を指定してレコードの抽出
-    public function scopeDateList($query,$date)
+    public function scopeDateList($query,$date,$place)
     {
         return $query->where('date',$date)
+        ->where('place','like',$place.'%')
         ->orderBy('in','asc');
     }
 
+
     # '月'を指定してレコードの抽出
-    public function scopeMonthList($query, $f_date, $l_date)
+    public function scopeMonthList($query, $f_date, $l_date ,$place)
     {
         return $query->where('date','>=',$f_date)
         ->where('date','<=',$l_date)
+        ->where('place','like',$place.'%')
         ->orderBy('date','asc')
         ->orderBy('in','asc');
     }

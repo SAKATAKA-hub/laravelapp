@@ -1,6 +1,11 @@
 @switch($app_menu_current)
-    @case('date_list')
+    @case('date_list'||'admin')
+
+    @if ($app_menu_current == 'date_list')
     <form name="seach" action="{{route('attendance_manegement.date_list_search')}}" method="POST">
+    @elseif($app_menu_current == 'admin')
+    <form name="seach" action="{{route('attendance_manegement.admin_search')}}" method="POST">
+    @endif
         @csrf
         <p>出力条件を選択してください。</p>
         <ul class="op_btns">
@@ -30,7 +35,7 @@
 
             <li>勤務現場：
                 <select name="place" id="place">
-                    <option value="全て">全て</option>
+                    <option value="">全て</option>
                     @foreach ($select_items['place'] as $item)
                     @if ( !empty($input) && ($input['place'] == $item['item']) )
                     <option value="{{$item['item']}}" selected>{{$item['item']}}</option>
@@ -45,7 +50,7 @@
 
         </ul>
     </form>
-
+    @if( $app_menu_current != 'admin')
     <ul class="op_btns">
         <li class="other_btn">
             <form action="{{route('attendance_manegement.print_date_list')}}" method="POST">
@@ -55,6 +60,7 @@
             </form>
         </li>
     </ul>
+    @endif
     @break
 
 
@@ -77,7 +83,7 @@
 
             <li>勤務現場：
                 <select name="place" >
-                    <option value="全て">全て</option>
+                    <option value="">全て</option>
                     @foreach ($select_items['place'] as $item)
                     @if ( !empty($input) && ($input['place'] == $item['item']) )
                     <option value="{{$item['item']}}" selected>{{$item['item']}}</option>
@@ -111,10 +117,10 @@
         <p>出力条件を選択してください。</p>
         <ul class="op_btns">
             <li>従業員：
-                <select name="employee" id="employee">
+                <select name="employee_id" id="employee">
                     <option value="">選択してください</option>
                     @foreach ($select_items['employee'] as $item)
-                    @if ( !empty($input) && ($input['employee'] == $item['id']) )
+                    @if ( !empty($employee_id) && ($employee_id == $item['id']) )
                     <option value="{{$item['id']}}" selected>{{ sprintf('%04d:%s', $item['id'], $item['name']) }}</option>
                     @else
                     <option value="{{$item['id']}}">{{ sprintf('%04d:%s', $item['id'], $item['name']) }}</option>
@@ -139,7 +145,18 @@
 
         </ul>
     </form>
-        @break
+    <ul class="op_btns">
+        <li class="other_btn">
+            <form action="{{route('attendance_manegement.print_person_list')}}" method="POST">
+                @csrf
+                <input type="hidden" name="Ymd" value="{{$Ymd}}">
+                <input type="hidden" name="employee_id" value="{{$employee_id}}">
+                <button class="btn-op">印刷</button>
+            </form>
+        </li>
+    </ul>
+
+    @break
     @default
 
 @endswitch

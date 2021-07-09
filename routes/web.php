@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeesManegementController;
 
 use App\Http\Controllers\AttendanceManegementController;
 use App\Http\Controllers\AttendanceManegementPrintController;
+use App\Http\Controllers\AttendanceManegementAdminController;
 
 
 /*
@@ -64,8 +65,6 @@ Route::get('/employees_manegement/{employee}/edit',[EmployeesManegementControlle
 ->name('employees_manegement.edit');
 Route::patch('/employees_manegement/update',[EmployeesManegementController::class,'update'])
 ->name('employees_manegement.update');
-// Route::get('/employees_manegement/done_update',[EmployeesManegementController::class,'done_update'])
-// ->name('employees_manegement.done_update');
 
 
 // 登録情報削除
@@ -103,20 +102,38 @@ Route::post('attendance_manegement/person_list_search',[AttendanceManegementCont
 ->name('attendance_manegement.person_list_search');
 
 
-# 勤怠修正一覧 admin
-Route::get('attendance_manegement/admin',[AttendanceManegementController::class,'admin'])
-->name('attendance_manegement.admin');
-Route::post('attendance_manegement/admin_search',[AttendanceManegementController::class,'admin_search'])
-->name('attendance_manegement.admin_search');
-
-
-# 印刷 print
-Route::get('attendance_manegement//print/',[AttendanceManegementController::class,'print'])
-->name('attendance_manegement.print');
 
 # 日別勤怠管理印刷 print_date_list
 Route::post('attendance_manegement/print_date_list/',[AttendanceManegementPrintController::class,'print_date_list'])
 ->name('attendance_manegement.print_date_list');
+
+# 月別勤怠管理印刷 print_month_list
+Route::post('attendance_manegement/print_month_list/',[AttendanceManegementPrintController::class,'print_month_list'])
+->name('attendance_manegement.print_month_list');
+
+# 個人別勤怠管理印刷 print_person_list
+Route::post('attendance_manegement/print_person_list/',[AttendanceManegementPrintController::class,'print_person_list'])
+->name('attendance_manegement.print_person_list');
+
+
+
+# 勤怠修正一覧 admin
+Route::get('attendance_manegement/admin',[AttendanceManegementAdminController::class,'admin'])
+->name('attendance_manegement.admin');
+Route::post('attendance_manegement/admin_search',[AttendanceManegementAdminController::class,'admin_search'])
+->name('attendance_manegement.admin_search');
+
+# 修正入力 edit
+Route::get('attendance_manegement/{work}/edit',[AttendanceManegementAdminController::class,'edit'])
+->name('attendance_manegement.edit');
+
+# 修正内容保存 update
+Route::patch('attendance_manegement/{work}/update',[AttendanceManegementAdminController::class,'update'])
+->name('attendance_manegement.update');
+
+# 削除 destroy
+Route::delete('attendance_manegement/{work}/destroy',[AttendanceManegementAdminController::class,'destroy'])
+->name('attendance_manegement.destroy');
 
 /*
 |--------------------------------------------------------------------------

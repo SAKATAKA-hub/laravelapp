@@ -32,16 +32,18 @@
 --}}
 
 <body>
-    <h3>日別勤怠一覧</h3>
+    <h3>個人別勤怠一覧</h3>
     <div class="date_table_box">
-        <h4>勤務日 : {{$display_text['date']}}  勤務現場 : {{$display_text['place']}}</h4>
+        <h4>
+            従業員 : {{sprintf('%04d',$display_text['employee']->id)}}{{$display_text['employee']->name}}日付 : {{$display_text['date']}}
+        </h4>
         <table>
             <thead>
                 <tr>
-                    <th>ID・従業員名</th>
+                    <th>出勤日</th>
                     <th>出勤現場</th>
                     <th>出勤時間</th>
-                    <th>休憩開始</th>
+                    <th>休憩時間</th>
                     <th>勤務時間</th>
                     <th>休憩時間</th>
                     <th>労働時間</th>
@@ -51,10 +53,7 @@
             <tbody>
                 @forelse ($worked_records as $record)
                 <tr>
-                    <td class="td_name">
-                        {{sprintf('%04d',$record->employee_id)}}<br>
-                        {{$record->employee->name}}
-                    </td>
+                    <td>{{$record->getDateText()}}</td>
                     <td>{{$record->place}}</td>
                     <td>{{gmdate('H:i',$record->in)}}-{{gmdate('H:i',$record->out)}}</td>
                     <td>
