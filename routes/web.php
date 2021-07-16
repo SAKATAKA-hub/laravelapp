@@ -135,6 +135,12 @@ Route::patch('attendance_manegement/{work}/update',[AttendanceManegementAdminCon
 Route::delete('attendance_manegement/{work}/destroy',[AttendanceManegementAdminController::class,'destroy'])
 ->name('attendance_manegement.destroy');
 
+
+# 挿入 create (テスト用)
+Route::get('attendance_manegement/create',[AttendanceManegementAdminController::class,'create'])
+->name('attendance_manegement.create');
+
+
 /*
 |--------------------------------------------------------------------------
 | テスト用ルーティング作成

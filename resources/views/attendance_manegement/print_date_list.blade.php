@@ -34,7 +34,7 @@
 <body>
     <h3>日別勤怠一覧</h3>
     <div class="date_table_box">
-        <h4>勤務日 : {{$display_text['date']}}  勤務現場 : {{$display_text['place']}}</h4>
+        <h4>勤務日 : {{$date}}  勤務現場 : {{$place}}</h4>
         <table>
             <thead>
                 <tr>

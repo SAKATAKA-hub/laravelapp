@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeRequest; //フォームリクエストの利用
-use App\Models\Employee; //モデルの利用
-use App\Models\Checkbox; //モデルの利用
-
+# フォームリクエストの利用
 use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeRequest;
+
+# モデルの利用
+use App\Models\Employee;
+use App\Models\Checkbox;
+
+
 
 class EmployeesManegementController extends Controller
 {

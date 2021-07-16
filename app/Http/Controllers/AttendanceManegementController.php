@@ -8,73 +8,40 @@ use App\Models\Checkbox;
 
 use App\Http\Controllers\library\DateItems;// 日付クラスの利用
 use Illuminate\Http\Request;
-// use TCPDF;
-// use TCPDF_FONTS;
 
 class AttendanceManegementController extends Controller
 {
     # 日別勤怠管理一覧 ------------------------------
     public function date_list()
     {
-        $param = $this->getDateListPalam();
+        $Ymd = date( 'Y/m/d',time() ); //今日の日付
+        $place ='';
+        $param = $this->getDateListParam($Ymd, $place);
+
+
         return view('attendance_manegement.date_list',$param);
     }
-
-        public function getDateListPalam()
-        {
-            $Ymd = date( 'Y/m/d',time() ); //今日の日付
-            $DI = new DateItems;
-            $date_item = $DI->getThisMonth($Ymd);
-
-            //合計勤務時間 等
-            $TotalRestrainTime = Work::dateList($Ymd,'')->sum('RestrainTime');
-            $TotalBreakTime = Work::dateList($Ymd,'')->sum('BreakTime');
-            $TotalWorkingTime = Work::dateList($Ymd,'')->sum('WorkingTime');
-
-            return [
-                //表示ページ
-                'app_menu_current' => 'date_list',
-
-                //セレクト要素
-                'select_items' => $this->getSelectItems($Ymd),
-
-                //表示レコード内容
-                'display_text' => [
-                    'date' => $date_item['Ymd_text'],
-                    'place' => '全て',
-                ],
-
-                //出勤レコードの取得
-                'worked_records' =>
-                Work::dateList($Ymd,'')->with('employee')->with('work_breaks')->get(),
-
-                // 合計勤務時間 等
-                'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-                'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-                'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-                'Ymd' => $Ymd,
-            ];
-        }
-
 
     // 検索表示
     public function date_list_search(Request $request)
     {
-        $param = $this->getDateListSeachPalam($request);
+        $Ymd = $request->y_month.'/'.$request->date; //リクエストされた日付
+        $place = $request->place;
+        $param = $this->getDateListParam($Ymd, $place);
+
         return view('attendance_manegement.date_list',$param);
     }
 
-        public function getDateListSeachPalam($request)
+        //paramの取得
+        public function getDateListParam($Ymd, $place)
         {
-            $Ymd = $request->y_month.'/'.$request->date; //リクエストされた日付
             $DI = new DateItems;
             $date_item = $DI->getThisMonth($Ymd);
 
             //合計勤務時間 等
-            $TotalRestrainTime = Work::dateList($Ymd,$request->place)->sum('RestrainTime');
-            $TotalBreakTime = Work::dateList($Ymd,$request->place)->sum('BreakTime');
-            $TotalWorkingTime = Work::dateList($Ymd,$request->place)->sum('WorkingTime');
+            $TotalRestrainTime = Work::dateList($Ymd,$place)->sum('RestrainTime');
+            $TotalBreakTime = Work::dateList($Ymd,$place)->sum('BreakTime');
+            $TotalWorkingTime = Work::dateList($Ymd,$place)->sum('WorkingTime');
 
             return [
                 //表示ページ
@@ -84,14 +51,12 @@ class AttendanceManegementController extends Controller
                 'select_items' => $this->getSelectItems($Ymd),
 
                 //表示レコード内容
-                'display_text' => [
-                    'date' => $date_item['Ymd_text'],
-                    'place' => $request->place ?? '全て',
-                ],
+                'date' => $date_item['Ym_text'],
+                'place' => $place,
 
                 //出勤レコードの取得
                 'worked_records' =>
-                Work::dateList($Ymd,$request->place)->with('employee')->with('work_breaks')->get(),
+                Work::dateList($Ymd,$place)->with('employee')->with('work_breaks')->get(),
 
                 // 合計勤務時間 等
                 'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
@@ -101,95 +66,67 @@ class AttendanceManegementController extends Controller
                 'Ymd' => $Ymd,
             ];
         }
+
 
 
     # 月別勤怠管理一覧 ------------------------------
     public function month_list()
     {
         $Ymd = date('Y/m/d',time()); //今日の日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
+        $place = '';
+        $param = $this->getMonthListParam($Ymd, $place);
 
-        //合計勤務時間 等
-        $TotalRestrainTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], '')->sum('RestrainTime');
-        $TotalBreakTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], '')->sum('BreakTime');
-        $TotalWorkingTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], '')->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'month_list',
-
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-
-            //表示レコード内容
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'place' => '全て',
-            ],
-
-            //出勤レコードの取得
-            'worked_records' =>
-            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], '')
-            ->with('employee')->with('work_breaks')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
         return view('attendance_manegement.month_list',$param);
-
     }
 
     // 検索表示
     public function month_list_search(Request $request)
     {
         $Ymd = $request->y_month.'/01'; //リクエストされた日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
+        $place = $request->place;
+        $param = $this->getMonthListParam($Ymd, $place);
 
-        //合計勤務時間 等
-        $TotalRestrainTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $request->place)->sum('RestrainTime');
-        $TotalBreakTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $request->place)->sum('BreakTime');
-        $TotalWorkingTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $request->place)->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'month_list',
-
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-
-            //表示レコード内容
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'place' => $request->place ?? '全て',
-            ],
-
-            //出勤レコードの取得
-            'worked_records' =>
-            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $request->place)
-            ->with('employee')->with('work_breaks')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
         return view('attendance_manegement.month_list',$param);
-
     }
+
+        //paramの取得
+        public function getMonthListParam($Ymd, $place)
+        {
+            $DI = new DateItems;
+            $date_item = $DI->getThisMonth($Ymd);
+
+            //合計勤務時間 等
+            $TotalRestrainTime =
+            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $place)->sum('RestrainTime');
+            $TotalBreakTime =
+            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $place)->sum('BreakTime');
+            $TotalWorkingTime =
+            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $place)->sum('WorkingTime');
+
+            return [
+                //表示ページ
+                'app_menu_current' => 'month_list',
+
+                //セレクト要素
+                'select_items' => $this->getSelectItems($Ymd),
+
+                //表示レコード内容
+                'date' => $date_item['Ym_text'],
+                'place' => $place,
+
+                //出勤レコードの取得
+                'worked_records' =>
+                Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'], $place)
+                ->with('employee')->with('work_breaks')->get(),
+
+                // 合計勤務時間 等
+                'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
+                'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
+                'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
+
+                'Ymd' => $Ymd,
+            ];
+        }
 
 
 
@@ -197,28 +134,9 @@ class AttendanceManegementController extends Controller
     public function person_list()
     {
         $Ymd = date('Y/m/d',time()); //今日の日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
+        $employee_id = '';
+        $param = $this->getPersonListParam($Ymd, $employee_id);
 
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'person_list',
-            //従業員ID
-            'employee_id' => '',
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-            //入力内容
-            'input' => '',
-            //表示レコード内容
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'employee' => null,
-            ],
-            //出勤レコードの取得
-            'worked_records' => null,
-
-            'Ymd' => $Ymd,
-        ];
         return view('attendance_manegement.person_list',$param);
     }
 
@@ -226,46 +144,54 @@ class AttendanceManegementController extends Controller
     public function person_list_search(Request $request)
     {
         $Ymd = $request->y_month.'/01'; //リクエストされた日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
+        $employee_id = $request->employee_id;
+        $param = $this->getPersonListParam($Ymd, $employee_id);
 
-        //合計勤務時間 等
-        $TotalRestrainTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('RestrainTime');
-        $TotalBreakTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('BreakTime');
-        $TotalWorkingTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'person_list',
-
-            //従業員ID
-            'employee_id' => $request->employee_id,
-
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-
-            //表示レコード内容
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'employee' => Employee::find($request->employee_id),
-            ],
-            //出勤レコードの取得
-            'worked_records' =>
-            Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])
-            ->with('employee')->with('work_breaks')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
         return view('attendance_manegement.person_list',$param);
     }
+
+        //paramの取得
+        public function getPersonListParam($Ymd, $employee_id)
+        {
+            $DI = new DateItems;
+            $date_item = $DI->getThisMonth($Ymd);
+
+            //合計勤務時間 等
+            $TotalRestrainTime =
+            Work::personList($employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('RestrainTime');
+            $TotalBreakTime =
+            Work::personList($employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('BreakTime');
+            $TotalWorkingTime =
+            Work::personList($employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('WorkingTime');
+
+            return [
+                //表示ページ
+                'app_menu_current' => 'person_list',
+
+                //従業員ID
+                'employee_id' => $employee_id,
+
+                //セレクト要素
+                'select_items' => $this->getSelectItems($Ymd),
+
+                //表示レコード内容
+                'date' => $date_item['Ym_text'],
+                'employee' => Employee::find($employee_id),
+
+                //出勤レコードの取得
+                'worked_records' =>
+                Work::personList($employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])
+                ->with('employee')->with('work_breaks')->get(),
+
+                // 合計勤務時間 等
+                'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
+                'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
+                'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
+
+                'Ymd' => $Ymd,
+            ];
+        }
+
 
 
     # -------------- methods ---------------------

@@ -11,45 +11,15 @@ use Illuminate\Http\Request;
 use TCPDF;
 use TCPDF_FONTS;
 
-
-class AttendanceManegementPrintController extends Controller
+// ＊AttendanceManegementController　を継承
+class AttendanceManegementPrintController extends AttendanceManegementController
 {
     # 日別勤怠管理印刷
     public function print_date_list(Request $request)
     {
-        //日付アイテムの作成
         $Ymd = $request->Ymd; //＊リクエストされた日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
-
-        //合計勤務時間 等
-        $TotalRestrainTime = Work::dateList($Ymd)->sum('RestrainTime');
-        $TotalBreakTime = Work::dateList($Ymd)->sum('BreakTime');
-        $TotalWorkingTime = Work::dateList($Ymd)->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'date_list',
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-            //入力内容
-            'input' => $request->all(),
-            //表示内容の説明
-            'display_text' => [
-                'date' => $date_item['Ymd_text'],
-                'place' => $request->place,
-            ],
-            //出勤レコードの取得
-            'worked_records' => Work::dateList($Ymd)->with('employee')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
-
+        $place = $request->place;
+        $param = AttendanceManegementController::getDateListParam($Ymd, $place);
 
         // PDF設定
         $pdf = $this->getTCPDF($Ymd);
@@ -71,44 +41,9 @@ class AttendanceManegementPrintController extends Controller
     # 月別勤怠管理印刷
     public function print_month_list(Request $request)
     {
-        //日付アイテムの作成
         $Ymd = $request->Ymd; //＊リクエストされた日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
-
-        //合計勤務時間 等
-        $TotalRestrainTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'])->sum('RestrainTime');
-        $TotalBreakTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'])->sum('BreakTime');
-        $TotalWorkingTime =
-        Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'])->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'month_list',
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-            //入力内容
-            'input' => $request->all(),
-            //表示内容の説明
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'place' => $request->place,
-            ],
-            //出勤レコードの取得
-            'worked_records' =>
-            Work::monthList($date_item['first_Ymd'], $date_item['last_Ymd'])
-            ->with('employee')->with('work_breaks')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
-
+        $place = $request->place;
+        $param = AttendanceManegementController::getMonthListParam($Ymd, $place);
 
         // PDF設定
         $pdf = $this->getTCPDF($Ymd);
@@ -130,47 +65,9 @@ class AttendanceManegementPrintController extends Controller
     # 個人別勤怠管理印刷
     public function print_person_list(Request $request)
     {
-        //日付アイテムの作成
         $Ymd = $request->Ymd; //＊リクエストされた日付
-        $DI = new DateItems;
-        $date_item = $DI->getThisMonth($Ymd);
-
-        //合計勤務時間 等
-        $TotalRestrainTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('RestrainTime');
-        $TotalBreakTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('BreakTime');
-        $TotalWorkingTime =
-        Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])->sum('WorkingTime');
-
-        $param=[
-            //表示ページ
-            'app_menu_current' => 'person_list',
-
-            //従業員ID
-            'employee_id' => $request->employee_id,
-
-            //セレクト要素
-            'select_items' => $this->getSelectItems($Ymd),
-
-            //表示内容の説明
-            'display_text' => [
-                'date' => $date_item['Ym_text'],
-                'employee' => Employee::find($request->employee_id),
-            ],
-
-            //出勤レコードの取得
-            'worked_records' =>
-            Work::personList($request->employee_id, $date_item['first_Ymd'], $date_item['last_Ymd'])
-            ->with('employee')->with('work_breaks')->get(),
-
-            // 合計勤務時間 等
-            'TotalRestrainTime' => sprintf('%d:%02d',floor($TotalRestrainTime/(60*60) ), floor($TotalRestrainTime%(60*60)/60 ) ),
-            'TotalBreakTime' => sprintf('%d:%02d',floor($TotalBreakTime/(60*60) ), floor($TotalBreakTime%(60*60)/60 ) ),
-            'TotalWorkingTime' => sprintf('%d:%02d',floor($TotalWorkingTime/(60*60) ), floor($TotalWorkingTime%(60*60)/60 ) ),
-
-            'Ymd' => $Ymd,
-        ];
+        $employee_id = $request->employee_id;
+        $param = AttendanceManegementController::getPersonListParam($Ymd, $employee_id);
 
         // PDF設定
         $pdf = $this->getTCPDF($Ymd);
@@ -212,55 +109,6 @@ class AttendanceManegementPrintController extends Controller
 
 
 
-    # セレクト要素取得
-    public function getSelectItems($Ymd)
-    {
-        # 日付アイテムの取得
-        $dob = new DateItems;
-        // 今の日付アイテム
-        $this_days = $dob->getThisMonth(date('Y/m/d',time()));
-        // リクエストされた日付のアイテム
-        $select_days = $dob->getThisMonth($Ymd);
-
-
-        # '年月'のセレクトアイテム
-        $Ym_items = array([
-            'value' => $this_days['Ym'],
-            'text' => $this_days['Ym_text'],
-            'selected' => $this_days['Ym'] == $select_days['Ym']? true: false,
-        ]);
-        for ($m=1; $m < 12; $m++)
-        {
-            $befor_days = $dob->getBeforMonth($this_days['Ymd'],$m);
-            $item = [
-                'value' => $befor_days['Ym'],
-                'text' => $befor_days['Ym_text'],
-                'selected' => $befor_days['Ym'] == $select_days['Ym']? true: false,
-            ];
-            array_push($Ym_items,$item);
-
-        }
-
-
-        # '日付'のセレクトアイテム
-        $d_items = [];
-        for ($d=1; $d <= $select_days['last_d']; $d++) {
-            $item = [
-                'value' => $d,
-                'text' =>  $d.'日',
-                'selected' =>  $d == $select_days['d']? true: false,
-            ];
-            array_push($d_items,$item);
-        }
-
-
-        return [
-            'y_month' => $Ym_items, //'年月'
-            'date' => $d_items, //'日付'
-            'place' => Checkbox::where('group','所属部署')->get(), //'勤務地'
-            'employee' => Employee::all(), //`従業員`
-        ];
-    }
 
 
 }

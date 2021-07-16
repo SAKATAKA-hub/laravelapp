@@ -19,16 +19,16 @@
 @section('main_contents')
 <div class="person_table_box">
     <h4>
-        @isset($display_text['employee'])
+        @isset($employee)
         <div class="pason_item">
             従業員：
-            <img class="employee_img" src="{{url('image/employees/'.$display_text['employee']->image)}}" alt="user image">
-            <p class="id">{{sprintf('%04d',$display_text['employee']->id)}}</p>
-            <p class="name">{{$display_text['employee']->name}}</p>
+            <img class="employee_img" src="{{url('image/employees/'.$employee->image)}}" alt="user image">
+            <p class="id">{{sprintf('%04d',$employee->id)}}</p>
+            <p class="name">{{$employee->name}}</p>
         </div>
         @endisset
 
-        <p>勤務月：{{$display_text['date']}}</p>
+        <p>勤務月：{{$date}}</p>
     </h4>
 
 

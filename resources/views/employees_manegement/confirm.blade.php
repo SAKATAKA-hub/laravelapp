@@ -1,4 +1,4 @@
-@extends('_common.layout')
+@extends('_common.layout_admin')
 
 {{-- ページタイトル --}}
 @section('title','/確認画面')

@@ -19,8 +19,8 @@
 @section('main_contents')
 <div class="date_table_box">
     <h4>
-        <p>勤務日 : {{$display_text['date']}}</p>
-        <p>勤務現場 : {{$display_text['place']}}</p>
+        <p>勤務日 : {{$date}}</p>
+        <p>勤務現場 : {{$place}}</p>
     </h4>
     <table>
         <thead>
@@ -33,6 +33,7 @@
                 <th >勤務時間</th>
                 <th >休憩時間</th>
                 <th >労働時間</th>
+                <th ></th>
                 <th ></th>
             </tr>
         </thead>
@@ -54,8 +55,19 @@
                 <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
                 <td>{{gmdate('H:i',$record->BreakTime)}}</td>
                 <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
-                <td><a href="{{route('attendance_manegement.edit',$record)}}"><div class="btn-1">修正</div></a></td>
-
+                <td>
+                    {{-- <a href="{{route('attendance_manegement.edit',$record)}}"><div class="btn-1">修正</div></a> --}}
+                    <form method="GET" action="{{route('attendance_manegement.edit',$record)}}">
+                        <button class="btn-1">編集</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{route('attendance_manegement.destroy',$record)}}" id="destroy">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn-1">削除</button>
+                    </form>
+                </td>
             </tr>
 
 
@@ -73,11 +85,20 @@
                 <td>{{$TotalBreakTime}}</td>
                 <td>{{$TotalWorkingTime}}</td>
                 <td></td>
+                <td></td>
             </tr>
         </tfoot>
     </table>
 </div>
 <script>
+    // 削除コンフォーム
+    document.getElementById('destroy').addEventListener('submit',e=>{
+        console.log('delete');
+        e.preventDefault();
+        if(!confirm('この勤怠記録を削除します。\nよろしいですか？')){return;}
+        e.target.submit();
+    });
+
     function changeSelectDate(){
         const selectYmElement = document.querySelector('#select_Y_m');
         const selectDElement = document.querySelector('#select_d');

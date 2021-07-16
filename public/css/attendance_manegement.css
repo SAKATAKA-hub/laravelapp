@@ -5,6 +5,7 @@
   border: 1px solid #bbb;
   background: #fff;
   font-weight: bold;
+  cursor: pointer;
 }
 
 /*
@@ -172,6 +173,10 @@ header ul[class="user"] .dd_menu i {
   cursor: pointer;
 }
 
+.admin {
+  background-color: #eee;
+}
+
 main {
   min-height: 100vh;
 }
@@ -277,10 +282,6 @@ footer p {
   background-color: #fff;
 }
 
-.admin {
-  background-color: #eee;
-}
-
 main .main_body table {
   margin-bottom: 1em;
   border-collapse: collapse;
@@ -359,11 +360,55 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
   font-weight: bold;
   margin-right: .5em;
 }
+.contents #error {
+  padding: 1em 0;
+  height: 1em;
+  line-height: 1em;
+  color: red;
+  font-weight: bold;
+}
+.contents .precautions {
+  margin: 1em 0;
+  padding: 1em 2em .5em 2em;
+  background-color: #fff;
+  border: solid 10px #bbb;
+}
+.contents .edit table td {
+  font-size: 18px;
+}
+.contents .edit table td input {
+  font-size: 18px;
+}
 .contents .edit table .td_size1 {
   width: 200px;
 }
 .contents .edit table .title {
   border-right: solid 1px #bbb;
+  font-weight: bold;
+}
+.contents .edit table .error {
+  background: pink;
+}
+.contents .edit table input[type="checkbox"] {
+  display: none;
+}
+.contents .edit table .delete {
+  color: #eee;
+}
+.contents .edit table .delete .title {
+  color: #000;
+}
+.contents .edit table .delete .error {
+  background: #fff;
+}
+.contents .edit table .delete input[type="text"] {
+  pointer-events: none;
+  color: #eee;
+  border: solid 1px #eee;
+}
+.contents .edit table .delete .btn-1 {
+  color: #000;
+  background: #eee;
 }
 .contents .date_table_box table .td_item {
   width: 100px;
@@ -416,7 +461,8 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
   width: 16rem;
   padding: 1rem 0;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
   margin-right: 1rem;
   border: 2px solid #00c700;
   border-radius: .8rem;

@@ -35,7 +35,7 @@
     <h3>個人別勤怠一覧</h3>
     <div class="date_table_box">
         <h4>
-            従業員 : {{sprintf('%04d',$display_text['employee']->id)}}{{$display_text['employee']->name}}日付 : {{$display_text['date']}}
+            従業員 : {{sprintf('%04d',$employee->id)}}{{$employee->name}}日付 : {{$date}}
         </h4>
         <table>
             <thead>

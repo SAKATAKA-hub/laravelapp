@@ -8,9 +8,6 @@ $col_main: lighten(green,14%);
 //***************************************
 // app内共通スタイル
 //***************************************
-.admin{background-color: #eee;}
-
-
 main .main_body
 {
     table {
@@ -112,12 +109,56 @@ main .main_body
 
     }
 
+    // 勤怠修正　エラーコメント
+    #error{
+        // padding: 1em 2em .5em 2em;
+        padding: 1em 0;
+        height: 1em;
+        line-height: 1em;
+        color: red;
+        font-weight: bold;
+    }
+
 
     $table_width: 1000px;
-    // *** 日別勤怠一覧テーブル ***
+    // *** 勤怠修正テーブル ***
+    //注意事項
+    .precautions{
+        margin: 1em 0;
+        padding: 1em 2em .5em 2em;
+        background-color: #fff;
+        border: solid 10px #bbb;
+    }
     .edit table{
+        td{
+            font-size: 18px;
+            input{ font-size: 18px;}
+        }
         .td_size1{ width: $table_width/5;}
-        .title{ border-right: solid 1px #bbb;}
+        .title{
+            border-right: solid 1px #bbb;
+            font-weight: bold;
+        }
+        .error{ background: pink;}
+        input[type="checkbox"]{display: none;}
+
+        //休憩削除ボタンが押された時
+        .delete{
+            color: #eee;
+            .title{ color: #000;}
+            .error{ background: #fff;}
+            input[type="text"]{
+                pointer-events: none;
+                color: #eee;
+                border: solid 1px #eee;
+            }
+            .btn-1{
+                color: #000;
+                background: #eee;
+            }
+        }
+
+        // .total td{ font-weight:  bold;}
 
     }
 
@@ -180,8 +221,8 @@ main .main_body
             padding: 1rem 0;
 
             text-align: center;
-            // font-weight: bold;
-            font-size: 16px;
+            font-size: 20px;
+            font-weight: bold;
             margin-right: 1rem;
             border: 2px solid $col_main;
             border-radius: .8rem;

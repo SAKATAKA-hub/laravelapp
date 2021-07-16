@@ -7,14 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    // # worksテーブルとのリレーション
-    // public function works()
-    // {
-    //     return $this->hasMany(Work::class);
-    // }
-
-
-
     # 従業員リスト絞り込み検索用スコープ
     public function scopeSeach($query, $request)
     {

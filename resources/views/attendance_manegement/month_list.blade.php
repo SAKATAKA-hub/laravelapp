@@ -19,8 +19,8 @@
 @section('main_contents')
 <div class="date_table_box">
     <h4>
-        <p>勤務月 : {{$display_text['date']}}</p>
-        <p>勤務現場 : {{$display_text['place']}}</p>　
+        <p>勤務月 : {{$date}}</p>
+        <p>勤務現場 : {{empty($place)? '全て': $place}}</p>　
     </h4>
     <table>
         <thead>
