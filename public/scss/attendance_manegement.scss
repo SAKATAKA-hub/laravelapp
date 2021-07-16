@@ -113,10 +113,10 @@ main .main_body
     #error{
         // padding: 1em 2em .5em 2em;
         padding: 1em 0;
-        height: 1em;
         line-height: 1em;
         color: red;
         font-weight: bold;
+        p{ padding: 1em 0;}
     }
 
 

@@ -17,13 +17,18 @@ function calcWorkTime()
     let workingTime = 0; //労働時間
     let calcTime = 0;
 
-
     // 勤務時間(restrainTime)の計算
-    let outTime = outElement.value.split(':');
+    let outTime = [
+        outElement.value.substring(0,2),
+        outElement.value.substring(2,4),
+    ];
     outTime = parseInt(outTime[0],10)*60 + parseInt(outTime[1],10);
     outTime = Math.floor(outTime/cutMin)*cutMin;
 
-    let inTime = inElement.value.split(':');
+    let inTime = [
+        inElement.value.substring(0,2),
+        inElement.value.substring(2,4),
+    ];
     inTime = parseInt(inTime[0],10)*60 + parseInt(inTime[1],10);
     inTime = Math.ceil(inTime/cutMin)*cutMin;
 
@@ -43,10 +48,16 @@ function calcWorkTime()
         //削除されている休憩はスキップ
         if(!check.checked)
         {
-            let outTime = breakOutElement.value.split(':');
+            let outTime = [
+                breakOutElement.value.substring(0,2),
+                breakOutElement.value.substring(2,4),
+            ];
             outTime = parseInt(outTime[0],10)*60 + parseInt(outTime[1],10);
 
-            let inTime = breakInElement.value.split(':');
+            let inTime = [
+                breakInElement.value.substring(0,2),
+                breakInElement.value.substring(2,4),
+            ];
             inTime = parseInt(inTime[0],10)*60 + parseInt(inTime[1],10);
 
             let totalTime = Math.ceil( (outTime - inTime)/cutMin )*cutMin;
@@ -74,7 +85,7 @@ function calcWorkTime()
 
 
 
-//値が入力された時の処理
+//入力値のバリデーション
 const inElement = document.querySelector('input[name="in"]');
 const outElement = document.querySelector('input[name="out"]');
 
@@ -84,91 +95,61 @@ inputs.forEach( input => {
     input.addEventListener('change', (e) =>{
 
         console.log('input:'+input.value);
-        const inputVal = input.value.split(':');
-        const cutMinut = 15;
+
+        //エラー処理の関数
+        function errorFunc(error,input,text)
+        {
+            console.log('input NG!');
+            error.textContent = text;
+            // input.value = '';
+            input.classList.add('error');
+            return;
+        }
 
         //入力内容のバリデーション
         //1.時間の型かチェック
         const error = document.getElementById('error');
-        if( !input.value.match(/^(\d{2}\d{2})$|^()$/) ) //'00:00型'と'空白'
+        if( !input.value.match(/^(([0-1]\d|2[0-3])([0-6]\d)|2400)$/) ) //'0000~2400'と'空白'
         {
-            console.log('input NG!');
-            error.textContent = 'エラー：時間の入力は"半角数字4ケタ"で入力してください。';
-            input.value = '';
-            input.classList.add('error');
-            // return;
+            errorFunc(error,input,'エラー：時間の入力は半角数字4桁で、2400以内の時間で入力してください。');
         }
         else if(input.value==='')
         {
             calcWorkTime();
             return;
         }
-
-        //2.時間が0～24の間で入力されているかチェック
-        else if(parseInt(inputVal[0],10) > 24)
+        //2.出勤入力のチェック
+        else if((input === inElement)&&(input.value > outElement.value)&&(outElement.value!=='') )
         {
-            console.log('input NG!');
-            error.textContent = 'エラー：時間は"0～24"の数字で入力してください。';
-            input.value = '';
-            input.classList.add('error');
-            // return;
+            errorFunc(error,input,'エラー：出勤時間を退勤時間より前になるように入力してください。');
         }
-        //3.分が0～60の間で入力されているかチェック
-        else if(parseInt(inputVal[1],10) > 60)
+        //3.退勤入力のチェック
+        else if((input === outElement)&&(input.value < inElement.value))
         {
-            console.log('input NG!');
-            error.textContent = 'エラー：分は"0～60"の数字で入力してください。';
-            input.value = '';
-            input.classList.add('error');
-            // return;
-        }
-        //4.分がcutMinut分刻みでで入力されているかチェック
-        // else if(parseInt(inputVal[1],10) % cutMinut !== 0)
-        // {
-        //     console.log(input.value);
-        //     console.log('input NG!');
-        //     error.textContent = 'エラー：分は15分刻みでで入力してください。';
-        //     input.value = '';
-        //     input.classList.add('error');
-        //     // return;
-        // }
-        //5.出勤・退勤入力のチェック
-        else if(
-            ( (input === inElement)&&(input.value > outElement.value) ) ||
-            ( (input === outElement)&&(input.value < inElement.value) )
-        )
-        {
-            console.log('input NG!');
-            error.textContent = 'エラー：出退勤入力時間が前後しているこによるエラー。';
-            input.value = '';
-            input.classList.add('error');
+            errorFunc(error,input,'エラー：退勤時間を出勤時間より前になるように入力してください。');
         }
         else
         {
-            //休憩入力のチェック
-            if(
-                (input.className === 'breakIn') || (input.className === 'breakOut')
-            )
+            //4.休憩入力のチェック
+            if( (input.className === 'breakIn') || (input.className === 'breakOut') )
             {
-                console.log('break!');
-
+                console.log('break');
                 const breaks = document.querySelectorAll('.breaks');
                 breaks.forEach( (breakElement,index) => {
                     const breakIn = breakElement.querySelector('.breakIn');
                     const breakOut = breakElement.querySelector('.breakOut');
 
-                    if(
-                        ( breakIn.value > outElement.value)
-                        ||( (breakOut.value !== '') &&(breakIn.value > breakOut.value) )
-                        ||( (index !== 0) && (breakIn.value !== '')&&( breaks[index-1].querySelector('.breakOut').value > breakIn.value ) )
-                        ||( (index !== 3) && (breakOut.value !== '')&&( breaks[index+1].querySelector('.breakIn').value > breakOut.value ) )
-                    )
+                    if( ( breakOut.value!='' )&&( breakIn.value > breakOut.value ) )
                     {
-                        console.log('input NG!');
-                        error.textContent = 'エラー：入力内容と前後の時間がそぐわない事によるエラー。';
-                        input.value = '';
-                        input.classList.add('error');
-                        return;
+                        errorFunc(error,input,'エラー：休憩終了時間を休憩開始時間より後になるようにに入力してください。');
+                    }
+                    else if( ( input.value < inElement.value )||( input.value > outElement.value )&&(outElement.value!=='') )
+                    {
+                        errorFunc(error,input,'エラー：休憩時間の入力は出勤時間内になるように入力してください。');
+                    }
+                    else if( (index !== 0) && (breakIn.value !== '')&&(  breakIn.value < breaks[index-1].querySelector('.breakOut').value ) )
+                    {
+                        errorFunc(error,input,'エラー：休憩時間が重ならないように入力してください。');
                     }
 
                 });
@@ -211,10 +192,11 @@ document.querySelectorAll('.breaks').forEach( (breakElement,index) => {
         }
 
         //エラー文の削除
-        error.textContent = 'エラー：';
+        error.textContent = '';
 
     });
 
 
 });
+
 

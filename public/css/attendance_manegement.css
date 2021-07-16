@@ -362,10 +362,12 @@ main .main_body .oparation_btn_container ul[class="op_btns"] li[class="other_btn
 }
 .contents #error {
   padding: 1em 0;
-  height: 1em;
   line-height: 1em;
   color: red;
   font-weight: bold;
+}
+.contents #error p {
+  padding: 1em 0;
 }
 .contents .precautions {
   margin: 1em 0;
