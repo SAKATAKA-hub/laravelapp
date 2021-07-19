@@ -64,7 +64,7 @@
                     <div id="error" >エラーコメント</div>
                 </div>
 
-                <form action="#" class="edit">
+                <form action="#" class="edit" onSubmit="return updateConfirm()">
                     <table>
                         <tr>
                             <td colspan="5">
@@ -81,10 +81,10 @@
                         <tr>
                             <td class="td_size1 title">出勤時間</td>
                             <td class="td_size1">
-                                <label>IN <input name="in" type="text" value ="08:00" size="3"></label>
+                                <label>IN <input name="in" type="text" value ="0800" size="3"></label>
                             </td>
                             <td class="td_size1">
-                                <label for="">OUT<input name="out" type="text" value ="17:00" size="3"></label>
+                                <label for="">OUT<input name="out" type="text" value ="1700" size="3"></label>
                             </td>
                             <td class="td_size1"></td>
                             <td class="td_size1"></td>
@@ -92,12 +92,12 @@
                         <tr class="breaks">
                             <td class="td_size1 title" rowspan="4">休憩時間</td>
                             <td class="td_size1">
-                                <label for="">IN <input name="" class="breakIn" type="text" value ="10:00" size="3"></label>
+                                <label for="">IN <input name="" class="breakIn" type="text" value ="1000" size="3"></label>
                             </td>
                             <td class="td_size1">
-                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="10:30" size="3"></label>
+                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="1030" size="3"></label>
                             </td>
-                            <td class="td_size1 breakTime">休憩時間00:30 <input type="hidden" value="30"></td>
+                            <td class="td_size1 breakTime">休憩時間00 <input type="hidden" value="30"></td>
                             <td class="td_size1">
                                 <label>
                                     <input type="checkbox">
@@ -107,10 +107,10 @@
                         <tr class="breaks">
                             <!-- <td class="td_size1">休憩時間</td> -->
                             <td class="td_size1">
-                                <label for="">IN <input name="" class="breakIn" type="text" value ="13:00" size="3"></label>
+                                <label for="">IN <input name="" class="breakIn" type="text" value ="1300" size="3"></label>
                             </td>
                             <td class="td_size1">
-                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="13:30" size="3"></label>
+                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="1330" size="3"></label>
                             </td>
                             <td class="td_size1 breakTime">休憩時間00:30 <input type="hidden" value="30"></td>
                             <td class="td_size1">
@@ -123,10 +123,10 @@
                         <tr class="breaks">
                             <!-- <td class="td_size1">休憩時間</td> -->
                             <td class="td_size1">
-                                <label for="">IN <input name="" class="breakIn" type="text" value ="15:00" size="3"></label>
+                                <label for="">IN <input name="" class="breakIn" type="text" value ="1500" size="3"></label>
                             </td>
                             <td class="td_size1">
-                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="15:30" size="3"></label>
+                                <label for=""> OUT<input name="" class="breakOut" type="text" value ="1530" size="3"></label>
                             </td>
                             <td class="td_size1 breakTime">休憩時間00:30 <input type="hidden" value="30"></td>
                             <td class="td_size1">
@@ -136,14 +136,14 @@
                                 </label>
                             </td>
                         </tr>
-                        <tr class="breaks">
+                        <tr class="breaks delete">
                             <!-- <td class="td_size1">休憩時間</td> -->
                             <td class="td_size1">IN <input class="breakIn" type="text" value ="" size="3"></td>
                             <td class="td_size1">OUT<input class="breakOut" type="text" value ="" size="3"></td>
                             <td class="td_size1 breakTime">休憩時間--:-- <input type="hidden" value="30"></td>
                             <td class="td_size1">
                                 <label>
-                                    <input type="checkbox">
+                                    <input type="checkbox" checked="checked">
                                     <p class="btn-1 brakeDelete">削除</p>
                                 </label>
                             </td>
@@ -170,5 +170,7 @@
     <footer><p>&copy2021 SAKAI TAKAHIRO</p></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sprintf/1.1.2/sprintf.min.js"></script>
     <script src="../../../public/js/attendance_manegement_edit.js"></script>
+    <script src="../../../public/js/conform.js"></script>
+
 </body>
 </html>

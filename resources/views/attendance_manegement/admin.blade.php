@@ -56,16 +56,15 @@
                 <td>{{gmdate('H:i',$record->BreakTime)}}</td>
                 <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
                 <td>
-                    {{-- <a href="{{route('attendance_manegement.edit',$record)}}"><div class="btn-1">修正</div></a> --}}
                     <form method="GET" action="{{route('attendance_manegement.edit',$record)}}">
                         <button class="btn-1">編集</button>
                     </form>
                 </td>
                 <td>
-                    <form method="POST" action="{{route('attendance_manegement.destroy',$record)}}" id="destroy">
+                    <form method="POST" action="{{route('attendance_manegement.destroy',$record)}}"  onSubmit="return deleteConfirm()" >
                         @method('DELETE')
                         @csrf
-                        <button class="btn-1">削除</button>
+                        <button class="btn-1" type="submit">削除</button>
                     </form>
                 </td>
             </tr>
@@ -90,15 +89,9 @@
         </tfoot>
     </table>
 </div>
-<script>
-    // 削除コンフォーム
-    document.getElementById('destroy').addEventListener('submit',e=>{
-        console.log('delete');
-        e.preventDefault();
-        if(!confirm('この勤怠記録を削除します。\nよろしいですか？')){return;}
-        e.target.submit();
-    });
-
+    <script src="{{url('js/conform.js')}}"></script>
+    <script>
+    //セレクトエリアの'月'に合わせて、'日'の選択要素を変更する関数
     function changeSelectDate(){
         const selectYmElement = document.querySelector('#select_Y_m');
         const selectDElement = document.querySelector('#select_d');
@@ -122,7 +115,7 @@
             selectDElement.appendChild(option);
         }
     }
-    </script>
+</script>
 
 
 @endsection

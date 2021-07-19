@@ -49,9 +49,9 @@
                 <a href="{{route('employees_manegement.edit',$employee)}}">
                     <button class="btn-1">編集</button>
                 </a>
-                {{-- 削除ボタン --}}
             </td>
             <td>
+                {{-- 削除ボタン --}}
                 <form action="{{route('employees_manegement.destroy',$employee)}}" method="post" onSubmit="return deleteConfirm()">
                     @method('DELETE')
                     @csrf

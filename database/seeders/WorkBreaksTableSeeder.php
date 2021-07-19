@@ -21,8 +21,8 @@ class WorkBreaksTableSeeder extends Seeder
                 'out'=>17*60*60
                 ,
                 'breaks'=>[
-                    ['in'=>11*60*60, 'out'=>11*60*60 + 30*60,],
-                    ['in'=>13*60*60, 'out'=>13*60*60 + 30*60,],
+                    ['in'=>11*60*60, 'out'=>11*60*60 + 30*60, 'total_time'=> 30*60, ],
+                    ['in'=>13*60*60, 'out'=>13*60*60 + 30*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 9*60*60,
                 'BreakTime' => 1*60*60,
@@ -33,8 +33,8 @@ class WorkBreaksTableSeeder extends Seeder
                 'out'=>17*60*60
                 ,
                 'breaks'=>[
-                    ['in'=>11*60*60 + 30*60, 'out'=>12*60*60,],
-                    ['in'=>13*60*60 + 30*60,'out'=>14*60*60,],
+                    ['in'=>11*60*60 + 30*60, 'out'=>12*60*60,'total_time'=> 30*60, ],
+                    ['in'=>13*60*60 + 30*60,'out'=>14*60*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 7*60*60,
                 'BreakTime' => 1*60*60,
@@ -46,7 +46,7 @@ class WorkBreaksTableSeeder extends Seeder
                 ,
                 'out'=>22*60*60,
                 'breaks'=>[
-                    ['in'=>20*60*60,'out'=>20*60*60 + 30*60,],
+                    ['in'=>20*60*60,'out'=>20*60*60 + 30*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 5*60*60,
                 'BreakTime' => 30*60,
@@ -57,7 +57,7 @@ class WorkBreaksTableSeeder extends Seeder
                 'in'=>18*60*60,
                 'out'=>24*60*60,
                 'breaks'=>[
-                    ['in'=>20*60*60 + 30*60,'out'=>21*60*60,],
+                    ['in'=>20*60*60 + 30*60,'out'=>21*60*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 6*60*60,
                 'BreakTime' => 30*60,
@@ -68,7 +68,7 @@ class WorkBreaksTableSeeder extends Seeder
                 'in'=>22*60*60,
                 'out'=>24*60*60,
                 'breaks'=>[
-                    ['in'=>23*60*60 + 30*60,'out'=>24*60*60,],
+                    ['in'=>23*60*60 + 30*60,'out'=>24*60*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 2*60*60,
                 'BreakTime' => 30*60,
@@ -79,7 +79,7 @@ class WorkBreaksTableSeeder extends Seeder
                 'in'=>0*60*60,
                 'out'=>8*60*60,
                 'breaks'=>[
-                    ['in'=>4*60*60,'out'=>5*60*60,],
+                    ['in'=>4*60*60,'out'=>5*60*60, 'total_time'=> 30*60, ],
                 ],
                 'RestrainTime' => 8*60*60,
                 'BreakTime' => 1*60*60,
@@ -182,6 +182,7 @@ class WorkBreaksTableSeeder extends Seeder
                                         'work_id' => $work_id,
                                         'in'=> $break['in'],
                                         'out' => $break['out'],
+                                        'total_time' => $break['total_time'],
                                     ]);
                                     $work_break->save();
                                 }

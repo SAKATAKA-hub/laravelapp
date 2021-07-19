@@ -19,16 +19,16 @@ class CreateWorksTable extends Migration
             $table->date('date')->comment('出勤日');
             $table->string('place')->comment('勤務地');
             $table->integer('in')->comment('出勤入力');
-            $table->integer('out')->comment('退勤入力')->default(NULL);
-            $table->integer('RestrainTime')->comment('勤務時間')->default(NULL);
-            $table->integer('BreakTime')->comment('休憩時間')->default(NULL);
-            $table->integer('WorkingTime')->comment('労働時間')->default(NULL);
+            $table->integer('out')->comment('退勤入力')->nullable()->default(null);
+            $table->integer('RestrainTime')->comment('勤務時間')->nullable()->default(null);
+            $table->integer('BreakTime')->comment('休憩時間')->nullable()->default(null);
+            $table->integer('WorkingTime')->comment('労働時間')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees') //存在しないidの登録は不可
-                ->onDelete('cascade');//主テーブルに関連する従テーブルのレコードを削除
+            ->references('id')
+            ->on('employees') //存在しないidの登録は不可
+            ->onDelete('cascade');//主テーブルに関連する従テーブルのレコードを削除
 
         });
     }

@@ -2,7 +2,8 @@
     "use strict";
     //-----------------------------------------------------------
     // 添付画像の読み込み
-    // <input type="file" id="myImage" accept="image/*" onchange="setImage(this);" onclick="this.value = '';">
+    // <input type="file" id="myImage" accept="image/*"
+    //    onchange="setImage(this);" onclick="this.value = '';">
     // <img id="preview">
     //-----------------------------------------------------------
     function setImage(target) {

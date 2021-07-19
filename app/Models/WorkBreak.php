@@ -13,5 +13,6 @@ class WorkBreak extends Model
         'work_id',
         'in',
         'out',
+        'total_time',
     ];
 }

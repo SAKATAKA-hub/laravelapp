@@ -76,8 +76,8 @@ class AttendanceManegementAdminController extends AttendanceManegementController
 
         //入力値の加工
         $update_data = [
-            'in' => changeTime($request['in']), //15分繰り上げ
-            'out' => changeTime($request['out']), //15分繰り下げ
+            'in' => changeTime($request['in']),
+            'out' => changeTime($request['out']),
         ];
 
         $break_time = 0;
@@ -86,10 +86,12 @@ class AttendanceManegementAdminController extends AttendanceManegementController
             $update_data['break_in'.$i] = changeTime($request['break_in'.$i]);
             $update_data['break_out'.$i] = changeTime($request['break_out'.$i]);
             $update_data['break_delete'.$i] =  $request['break_delete'.$i];
-            $break_time +=
-            ceil(  ($update_data['break_out'.$i] -  $update_data['break_in'.$i])/15/60  )*15*60;
+            $update_data['break_time'.$i] = ceil(  ($update_data['break_out'.$i] -  $update_data['break_in'.$i])/15/60  )*15*60;
+            $break_time += $update_data['break_time'.$i];
+
         }
 
+        //※出勤は15繰上げ、退勤は15分繰り下げて計算する。
         $update_data['RestrainTime'] = ( floor( $update_data['out']/15/60 ) - ceil( $update_data['in']/15/60 ) )*15*60;
         $update_data['BreakTime'] = $break_time;
         $update_data['WorkingTime'] = $update_data['RestrainTime'] - $update_data['BreakTime'];
@@ -105,6 +107,7 @@ class AttendanceManegementAdminController extends AttendanceManegementController
                     $break = WorkBreak::find( $request['break_id'.$i] );
                     $break->in = $update_data['break_in'.$i];
                     $break->out = $update_data['break_out'.$i];
+                    $break->total_time = $update_data['break_time'.$i];
                     $break->save();
                 }
                 // 休憩の削除
@@ -136,19 +139,7 @@ class AttendanceManegementAdminController extends AttendanceManegementController
         $work->WorkingTime = $update_data['WorkingTime'];
         $work->save();
 
-
-
         return redirect()->route('attendance_manegement.admin');
-
-
-
-        // $param =[
-        //     'work' => $work,
-        //     // 'data' => $request->all(),
-        //     'data' => $update_data,
-
-        // ];
-        // return view('attendance_manegement.update',$param);
     }
 
     # 削除
@@ -186,12 +177,14 @@ class AttendanceManegementAdminController extends AttendanceManegementController
         $work_break->work_id = $work_id;
         $work_break->in = 11*60*60;
         $work_break->out = 11*60*60 + 30*60;
+        $work_break->total_time = 30*60;
         $work_break->save();
 
         $work_break = new WorkBreak();
         $work_break->work_id = $work_id;
         $work_break->in = 14*60*60;
         $work_break->out = 14*60*60 + 30*60;
+        $work_break->total_time = 30*60;
         $work_break->save();
 
         return redirect()->route('attendance_manegement.admin');

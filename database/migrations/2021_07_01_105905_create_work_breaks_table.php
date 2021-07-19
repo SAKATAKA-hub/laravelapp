@@ -17,7 +17,8 @@ class CreateWorkBreaksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('work_id')->comment('勤務番号');
             $table->integer('in')->comment('休憩開始');
-            $table->integer('out')->comment('休憩終了')->default(NULL);
+            $table->integer('out')->comment('休憩終了')->nullable()->default(null);
+            $table->integer('total_time')->comment('合計時間')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('work_id')
