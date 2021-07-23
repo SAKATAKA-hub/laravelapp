@@ -61,14 +61,9 @@ class AttendanceManegementAdminController extends AttendanceManegementController
     }
 
 
-
-
-
-
     # 修正内容保存
     public function update(AttendanceRequest $request,Work $work)
     {
-
         //時間を'秒単位'に変換する関数
         function changeTime($time){
             return !$time? 0: substr( $time, 0,2)*60*60 + substr( $time, 2,2)*60;
@@ -77,24 +72,31 @@ class AttendanceManegementAdminController extends AttendanceManegementController
         //入力値の加工
         $update_data = [
             'in' => changeTime($request['in']),
-            'out' => changeTime($request['out']),
+            'out' =>empty($request['out'])? NULL: changeTime($request['out']),
         ];
 
         $break_time = 0;
         for ($i=1; $i <= 4 ; $i++) {
             $update_data['break_id'.$i] = $request['break_id'.$i];
+
             $update_data['break_in'.$i] = changeTime($request['break_in'.$i]);
-            $update_data['break_out'.$i] = changeTime($request['break_out'.$i]);
-            $update_data['break_delete'.$i] =  $request['break_delete'.$i];
-            $update_data['break_time'.$i] = ceil(  ($update_data['break_out'.$i] -  $update_data['break_in'.$i])/15/60  )*15*60;
-            $break_time += $update_data['break_time'.$i];
+
+            $update_data['break_out'.$i] = empty($request['break_out'.$i])? NULL :changeTime($request['break_out'.$i]);
+
+            $update_data['break_time'.$i] =  empty($request['break_out'.$i])? NULL
+            : ceil(  ($update_data['break_out'.$i] -  $update_data['break_in'.$i])/15/60  )*15*60;
+            $break_time += $update_data['break_time'.$i] ?? 0;
 
         }
 
         //※出勤は15繰上げ、退勤は15分繰り下げて計算する。
-        $update_data['RestrainTime'] = ( floor( $update_data['out']/15/60 ) - ceil( $update_data['in']/15/60 ) )*15*60;
-        $update_data['BreakTime'] = $break_time;
-        $update_data['WorkingTime'] = $update_data['RestrainTime'] - $update_data['BreakTime'];
+        $update_data['RestrainTime'] = empty($request['out'])? NULL
+        : ( floor( $update_data['out']/15/60 ) - ceil( $update_data['in']/15/60 ) )*15*60;
+
+        $update_data['BreakTime'] = empty($request['out'])? NULL: $break_time;
+
+        $update_data['WorkingTime'] = empty($request['out'])? NULL
+        : $update_data['RestrainTime'] - $update_data['BreakTime'];
 
 
         // bleakレコードの保存
@@ -125,6 +127,7 @@ class AttendanceManegementAdminController extends AttendanceManegementController
                     $break->work_id = $work->id;
                     $break->in = $update_data['break_in'.$i];
                     $break->out = $update_data['break_out'.$i];
+                    $break->total_time = $update_data['break_time'.$i];
                     $break->save();
                 }
             }
@@ -134,6 +137,7 @@ class AttendanceManegementAdminController extends AttendanceManegementController
         $work->place = $request['place'];
         $work->in = $update_data['in'];
         $work->out = $update_data['out'];
+
         $work->RestrainTime = $update_data['RestrainTime'];
         $work->BreakTime = $update_data['BreakTime'];
         $work->WorkingTime = $update_data['WorkingTime'];

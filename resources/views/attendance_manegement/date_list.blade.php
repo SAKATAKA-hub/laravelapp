@@ -50,9 +50,9 @@
                     <p>{{gmdate('H:i',$break->in)}} - {{$break->out == NULL? '--:--': gmdate('H:i',$break->out)}}</p>
                     @endforeach
                 </td>
-                <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
-                <td>{{gmdate('H:i',$record->BreakTime)}}</td>
-                <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->RestrainTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->BreakTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->WorkingTime)}}</td>
 
             </tr>
 

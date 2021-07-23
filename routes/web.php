@@ -7,6 +7,8 @@ use App\Http\Controllers\TestController;//テスト用
 
 use App\Http\Controllers\EmployeesManegementController;
 
+use App\Http\Controllers\TimeCardController;
+
 use App\Http\Controllers\AttendanceManegementController;
 use App\Http\Controllers\AttendanceManegementPrintController;
 use App\Http\Controllers\AttendanceManegementAdminController;
@@ -27,55 +29,46 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
+
+
 /*
 |--------------------------------------------------------------------------
-| Employees Manegement Routes (従業員管理)
+| Time Card Routes (タイムカード)
 |--------------------------------------------------------------------------
 */
- # 従業員管理一覧
- Route::get('/employees_manegement',[EmployeesManegementController::class,'index'])
- ->name('employees_manegement.index');
- Route::post('/employees_manegement',[EmployeesManegementController::class,'index'])
- ->name('employees_manegement.index');
+# タイムカードへのアクセス
+Route::get('/time_card/index/{input}/{place}/{employee}',
+[TimeCardController::class,'index'])->name('time_card.index');
 
-// 従業員詳細
-Route::get('/employees_manegement/{employee}/show',[EmployeesManegementController::class,'show'])
-->name('employees_manegement.show');
-
-# 管理者画面
-Route::get('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
-->name('employees_manegement.admin');
-Route::post('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
-->name('employees_manegement.admin');
-Route::get('/employees_manegement/{mode}/admin_alert',[EmployeesManegementController::class,'admin_alert'])
-->name('employees_manegement.admin_alert');
+#従業員の変更(change_employee)
+Route::post('/time_card/change_employee/',
+[TimeCardController::class,'change_employee'])->name('time_card.change_employee');
 
 
-// 新規登録
-Route::get('/employees_manegement/create',[EmployeesManegementController::class,'create'])
-->name('employees_manegement.create');
-Route::post('/employees_manegement/insert',[EmployeesManegementController::class,'insert'])
-->name('employees_manegement.insert');
-// Route::get('/employees_manegement/{mode}/done_insert',[EmployeesManegementController::class,'done_insert'])
-// ->name('employees_manegement.done_insert');
+#出勤現場の変更(change_place)
+Route::post('/time_card/change_place/',
+[TimeCardController::class,'change_place'])->name('time_card.change_place');
 
 
-// 登録情報編集
-Route::get('/employees_manegement/{employee}/edit',[EmployeesManegementController::class,'edit'])
-->name('employees_manegement.edit');
-Route::patch('/employees_manegement/update',[EmployeesManegementController::class,'update'])
-->name('employees_manegement.update');
+# -- タイムカードの入力処理 --
+# 勤務開始(work_in)
+Route::post('/time_card/work_in/{place}/{employee}',
+[TimeCardController::class,'work_in'])->name('time_card.work_in');
+
+# 休憩開始(work_break_in)
+Route::patch('/time_card/work_break_in/{place}/{employee}/{work}',
+[TimeCardController::class,'work_break_in'])->name('time_card.work_break_in');
+
+# 休憩終了(work_break_out)
+Route::patch('/time_card/work_break_out/{place}/{employee}/{work}',
+[TimeCardController::class,'work_break_out'])->name('time_card.work_break_out');
+
+# 勤務終了(work_out)
+Route::patch('/time_card/work_out/{place}/{employee}/{work}',
+[TimeCardController::class,'work_out'])->name('time_card.work_out');
 
 
-// 登録情報削除
-Route::delete('/employees_manegement/{employee}/destroy',[EmployeesManegementController::class,'destroy'])
-->name('employees_manegement.destroy');
-// Route::get('/employees_manegement/done_destroy',[EmployeesManegementController::class,'done_destroy'])
-// ->name('employees_manegement.done_destroy');
 
-// 登録確認画面
-Route::post('/employees_manegement/confirm',[EmployeesManegementController::class,'confirm'])
-->name('employees_manegement.confirm');
 
 
 /*
@@ -141,14 +134,66 @@ Route::get('attendance_manegement/create',[AttendanceManegementAdminController::
 ->name('attendance_manegement.create');
 
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Employees Manegement Routes (従業員管理)
+|--------------------------------------------------------------------------
+*/
+ # 従業員管理一覧
+ Route::get('/employees_manegement',[EmployeesManegementController::class,'index'])
+ ->name('employees_manegement.index');
+ Route::post('/employees_manegement',[EmployeesManegementController::class,'index'])
+ ->name('employees_manegement.index');
+
+// 従業員詳細
+Route::get('/employees_manegement/{employee}/show',[EmployeesManegementController::class,'show'])
+->name('employees_manegement.show');
+
+# 管理者画面
+Route::get('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
+->name('employees_manegement.admin');
+Route::post('/employees_manegement/admin',[EmployeesManegementController::class,'admin'])
+->name('employees_manegement.admin');
+Route::get('/employees_manegement/{mode}/admin_alert',[EmployeesManegementController::class,'admin_alert'])
+->name('employees_manegement.admin_alert');
+
+
+// 新規登録
+Route::get('/employees_manegement/create',[EmployeesManegementController::class,'create'])
+->name('employees_manegement.create');
+Route::post('/employees_manegement/insert',[EmployeesManegementController::class,'insert'])
+->name('employees_manegement.insert');
+// Route::get('/employees_manegement/{mode}/done_insert',[EmployeesManegementController::class,'done_insert'])
+// ->name('employees_manegement.done_insert');
+
+
+// 登録情報編集
+Route::get('/employees_manegement/{employee}/edit',[EmployeesManegementController::class,'edit'])
+->name('employees_manegement.edit');
+Route::patch('/employees_manegement/update',[EmployeesManegementController::class,'update'])
+->name('employees_manegement.update');
+
+
+// 登録情報削除
+Route::delete('/employees_manegement/{employee}/destroy',[EmployeesManegementController::class,'destroy'])
+->name('employees_manegement.destroy');
+// Route::get('/employees_manegement/done_destroy',[EmployeesManegementController::class,'done_destroy'])
+// ->name('employees_manegement.done_destroy');
+
+// 登録確認画面
+Route::post('/employees_manegement/confirm',[EmployeesManegementController::class,'confirm'])
+->name('employees_manegement.confirm');
+
+
 /*
 |--------------------------------------------------------------------------
 | テスト用ルーティング作成
 |--------------------------------------------------------------------------
 */
 #テストページ
-Route::get('test/test',[TestController::class,'test']);
-Route::post('test/test',[TestController::class,'post']);
+Route::get('test',[TestController::class,'test']);
 
 #リストページ
 Route::get('test/list',[TestController::class,'list'])

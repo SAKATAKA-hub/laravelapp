@@ -79,7 +79,8 @@
 
                 </td>
                 <td class="td_size1">OUT
-                    <input type="text" name="out" value="{{old( 'out', gmdate('Hi',$work->out) )}}"
+                    {{-- <input type="text" name="out" value="{{old( 'out', gmdate('Hi',$work->out) )}}" --}}
+                    <input type="text" name="out" value="{{old( 'out',empty($work->out)? '': gmdate('Hi',$work->out) )}}"
                     size="3" class="{{$errors->has('out')? 'error': ''}}">
                 </td>
                 <td class="td_size1"></td>
@@ -105,7 +106,7 @@
                     </td>
                     <td>OUT
                         <input type="text" name="break_out{{$loop->iteration}}" class="breakOut {{$errors->has('break_out'.$loop->iteration)? 'error': ''}}"
-                        value="{{old('break_out'.$loop->iteration, gmdate('Hi',$break->out) )}}" size="3">
+                        value="{{old('break_out'.$loop->iteration, empty($break->out)? '': gmdate('Hi',$break->out) )}}" size="3">
                     </td>
                     <td>
                         <p class="breakTime">休憩時間{{ gmdate('H:i',old( 'break_time'.$loop->iteration, $break->total_time ) )}}</p>

@@ -5,14 +5,24 @@ use App\Models\Employee; //モデルの利用
 use App\Models\Checkbox; //モデルの利用
 use Illuminate\Http\Request;
 
+use Carbon\carbon;
+
 class TestController extends Controller
 {
     # testページの表示
-    //ページの表示
     public function test(){
-        $data = [];
-        return view('test.test',$data);
+        $date = Carbon::parse('now');
+
+        $date_format = $date->format('Y年m月d日');
+        return "<h1>$date_format</h1>";
+        // $data = [];
+        // return view('test.test',$data);
     }
+
+
+
+
+
 
     //ポストのうけとり
     public function post(Request $request)
@@ -34,6 +44,11 @@ class TestController extends Controller
 
         return $html;
     }
+
+
+
+
+
 
     # 従業員一覧ページの表示
     //一覧ページの表示

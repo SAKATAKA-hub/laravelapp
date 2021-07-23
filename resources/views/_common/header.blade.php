@@ -1,12 +1,22 @@
 <header>
     <ul class="menu">
+        {{-- ページロゴ --}}
         <li>
             <a href="{{route('/')}}">
                 <h2>業務アプリ</h2>
             </a>
         </li>
-        <?php $header_menus[$app_name]['current'] = true; ?> <!--$app_name:composerより -->
 
+        {{-- タイムカード --}}
+        <li>
+            @php list($input, $place, $employee) =['no_input','no_place','6']; @endphp
+            <a href="{{route('time_card.index',compact('input','place','employee') )}}">
+                タイムカード
+            </a>
+        </li>
+
+        {{-- その他アプリ --}}
+        <?php $header_menus[$app_name]['current'] = true; ?> <!--$app_name:composerより -->
         @foreach($header_menus as $menu)
         <li>
             <a href="{{route($menu['route'])}}" class="{{$menu['current']?'current':''}}">
@@ -14,6 +24,8 @@
         </li>
         @endforeach
     </ul>
+
+    {{-- ユーザー情報 --}}
     <ul class="user">
         <li class="item"><img src="{{url('image/employees/e0001.png')}}" alt="user image"></li>
         <li class="item">name nameさん </li>

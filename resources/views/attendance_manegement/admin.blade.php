@@ -20,7 +20,7 @@
 <div class="date_table_box">
     <h4>
         <p>勤務日 : {{$date}}</p>
-        <p>勤務現場 : {{$place}}</p>
+        <p>勤務現場 : {{empty($place)? '全て': $place}}</p>　
     </h4>
     <table>
         <thead>
@@ -52,9 +52,9 @@
                     <p>{{gmdate('H:i',$break->in)}} - {{$break->out == NULL? '--:--': gmdate('H:i',$break->out)}}</p>
                     @endforeach
                 </td>
-                <td>{{gmdate('H:i',$record->RestrainTime)}}</td>
-                <td>{{gmdate('H:i',$record->BreakTime)}}</td>
-                <td>{{gmdate('H:i',$record->WorkingTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->RestrainTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->BreakTime)}}</td>
+                <td>{{empty($record->RestrainTime)? '--:--': gmdate('H:i',$record->WorkingTime)}}</td>
                 <td>
                     <form method="GET" action="{{route('attendance_manegement.edit',$record)}}">
                         <button class="btn-1">編集</button>

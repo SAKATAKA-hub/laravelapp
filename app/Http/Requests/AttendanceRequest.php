@@ -36,12 +36,11 @@ class AttendanceRequest extends FormRequest
             'in' => [
                 'required',
                 'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400)$/' , //0000~2400
-                'lte:'.$input_data['out'] , //out以下の時間
+                // 'lte:'.$input_data['out'] , //out以下の時間
             ],
-            'out' => [
-                'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400|())$/' , //0000~2400又は空文字
-                // 'gte:'.$input_data['in'] , //in以上の時間
-            ],
+            // 'out' => [
+            //     'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400|())$/' , //0000~2400又は空文字
+            // ],
 
         ];
 
@@ -53,13 +52,13 @@ class AttendanceRequest extends FormRequest
                     'required',
                     'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400)$/' , //0000~2400
                     $i==1? 'gte:'.$input_data['in']: 'gte:'.$input_data['break_out'.($i-1)], //前のbreak_out以上の時間
-                    'lte:'.$input_data['break_out'.$i], //break_out以下の時間
+                    // 'lte:'.$input_data['break_out'.$i], //break_out以下の時間
                 ];
                 $rules['break_out'.$i] = [
-                    'required',
-                    'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400)$/' , //0000~2400
-                    'gte:'.$input_data['break_in'.$i], //break_in以上の時間
-                    'lte:'.$input_data['out'], //out以下の時間
+                    // 'required',
+                    // 'regex:/^(([0-1]\d|2[0-3])([0-5]\d)|2400)$/' , //0000~2400
+                    // 'gte:'.$input_data['break_in'.$i], //break_in以上の時間
+                    // 'lte:'.$input_data['out'], //out以下の時間
                 ];
             }
         }
@@ -77,7 +76,6 @@ class AttendanceRequest extends FormRequest
             'regex' => 'エラー：時間の入力は半角数字4桁で、2400以内の時間で入力してください。',
             'in.required'=> 'エラー：出勤時間が未入力です',
             'in.lte' => 'エラー：出勤時間を退勤時間の前になるように入力してください。',
-            // 'out.gte' => 'エラー：退勤時間を出勤時間の後になるように入力してください。',
         ];
         //'break_delete'にチェックがなければ、ルールを追加
         for ($i=1; $i <= 4; $i++){
