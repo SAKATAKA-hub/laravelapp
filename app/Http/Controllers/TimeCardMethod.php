@@ -162,6 +162,10 @@ class TimeCardMethod //extends Controller
 
             case 'work_error': $message = 'エラー：打刻時に外部からのアクセスが実行されたため、打刻入力がキャンセルされました。'; break;
 
+            case 'change_employee': $message = '従業員を変更しました。'; break;
+
+            case 'change_plase': $message = '出勤現場を変更しました。'; break;
+
             default: $message = ''; break;
         }
 

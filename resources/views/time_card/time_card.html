@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../../public/css/time_card.css">
 </head>
 <body>
-  <main id="timeCord"><!--attendanceManager-->
+  <main class="out">
     <h2>出退勤入力</h2>
 
     <!--現在時刻の表示領域-->
@@ -17,50 +17,86 @@
     </div>
 
     <!--ユーザー情報-->
-    <div id ="" class="userInfo inBreak">
-    <!-- <div id ="" class="userInfo outWork"> -->
+    <div class="userInfo">
+    <!-- <div class="userInfo outWork"> -->
       <div class="top">
-        <p id="userImg"></p>
-        <p id="userId">!employee_id!</p>
-        <p id="userName">!employee_name!</p>
+        <p id="userId">0001</p>
+        <p id="userName">鈴木　一朗</p>
+        <img id="userImg" src="../../../public/image/employees/e0001.png" alt="user image">
+        <p>出勤現場：東京支店</p>
+
       </div>
       <div class="bottom">
-        <p class="workState">!work_state_text!</p>
+        <p class="workState">退勤中</p>
       </div>
+    </div>
+
+    <!--従業員等変更入力-->
+    <div class ="input_change">
+        <form action="">
+            <label>
+                <select name="employee" >
+                    <option value="">従業員変更</option>
+                </select>
+            </label>
+        </form>
+        <form action="">
+            <label>
+                <select name="place">
+                    <option value="">出勤現場変更</option>
+                </select>
+            </label>
+        </form>
     </div>
 
     <!--出退勤入力ボタン-->
-    <div id ="selectMord">
-      <!--①出勤ボタン-->
-      <form action="#" method="post">
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="name" value="">
-        <input type="hidden" name="mode" value="inWork">
-        <button type="submit" class="display">出勤</button>
-      </form>
-      <!--②休憩ボタン-->
-      <form action="#" method="post">
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="name" value="">
-        <input type="hidden" name="mode" value="break">
-        <button type="submit" class="">休憩</button>
-      </form>
-      <!--③退勤ボタン-->
-      <form action="#" method="post">
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="name" value="">
-        <input type="hidden" name="mode" value="outWork">
-        <button type="submit" class="">退勤</button>
-      </form>
+    <div class ="input_work">
+        <!--①出勤ボタン-->
+        <form action="#" method="post">
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="mode" value="inWork">
+            <button type="submit" id="workIn">勤務開始</button>
+        </form>
+
+        <!--③退勤ボタン-->
+        <form action="#" method="post">
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="mode" value="outWork">
+            <button type="submit" id="workOut" class="">勤務終了</button>
+        </form>
+
+        <!--②休憩ボタン-->
+        <form action="#" method="post">
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="mode" value="break">
+            <button type="submit" id="breakIn">休憩開始</button>
+        </form>
+
+        <!--②休憩ボタン-->
+        <form action="#" method="post">
+            <input type="hidden" name="id" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="mode" value="break">
+            <button type="submit" id="breakOut">休憩終了</button>
+        </form>
+
     </div>
 
-    <button class="btn_flat" type="button" onclick="location.href='!login!'">ログイン画面に戻る</button>
+    <div class ="input_btn">
+    </div>
+
+
+    <button class="close_btn" onClick="window.close(); return false;">閉じる</button>
 
   </main>
   <script>
     'use strict';
+
+    function showTime()
     {
-      function showTime(){
         const now = new Date();
         const nowYear = now.getFullYear();
         const nowMonth = String(now.getMonth()+1).padStart(2,'0');
@@ -82,11 +118,43 @@
         document.getElementById('nowDay').textContent = outputDay;
         document.getElementById('nowTime').textContent = outputTime;
         refresh();
-      }
-      function refresh(){setTimeout(showTime,1000);}
-
-      showTime();
-
     }
+    function refresh(){setTimeout(showTime,1000);}
+
+    showTime();
+
+
+    // テスト用コード
+    const inputBtns = [
+        {
+            'element' : document.getElementById('workIn'),
+            'workStatus' : 'in',
+        },{
+            'element' : document.getElementById('breakIn'),
+            'workStatus' : 'break',
+        },{
+            'element' : document.getElementById('breakOut'),
+            'workStatus' : 'in',
+        },{
+            'element' : document.getElementById('workOut'),
+            'workStatus' : 'out',
+        },
+    ];
+
+    const mainElement = document.querySelector('main');
+
+    inputBtns.forEach(btn=>{
+        btn.element.onclick = e =>{
+            e.preventDefault();
+
+            mainElement.className =btn.workStatus;
+
+            console.log(mainElement.className);
+        };
+    });
+
+
+
+
   </script>
 </body>

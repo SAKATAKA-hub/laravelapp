@@ -10,7 +10,7 @@ use Carbon\carbon;
 use App\Models\Employee;
 use App\Models\Work;
 use App\Models\WorkBreak;
-// use App\Models\Checkbox;
+use App\Models\Checkbox;
 
 
 class TimeCardController extends Controller
@@ -19,18 +19,22 @@ class TimeCardController extends Controller
 
     # == タイムカードへのアクセス ===========================================
     # タイムカードトップ
-    public function index($input,$place,$employee)
+    public function index($input,$place,Employee $employee)
     {
         // 現在の出勤状態、直近の出勤・休憩記録の取得
-        list($work_status, $work) = TimeCardMethod::getWorkStatus($employee);
+        list($work_status, $work) = TimeCardMethod::getWorkStatus($employee->id);
 
 
         // アラートに表示するメッセージ内容
         $message = TimeCardMethod::getAlertMessage($input);
 
+        //セレクトエリアアイテム
+        $select_employees = Employee::all();
+        $select_places = Checkbox::where('group','所属部署')->get();
+
         //-- View the blade template --
         return view('time_card.index')
-        ->with(compact('message','place','employee','work_status','work'));
+        ->with(compact('message','place','employee','work_status','work','select_employees','select_places'));
     }
 
 
@@ -39,7 +43,7 @@ class TimeCardController extends Controller
     {
         // -- Redirect to 'index' --
         return redirect()->route('time_card.index',[
-            'input' => 'no_input',
+            'input' => 'change_employee',
             'place' => Employee::find($request->employee)->department,
             'employee' => $request->employee,
         ]);
@@ -51,9 +55,10 @@ class TimeCardController extends Controller
     {
         //-- Redirect to 'index' --
         return redirect()->route('time_card.index',[
-            'input' => 'no_input',
+            'input' => 'change_plase',
             'place' => $request->place,
-            'employee' => $request->employee,
+            'employee' => $request->employee_id,
+
         ]);
     }
 
