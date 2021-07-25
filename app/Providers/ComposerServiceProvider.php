@@ -28,9 +28,11 @@ class ComposerServiceProvider extends ServiceProvider
 
         // 従業員管理メニュー
         View::composer('employees_manegement.*','App\Http\ViewComposers\EmployeesManegementComposer');
-        // View::composer('employee_list.*','App\Http\ViewComposers\EmployeeListComposer');
 
         // 勤怠管理メニュー
         View::composer('attendance_manegement.*','App\Http\ViewComposers\AttendanceManegementComposer');
+
+        // View::composer('attendance.*','App\Http\ViewComposers\AttendanceComposer');
+
     }
 }

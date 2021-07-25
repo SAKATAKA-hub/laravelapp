@@ -9,6 +9,7 @@ use App\Http\Controllers\EmployeesManegementController;
 
 use App\Http\Controllers\TimeCardController;
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceManegementController;
 use App\Http\Controllers\AttendanceManegementPrintController;
 use App\Http\Controllers\AttendanceManegementAdminController;
@@ -50,7 +51,7 @@ Route::post('/time_card/change_place/',
 [TimeCardController::class,'change_place'])->name('time_card.change_place');
 
 
-# -- タイムカードの入力処理 --
+// --- タイムカードの入力処理 ---
 # 勤務開始(work_in)
 Route::post('/time_card/work_in/{place}/{employee}',
 [TimeCardController::class,'work_in'])->name('time_card.work_in');
@@ -68,6 +69,46 @@ Route::patch('/time_card/work_out/{place}/{employee}/{work}',
 [TimeCardController::class,'work_out'])->name('time_card.work_out');
 
 
+
+
+/*
+|--------------------------------------------------------------------------
+| Attendance Routes (勤怠管理)　※修正中
+|--------------------------------------------------------------------------
+*/
+# 勤怠管理へのアクセス
+Route::get('attendance/index',[AttendanceController::class,'index'])
+->name('attendance.index');
+
+# 表示内容の変更(change)
+Route::post('attendance/change',[AttendanceController::class,'change'])
+->name('attendance.change');
+
+
+// --- 一覧ページの表示 ---------------------------
+# 日別勤怠管理一覧(date_list)
+Route::get('attendance/date_list/{month}/{day}/{employee}',
+[AttendanceController::class,'date_list'])->name('attendance.date_list');
+
+# 月別勤怠管理一覧(month_list)
+Route::get('attendance/month_list/{month}/{day}/{employee}',
+[AttendanceController::class,'month_list'])->name('attendance.month_list');
+
+# 個人別勤怠管理一覧(person_list)
+Route::get('attendance/person_list/{month}/{day}/{employee}',
+[AttendanceController::class,'person_list'])->name('attendance.person_list');
+
+// --- 印刷ページの表示 ---------------------------
+# 日別勤怠管理印刷(print_date_list)
+# 月別勤怠管理印刷(print_month_list)
+# 個人別勤怠管理印刷(print_person_list)
+
+// --- 管理ページの表示と修正処理 ---------------------------
+# 勤怠修正一覧(admin)
+# 修正入力(edit)
+# 修正内容保存(update)
+# 削除(delete)
+# 新規挿入(insert)
 
 
 
